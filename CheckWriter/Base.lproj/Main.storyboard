@@ -711,6 +711,25 @@
                         <rect key="frame" x="0.0" y="0.0" width="731" height="379"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <subviews>
+                            <textField verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="pfM-2c-TiQ">
+                                <rect key="frame" x="523" y="289" width="134" height="22"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" drawsBackground="YES" id="J5P-4i-8rR">
+                                    <numberFormatter key="formatter" formatterBehavior="10_0" positiveFormat="$ #,##0.00" negativeFormat="-$ #,##0.00" thousandSeparator="," id="QQd-wU-KbG">
+                                        <attributedString key="attributedStringForZero">
+                                            <fragment content="$ 0.00"/>
+                                        </attributedString>
+                                        <decimal key="minimum" value="NaN"/>
+                                        <decimal key="maximum" value="NaN"/>
+                                    </numberFormatter>
+                                    <font key="font" metaFont="system"/>
+                                    <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
+                                    <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                </textFieldCell>
+                                <connections>
+                                    <action selector="amountEntered:" target="XfG-lQ-9wD" id="aNs-S5-ja8"/>
+                                </connections>
+                            </textField>
                             <textField verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="jkK-dY-9Xk">
                                 <rect key="frame" x="131" y="202" width="526" height="22"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
@@ -721,14 +740,14 @@
                                 </textFieldCell>
                             </textField>
                             <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="sbq-qa-f0r">
-                                <rect key="frame" x="567" y="25" width="96" height="32"/>
+                                <rect key="frame" x="561" y="25" width="89" height="32"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                <buttonCell key="cell" type="push" title="Translate" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="7xt-tP-97u">
+                                <buttonCell key="cell" type="push" title="Print" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="7xt-tP-97u">
                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                     <font key="font" metaFont="system"/>
                                 </buttonCell>
                                 <connections>
-                                    <action selector="translate:" target="XfG-lQ-9wD" id="UsR-Ru-kyZ"/>
+                                    <action selector="printCheck:" target="XfG-lQ-9wD" id="G91-Ne-Wfz"/>
                                 </connections>
                             </button>
                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="5o1-VV-Q6l">
@@ -738,24 +757,8 @@
                                     <font key="font" metaFont="system"/>
                                     <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                     <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
-                                </textFieldCell>
-                            </textField>
-                            <textField verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="EaP-WC-fq8">
-                                <rect key="frame" x="516" y="288" width="141" height="22"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" drawsBackground="YES" id="iGr-59-uXA">
-                                    <numberFormatter key="formatter" formatterBehavior="10_0" positiveFormat="$ #,##0.00" negativeFormat="-$ #,##0.00" thousandSeparator="," id="fhl-7i-cyu">
-                                        <attributedString key="attributedStringForZero">
-                                            <fragment content="$ 0.00"/>
-                                        </attributedString>
-                                        <real key="minimum" value="0.0"/>
-                                        <decimal key="maximum" value="NaN"/>
-                                    </numberFormatter>
-                                    <font key="font" metaFont="system"/>
-                                    <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
-                                    <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                     <connections>
-                                        <action selector="performClick:" target="sbq-qa-f0r" id="mS2-n8-pZI"/>
+                                        <action selector="selectText:" target="DFD-P2-Rbg" id="62Y-Em-ncf"/>
                                     </connections>
                                 </textFieldCell>
                             </textField>
@@ -785,6 +788,9 @@
                                     <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
                                     <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                 </textFieldCell>
+                                <connections>
+                                    <action selector="toEntered:" target="XfG-lQ-9wD" id="2r6-Fk-99o"/>
+                                </connections>
                             </textField>
                             <popUpButton verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="5Tt-9c-lyP">
                                 <rect key="frame" x="458" y="148" width="202" height="26"/>
@@ -801,6 +807,26 @@
                                     </menu>
                                 </popUpButtonCell>
                             </popUpButton>
+                            <textField verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="7G2-QB-agd">
+                                <rect key="frame" x="85" y="151" width="361" height="22"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" drawsBackground="YES" id="Zch-4s-duG">
+                                    <font key="font" metaFont="system"/>
+                                    <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
+                                    <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                    <connections>
+                                        <action selector="performClick:" target="7xt-tP-97u" id="Nlb-ka-zDg"/>
+                                    </connections>
+                                </textFieldCell>
+                            </textField>
+                            <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="JKh-5D-58U">
+                                <rect key="frame" x="139" y="34" width="51" height="18"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <buttonCell key="cell" type="check" title="Print" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="ZTC-5o-pTp">
+                                    <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                    <font key="font" metaFont="system"/>
+                                </buttonCell>
+                            </button>
                             <textField verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="SQ3-cd-j4G">
                                 <rect key="frame" x="513" y="68" width="144" height="45"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
@@ -834,15 +860,6 @@
                                     <font key="font" metaFont="system"/>
                                 </buttonCell>
                             </button>
-                            <textField verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="7G2-QB-agd">
-                                <rect key="frame" x="85" y="151" width="361" height="22"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" drawsBackground="YES" id="Zch-4s-duG">
-                                    <font key="font" metaFont="system"/>
-                                    <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
-                                    <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
-                                </textFieldCell>
-                            </textField>
                             <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="E1I-TB-Gwg">
                                 <rect key="frame" x="48" y="75" width="52" height="18"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
@@ -879,14 +896,6 @@
                                 <rect key="frame" x="217" y="74" width="83" height="18"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <buttonCell key="cell" type="check" title="Sequence" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="at7-07-DYd">
-                                    <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
-                                    <font key="font" metaFont="system"/>
-                                </buttonCell>
-                            </button>
-                            <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="JKh-5D-58U">
-                                <rect key="frame" x="139" y="34" width="51" height="18"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                <buttonCell key="cell" type="check" title="Print" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="ZTC-5o-pTp">
                                     <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                     <font key="font" metaFont="system"/>
                                 </buttonCell>
@@ -944,10 +953,6 @@
                                     <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                 </textFieldCell>
                             </textField>
-                            <box verticalHuggingPriority="750" fixedFrame="YES" boxType="separator" translatesAutoresizingMaskIntoConstraints="NO" id="5QS-Kc-xFN">
-                                <rect key="frame" x="49" y="105" width="608" height="55"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                            </box>
                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Tfc-oT-z86">
                                 <rect key="frame" x="37" y="153" width="42" height="17"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
@@ -965,8 +970,12 @@
                         </subviews>
                     </view>
                     <connections>
-                        <outlet property="input" destination="EaP-WC-fq8" id="AUt-9a-yqZ"/>
+                        <outlet property="amountField" destination="pfM-2c-TiQ" id="Nfh-Yg-Rjy"/>
+                        <outlet property="balanceField" destination="SQ3-cd-j4G" id="ZhM-PU-Nby"/>
+                        <outlet property="dateField" destination="HZE-ox-LcD" id="uxN-ik-buw"/>
+                        <outlet property="memoField" destination="7G2-QB-agd" id="hcI-ET-7Yg"/>
                         <outlet property="output" destination="jkK-dY-9Xk" id="bHJ-cg-RL1"/>
+                        <outlet property="toField" destination="DFD-P2-Rbg" id="jl4-hP-Enn"/>
                     </connections>
                 </viewController>
                 <customObject id="rPt-NT-nkU" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
