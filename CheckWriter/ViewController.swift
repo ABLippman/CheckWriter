@@ -30,12 +30,19 @@ class ViewController: NSViewController {
         
         // Do any additional setup after loading the view.
         setDate()  //And display it in dateField
+        print ("View did load")
+    }
+    
+    override func viewDidAppear() { // This occurs later than the load...
+        super.viewDidAppear()
+        print ("View Appeared")
         radioButtonChanged(AnyObject.self as AnyObject)
     }
     
     override var representedObject: Any? {
         didSet {
             // Update the view, if already loaded.
+            print ("Represented Object")  // No idea about this
         }
     }
     
@@ -44,12 +51,15 @@ class ViewController: NSViewController {
         print("Account Changed")
         if jointAccount.state == NSControl.StateValue.on {
             print ("Joint Account Chosen")
+            self.view.window?.title = "CheckWriter: Joint Account"
         }
         else if andyAccount.state == NSControl.StateValue.on {
             print ("Andy account selected")
+            self.view.window?.title = "CheckWriter: Andy's Account"
         }
         else if llcAccount.state == NSControl.StateValue.on {
             print ("LLC Account selected")
+            self.view.window?.title = "CheckWriter: LLC Account"
         }
     }
     
@@ -73,9 +83,13 @@ class ViewController: NSViewController {
         // self.becomeFirstResponder()
         // amountField.selectText(sender)
         self.amountField.becomeFirstResponder()
-
+        check.amount  = output.stringValue
+        print ("Printing a check for: \(check.amount)")
     }
     
+    @IBAction func showName(_ sender: Any) {
+        print(masterAppName)
+    }
     func setDate() {
         let dateFormatter = DateFormatter()
         let shortDate = DateFormatter()
