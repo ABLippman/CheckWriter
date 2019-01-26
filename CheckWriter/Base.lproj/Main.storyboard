@@ -945,7 +945,7 @@
                                 </textFieldCell>
                             </textField>
                             <box verticalHuggingPriority="750" fixedFrame="YES" boxType="separator" translatesAutoresizingMaskIntoConstraints="NO" id="5QS-Kc-xFN">
-                                <rect key="frame" x="49" y="128" width="608" height="55"/>
+                                <rect key="frame" x="49" y="105" width="608" height="55"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                             </box>
                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Tfc-oT-z86">
@@ -957,6 +957,11 @@
                                     <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                 </textFieldCell>
                             </textField>
+                            <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="sv9-xG-X9W">
+                                <rect key="frame" x="49" y="274" width="91" height="85"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyUpOrDown" image="NewCheck" id="XNt-31-X60"/>
+                            </imageView>
                         </subviews>
                     </view>
                     <connections>
@@ -969,4 +974,7 @@
             <point key="canvasLocation" x="326.5" y="782.5"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="NewCheck" width="128" height="128"/>
+    </resources>
 </document>
