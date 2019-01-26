@@ -16,6 +16,10 @@ class ViewController: NSViewController {
     @IBOutlet weak var toField: NSTextField!
     @IBOutlet weak var memoField: NSTextField!
     @IBOutlet weak var balanceField: NSTextField!
+    
+    
+    
+    
     var moneyMaker: MoneyMaker = MoneyMaker()
     
     override func viewDidLoad() {
@@ -23,13 +27,14 @@ class ViewController: NSViewController {
         
         // Do any additional setup after loading the view.
         setDate()  //And display it in dateField
-        amountField.selectText(Any?.self)
-        self.amountField.becomeFirstResponder()
+
     }
     
     override var representedObject: Any? {
         didSet {
             // Update the view, if already loaded.
+            amountField.selectText(Any?.self)
+            self.amountField.becomeFirstResponder()
         }
     }
     
