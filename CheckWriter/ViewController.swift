@@ -16,6 +16,7 @@ class ViewController: NSViewController {
     @IBOutlet weak var toField: NSTextField!
     @IBOutlet weak var memoField: NSTextField!
     @IBOutlet weak var balanceField: NSTextField!
+    @IBOutlet weak var numberField: NSTextField!
     
     
     @IBOutlet weak var jointAccount: NSButton!
@@ -37,6 +38,7 @@ class ViewController: NSViewController {
         super.viewDidAppear()
         print ("View Appeared")
         radioButtonChanged(AnyObject.self as AnyObject)
+        numberField.intValue = data.number
     }
     
     override var representedObject: Any? {
@@ -85,6 +87,7 @@ class ViewController: NSViewController {
         self.amountField.becomeFirstResponder()
         check.amount  = output.stringValue
         print ("Printing a check for: \(check.amount)")
+        register.printData()
     }
     
     @IBAction func showName(_ sender: Any) {

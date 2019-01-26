@@ -16,6 +16,7 @@
 		363A9CE221FC99C30039703D /* NewCheck.tiff in Resources */ = {isa = PBXBuildFile; fileRef = 363A9CE121FC99C30039703D /* NewCheck.tiff */; };
 		363A9CE421FCA8AF0039703D /* NewCheck.icns in Resources */ = {isa = PBXBuildFile; fileRef = 363A9CE321FCA8AF0039703D /* NewCheck.icns */; };
 		36404E2621FD043000DB38AA /* Check.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36404E2521FD043000DB38AA /* Check.swift */; };
+		36404E2821FD0C3200DB38AA /* Register.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36404E2721FD0C3200DB38AA /* Register.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -34,6 +35,7 @@
 		363A9CE121FC99C30039703D /* NewCheck.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = NewCheck.tiff; sourceTree = "<group>"; };
 		363A9CE321FCA8AF0039703D /* NewCheck.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = NewCheck.icns; sourceTree = "<group>"; };
 		36404E2521FD043000DB38AA /* Check.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Check.swift; sourceTree = "<group>"; };
+		36404E2721FD0C3200DB38AA /* Register.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Register.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -68,6 +70,7 @@
 			children = (
 				363A9CCA21FC95330039703D /* AppDelegate.swift */,
 				36404E2521FD043000DB38AA /* Check.swift */,
+				36404E2721FD0C3200DB38AA /* Register.swift */,
 				363A9CCC21FC95330039703D /* ViewController.swift */,
 				363A9CCE21FC95330039703D /* Assets.xcassets */,
 				363A9CE321FCA8AF0039703D /* NewCheck.icns */,
@@ -158,6 +161,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				36404E2821FD0C3200DB38AA /* Register.swift in Sources */,
 				363A9CDF21FC95BA0039703D /* money.c in Sources */,
 				363A9CCD21FC95330039703D /* ViewController.swift in Sources */,
 				36404E2621FD043000DB38AA /* Check.swift in Sources */,

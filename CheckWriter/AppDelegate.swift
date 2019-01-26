@@ -10,6 +10,8 @@ import Cocoa
 
 let masterAppName = "New_Checkwriter"
 let check = Check()
+let register = Register()
+let data=Data()
 
 @NSApplicationMain
 class AppDelegate: NSObject, NSApplicationDelegate {
@@ -20,6 +22,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     func applicationDidFinishLaunching(_ aNotification: Notification) {
         // Insert code here to initialize your application
         print ("App Launched, amount =  \(check.amount)")
+        print ("App Launched, register date is \(register.date)")
     
     }
 
