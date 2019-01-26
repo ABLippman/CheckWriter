@@ -9,6 +9,8 @@
 import Cocoa
 
 let today:NSDate = NSDate()
+var categoryChosen:Bool = false
+var category:String = "None"
 class ViewController: NSViewController {
     @IBOutlet weak var amountField: NSTextField!
     @IBOutlet weak var output: NSTextField!
@@ -17,6 +19,7 @@ class ViewController: NSViewController {
     @IBOutlet weak var memoField: NSTextField!
     @IBOutlet weak var balanceField: NSTextField!
     @IBOutlet weak var numberField: NSTextField!
+    @IBOutlet weak var categoryPopup: NSPopUpButton!
     
     
     @IBOutlet weak var jointAccount: NSButton!
@@ -32,6 +35,9 @@ class ViewController: NSViewController {
         // Do any additional setup after loading the view.
         setDate()  //And display it in dateField
         print ("View did load")
+        data.categories.forEach {entry in
+            categoryPopup.addItem(withTitle:entry)
+        }
     }
     
     override func viewDidAppear() { // This occurs later than the load...
@@ -79,7 +85,20 @@ class ViewController: NSViewController {
         print("Memo Entered")
     }
     
+    @IBAction func setCategoryChosen(_ sender: NSPopUpButton) {
+        categoryChosen = true
+        category = categoryPopup.selectedItem?.title ?? "None"
+        print(category)
+    }
+    
     @IBAction func printCheck(_ sender: Any) {
+        //  First check category, then proceed...
+        if !categoryChosen {
+            category = "None"
+            let answer = alertOKCancel(question: "No Category", text: "Please enter a category, proceed?")
+            if !answer { return }
+        }
+        else {register.cat = category}
         print(amountField.stringValue)
         print (moneyMaker.makeMoney(amountField.stringValue))
         // self.becomeFirstResponder()
@@ -88,11 +107,15 @@ class ViewController: NSViewController {
         check.amount  = output.stringValue
         print ("Printing a check for: \(check.amount)")
         register.printData()
+        categoryChosen = false; category = "None"  //Reset category selection, cat req'd for each check
     }
     
     @IBAction func showName(_ sender: Any) {
         print(masterAppName)
     }
+    
+    
+    
     func setDate() {
         let dateFormatter = DateFormatter()
         let shortDate = DateFormatter()
@@ -107,6 +130,16 @@ class ViewController: NSViewController {
         // registerDate = [shortDate stringFromDate:today];
         //  Just to see if the short date works...
         print (shortString)
+    }
+    
+    func alertOKCancel(question: String, text: String) -> Bool {
+        let alert = NSAlert()
+        alert.messageText = question
+        alert.informativeText = text
+        alert.alertStyle = .warning
+        alert.addButton(withTitle: "OK")
+        alert.addButton(withTitle: "Cancel")
+        return alert.runModal() == .alertFirstButtonReturn
     }
     
 }
