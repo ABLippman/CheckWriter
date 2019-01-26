@@ -11,6 +11,8 @@
 		363A9CCD21FC95330039703D /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 363A9CCC21FC95330039703D /* ViewController.swift */; };
 		363A9CCF21FC95330039703D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 363A9CCE21FC95330039703D /* Assets.xcassets */; };
 		363A9CD221FC95330039703D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 363A9CD021FC95330039703D /* Main.storyboard */; };
+		363A9CDF21FC95BA0039703D /* money.c in Sources */ = {isa = PBXBuildFile; fileRef = 363A9CDC21FC95B90039703D /* money.c */; };
+		363A9CE021FC95BA0039703D /* MoneyMaker.m in Sources */ = {isa = PBXBuildFile; fileRef = 363A9CDD21FC95BA0039703D /* MoneyMaker.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -21,6 +23,11 @@
 		363A9CD121FC95330039703D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		363A9CD321FC95330039703D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		363A9CD421FC95330039703D /* CheckWriter.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = CheckWriter.entitlements; sourceTree = "<group>"; };
+		363A9CDA21FC95B80039703D /* CheckWriter-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "CheckWriter-Bridging-Header.h"; sourceTree = "<group>"; };
+		363A9CDB21FC95B90039703D /* MoneyMaker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MoneyMaker.h; sourceTree = "<group>"; };
+		363A9CDC21FC95B90039703D /* money.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = money.c; sourceTree = "<group>"; };
+		363A9CDD21FC95BA0039703D /* MoneyMaker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MoneyMaker.m; sourceTree = "<group>"; };
+		363A9CDE21FC95BA0039703D /* money.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = money.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -57,8 +64,13 @@
 				363A9CCC21FC95330039703D /* ViewController.swift */,
 				363A9CCE21FC95330039703D /* Assets.xcassets */,
 				363A9CD021FC95330039703D /* Main.storyboard */,
+				363A9CDC21FC95B90039703D /* money.c */,
+				363A9CDE21FC95BA0039703D /* money.h */,
+				363A9CDB21FC95B90039703D /* MoneyMaker.h */,
+				363A9CDD21FC95BA0039703D /* MoneyMaker.m */,
 				363A9CD321FC95330039703D /* Info.plist */,
 				363A9CD421FC95330039703D /* CheckWriter.entitlements */,
+				363A9CDA21FC95B80039703D /* CheckWriter-Bridging-Header.h */,
 			);
 			path = CheckWriter;
 			sourceTree = "<group>";
@@ -95,6 +107,7 @@
 				TargetAttributes = {
 					363A9CC621FC95330039703D = {
 						CreatedOnToolsVersion = 9.2;
+						LastSwiftMigration = 0920;
 						ProvisioningStyle = Automatic;
 					};
 				};
@@ -134,8 +147,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				363A9CDF21FC95BA0039703D /* money.c in Sources */,
 				363A9CCD21FC95330039703D /* ViewController.swift in Sources */,
 				363A9CCB21FC95330039703D /* AppDelegate.swift in Sources */,
+				363A9CE021FC95BA0039703D /* MoneyMaker.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -263,6 +278,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = CheckWriter/CheckWriter.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
@@ -270,6 +286,8 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = Lippman.CheckWriter;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "CheckWriter/CheckWriter-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 4.0;
 			};
 			name = Debug;
@@ -278,6 +296,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = CheckWriter/CheckWriter.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
@@ -285,6 +304,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = Lippman.CheckWriter;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "CheckWriter/CheckWriter-Bridging-Header.h";
 				SWIFT_VERSION = 4.0;
 			};
 			name = Release;

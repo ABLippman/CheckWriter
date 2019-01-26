@@ -9,19 +9,29 @@
 import Cocoa
 
 class ViewController: NSViewController {
-
+    @IBOutlet weak var input: NSTextField!
+    @IBOutlet weak var output: NSTextField!
+    var moneyMaker: MoneyMaker = MoneyMaker()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         // Do any additional setup after loading the view.
     }
-
+    
     override var representedObject: Any? {
         didSet {
-        // Update the view, if already loaded.
+            // Update the view, if already loaded.
         }
     }
-
-
+    
+    @IBAction func translate(_ sender: Any) {
+        output.stringValue = moneyMaker.makeMoney(input.stringValue)
+        print(input.stringValue)
+        print (moneyMaker.makeMoney(input.stringValue))
+        
+    }
+    
 }
+
 
