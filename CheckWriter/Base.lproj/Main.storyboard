@@ -863,10 +863,13 @@
                             <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="E1I-TB-Gwg">
                                 <rect key="frame" x="48" y="75" width="52" height="18"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                <buttonCell key="cell" type="radio" title="Joint" bezelStyle="regularSquare" imagePosition="left" alignment="left" inset="2" id="iDU-4c-VTS">
+                                <buttonCell key="cell" type="radio" title="Joint" bezelStyle="regularSquare" imagePosition="left" alignment="left" state="on" inset="2" id="iDU-4c-VTS">
                                     <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                     <font key="font" metaFont="system"/>
                                 </buttonCell>
+                                <connections>
+                                    <action selector="radioButtonChanged:" target="XfG-lQ-9wD" id="kvD-tE-8KX"/>
+                                </connections>
                             </button>
                             <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="X1v-K4-nIv">
                                 <rect key="frame" x="48" y="53" width="54" height="18"/>
@@ -875,6 +878,9 @@
                                     <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                     <font key="font" metaFont="system"/>
                                 </buttonCell>
+                                <connections>
+                                    <action selector="radioButtonChanged:" target="XfG-lQ-9wD" id="SNQ-yr-0iG"/>
+                                </connections>
                             </button>
                             <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Qnr-fb-0Or">
                                 <rect key="frame" x="48" y="31" width="46" height="18"/>
@@ -883,6 +889,9 @@
                                     <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                     <font key="font" metaFont="system"/>
                                 </buttonCell>
+                                <connections>
+                                    <action selector="radioButtonChanged:" target="XfG-lQ-9wD" id="KBT-9a-vPT"/>
+                                </connections>
                             </button>
                             <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="frJ-UO-Fd4">
                                 <rect key="frame" x="139" y="75" width="67" height="18"/>
@@ -971,8 +980,11 @@
                     </view>
                     <connections>
                         <outlet property="amountField" destination="pfM-2c-TiQ" id="Nfh-Yg-Rjy"/>
+                        <outlet property="andyAccount" destination="X1v-K4-nIv" id="OK3-gX-gPf"/>
                         <outlet property="balanceField" destination="SQ3-cd-j4G" id="ZhM-PU-Nby"/>
                         <outlet property="dateField" destination="HZE-ox-LcD" id="uxN-ik-buw"/>
+                        <outlet property="jointAccount" destination="E1I-TB-Gwg" id="lNq-RZ-Pa4"/>
+                        <outlet property="llcAccount" destination="Qnr-fb-0Or" id="HTT-fm-ArB"/>
                         <outlet property="memoField" destination="7G2-QB-agd" id="hcI-ET-7Yg"/>
                         <outlet property="output" destination="jkK-dY-9Xk" id="bHJ-cg-RL1"/>
                         <outlet property="toField" destination="DFD-P2-Rbg" id="jl4-hP-Enn"/>

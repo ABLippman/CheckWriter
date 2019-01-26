@@ -18,6 +18,9 @@ class ViewController: NSViewController {
     @IBOutlet weak var balanceField: NSTextField!
     
     
+    @IBOutlet weak var jointAccount: NSButton!
+    @IBOutlet weak var andyAccount: NSButton!
+    @IBOutlet weak var llcAccount: NSButton!
     
     
     var moneyMaker: MoneyMaker = MoneyMaker()
@@ -27,16 +30,29 @@ class ViewController: NSViewController {
         
         // Do any additional setup after loading the view.
         setDate()  //And display it in dateField
-
+        radioButtonChanged(AnyObject.self as AnyObject)
     }
     
     override var representedObject: Any? {
         didSet {
             // Update the view, if already loaded.
-            amountField.selectText(Any?.self)
-            self.amountField.becomeFirstResponder()
         }
     }
+    
+    //  Make radio buttons group action
+    @IBAction func radioButtonChanged(_ sender: AnyObject) {
+        print("Account Changed")
+        if jointAccount.state == NSControl.StateValue.on {
+            print ("Joint Account Chosen")
+        }
+        else if andyAccount.state == NSControl.StateValue.on {
+            print ("Andy account selected")
+        }
+        else if llcAccount.state == NSControl.StateValue.on {
+            print ("LLC Account selected")
+        }
+    }
+    
     
     @IBAction func amountEntered(_ sender: Any) {
         output.stringValue = moneyMaker.makeMoney(amountField.stringValue)
