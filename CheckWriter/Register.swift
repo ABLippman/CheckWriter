@@ -8,16 +8,15 @@
 
 import Foundation
 class Register {
-    var amount = "00.0"
+    var amount:Float = 0.0
     var date = "Some Date   "
     var payee = "Nobody"
     var cat = "None"
+    var memo = ""
     
     func printData() {
         print ("Registering the Check")
-        print (amount)
-        print (payee)
-        print ("Category = \(cat)")
+        print ("\(date):\(amount):\(payee):\(cat):\(memo)")
     }
 }
 class Data {

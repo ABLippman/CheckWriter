@@ -54,7 +54,7 @@ initTable(){
 
 #define eq(a,b) (strcmp(a,b)==0)
 
-int amountTooBig(char *s) {     //  Not Used.  Fixed in sscanf below  10/13
+/*  int amountTooBig(char *s) {     //  Not Used.  Fixed in sscanf below  10/13
     if (atoi(s)> 9000) {
         printf("*** amount too large: %s\n", s);
         return 1;
@@ -65,7 +65,7 @@ int amountTooBig(char *s) {     //  Not Used.  Fixed in sscanf below  10/13
     }
     
 }
-
+ */
 char *
 numOnly(char *s) {
     static char    r[1024];

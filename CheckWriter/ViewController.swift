@@ -8,9 +8,7 @@
 
 import Cocoa
 
-let today:NSDate = NSDate()
-var categoryChosen:Bool = false
-var category:String = "None"
+
 class ViewController: NSViewController {
     @IBOutlet weak var amountField: NSTextField!
     @IBOutlet weak var output: NSTextField!
@@ -20,13 +18,18 @@ class ViewController: NSViewController {
     @IBOutlet weak var balanceField: NSTextField!
     @IBOutlet weak var numberField: NSTextField!
     @IBOutlet weak var categoryPopup: NSPopUpButton!
+    @IBOutlet weak var updateChosen: NSButton!
+    @IBOutlet weak var printChosen: NSButton!
     
     
     @IBOutlet weak var jointAccount: NSButton!
     @IBOutlet weak var andyAccount: NSButton!
     @IBOutlet weak var llcAccount: NSButton!
     
-    
+    let today:NSDate = NSDate()
+    var registerDate:String = ""
+    var categoryChosen:Bool = false
+    var category:String = "None"
     var moneyMaker: MoneyMaker = MoneyMaker()
     
     override func viewDidLoad() {
@@ -88,17 +91,20 @@ class ViewController: NSViewController {
     @IBAction func setCategoryChosen(_ sender: NSPopUpButton) {
         categoryChosen = true
         category = categoryPopup.selectedItem?.title ?? "None"
-        print(category)
     }
     
     @IBAction func printCheck(_ sender: Any) {
         //  First check category, then proceed...
+        
         if !categoryChosen {
             category = "None"
             let answer = alertOKCancel(question: "No Category", text: "Please enter a category, proceed?")
             if !answer { return }
         }
-        else {register.cat = category}
+        else {
+            register.cat = category
+        }
+        
         print(amountField.stringValue)
         print (moneyMaker.makeMoney(amountField.stringValue))
         // self.becomeFirstResponder()
@@ -106,8 +112,14 @@ class ViewController: NSViewController {
         self.amountField.becomeFirstResponder()
         check.amount  = output.stringValue
         print ("Printing a check for: \(check.amount)")
-        register.printData()
-        categoryChosen = false; category = "None"  //Reset category selection, cat req'd for each check
+        if updateChosen != nil {
+            register.amount = amountField.floatValue
+            register.date = registerDate
+            register.payee = toField.stringValue
+            register.memo = memoField.stringValue
+            register.printData()
+        }
+        categoryChosen = false; category = "None"; register.cat = "None"  //Reset category selection, cat req'd for each check
     }
     
     @IBAction func showName(_ sender: Any) {
@@ -125,11 +137,8 @@ class ViewController: NSViewController {
         
         
         let todayString = dateFormatter.string(from: today as Date);
-        let shortString = shortDate.string(from: today as Date)
+        registerDate = shortDate.string(from: today as Date)
         dateField.stringValue = todayString;
-        // registerDate = [shortDate stringFromDate:today];
-        //  Just to see if the short date works...
-        print (shortString)
     }
     
     func alertOKCancel(question: String, text: String) -> Bool {

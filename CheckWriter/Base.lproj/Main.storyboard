@@ -1013,7 +1013,9 @@
                         <outlet property="memoField" destination="7G2-QB-agd" id="hcI-ET-7Yg"/>
                         <outlet property="numberField" destination="I2U-tT-TpW" id="kGb-dn-fia"/>
                         <outlet property="output" destination="jkK-dY-9Xk" id="bHJ-cg-RL1"/>
+                        <outlet property="printChosen" destination="JKh-5D-58U" id="OYg-OO-U0s"/>
                         <outlet property="toField" destination="DFD-P2-Rbg" id="jl4-hP-Enn"/>
+                        <outlet property="updateChosen" destination="frJ-UO-Fd4" id="zpM-3F-D8T"/>
                     </connections>
                 </viewController>
                 <customObject id="rPt-NT-nkU" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>

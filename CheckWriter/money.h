@@ -10,6 +10,8 @@
 #define money_h
 
 #include <stdio.h>
+#include <string.h>
+#include <stdlib.h>
 char * numOnly(char *s);
 char * money(char *s);
 
