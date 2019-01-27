@@ -14,9 +14,9 @@
 		363A9CDF21FC95BA0039703D /* money.c in Sources */ = {isa = PBXBuildFile; fileRef = 363A9CDC21FC95B90039703D /* money.c */; };
 		363A9CE021FC95BA0039703D /* MoneyMaker.m in Sources */ = {isa = PBXBuildFile; fileRef = 363A9CDD21FC95BA0039703D /* MoneyMaker.m */; };
 		363A9CE221FC99C30039703D /* NewCheck.tiff in Resources */ = {isa = PBXBuildFile; fileRef = 363A9CE121FC99C30039703D /* NewCheck.tiff */; };
-		363A9CE421FCA8AF0039703D /* NewCheck.icns in Resources */ = {isa = PBXBuildFile; fileRef = 363A9CE321FCA8AF0039703D /* NewCheck.icns */; };
 		36404E2621FD043000DB38AA /* Check.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36404E2521FD043000DB38AA /* Check.swift */; };
 		36404E2821FD0C3200DB38AA /* Register.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36404E2721FD0C3200DB38AA /* Register.swift */; };
+		3697149821FE0546002D7D67 /* PrefsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3697149721FE0546002D7D67 /* PrefsViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -33,9 +33,9 @@
 		363A9CDD21FC95BA0039703D /* MoneyMaker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MoneyMaker.m; sourceTree = "<group>"; };
 		363A9CDE21FC95BA0039703D /* money.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = money.h; sourceTree = "<group>"; };
 		363A9CE121FC99C30039703D /* NewCheck.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = NewCheck.tiff; sourceTree = "<group>"; };
-		363A9CE321FCA8AF0039703D /* NewCheck.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = NewCheck.icns; sourceTree = "<group>"; };
 		36404E2521FD043000DB38AA /* Check.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Check.swift; sourceTree = "<group>"; };
 		36404E2721FD0C3200DB38AA /* Register.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Register.swift; sourceTree = "<group>"; };
+		3697149721FE0546002D7D67 /* PrefsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrefsViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -69,22 +69,46 @@
 			isa = PBXGroup;
 			children = (
 				363A9CCA21FC95330039703D /* AppDelegate.swift */,
-				36404E2521FD043000DB38AA /* Check.swift */,
-				36404E2721FD0C3200DB38AA /* Register.swift */,
-				363A9CCC21FC95330039703D /* ViewController.swift */,
+				3697149A21FE1123002D7D67 /* FileClasses */,
+				3697149B21FE1148002D7D67 /* ViewControllers */,
 				363A9CCE21FC95330039703D /* Assets.xcassets */,
-				363A9CE321FCA8AF0039703D /* NewCheck.icns */,
 				363A9CD021FC95330039703D /* Main.storyboard */,
 				363A9CE121FC99C30039703D /* NewCheck.tiff */,
-				363A9CDC21FC95B90039703D /* money.c */,
-				363A9CDE21FC95BA0039703D /* money.h */,
-				363A9CDB21FC95B90039703D /* MoneyMaker.h */,
-				363A9CDD21FC95BA0039703D /* MoneyMaker.m */,
+				3697149921FE110F002D7D67 /* Money */,
 				363A9CD321FC95330039703D /* Info.plist */,
 				363A9CD421FC95330039703D /* CheckWriter.entitlements */,
 				363A9CDA21FC95B80039703D /* CheckWriter-Bridging-Header.h */,
 			);
 			path = CheckWriter;
+			sourceTree = "<group>";
+		};
+		3697149921FE110F002D7D67 /* Money */ = {
+			isa = PBXGroup;
+			children = (
+				363A9CDC21FC95B90039703D /* money.c */,
+				363A9CDE21FC95BA0039703D /* money.h */,
+				363A9CDB21FC95B90039703D /* MoneyMaker.h */,
+				363A9CDD21FC95BA0039703D /* MoneyMaker.m */,
+			);
+			path = Money;
+			sourceTree = "<group>";
+		};
+		3697149A21FE1123002D7D67 /* FileClasses */ = {
+			isa = PBXGroup;
+			children = (
+				36404E2521FD043000DB38AA /* Check.swift */,
+				36404E2721FD0C3200DB38AA /* Register.swift */,
+			);
+			path = FileClasses;
+			sourceTree = "<group>";
+		};
+		3697149B21FE1148002D7D67 /* ViewControllers */ = {
+			isa = PBXGroup;
+			children = (
+				363A9CCC21FC95330039703D /* ViewController.swift */,
+				3697149721FE0546002D7D67 /* PrefsViewController.swift */,
+			);
+			path = ViewControllers;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -147,7 +171,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				363A9CE421FCA8AF0039703D /* NewCheck.icns in Resources */,
 				363A9CCF21FC95330039703D /* Assets.xcassets in Resources */,
 				363A9CD221FC95330039703D /* Main.storyboard in Resources */,
 				363A9CE221FC99C30039703D /* NewCheck.tiff in Resources */,
@@ -167,6 +190,7 @@
 				36404E2621FD043000DB38AA /* Check.swift in Sources */,
 				363A9CCB21FC95330039703D /* AppDelegate.swift in Sources */,
 				363A9CE021FC95BA0039703D /* MoneyMaker.m in Sources */,
+				3697149821FE0546002D7D67 /* PrefsViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
