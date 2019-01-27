@@ -23,6 +23,8 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         // Insert code here to initialize your application
         print ("App Launched, amount =  \(check.amount)")
         print ("App Launched, register date is \(register.date)")
+        
+        //  Preferences go here?
     
     }
 
