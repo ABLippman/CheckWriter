@@ -117,7 +117,7 @@ class ViewController: NSViewController {
             register.date = registerDate
             register.payee = toField.stringValue
             register.memo = memoField.stringValue
-            register.printData()
+            register.printData()  // Now we have to write this to a file. Perhaps via ObjC intermediary
         }
         categoryChosen = false; category = "None"; register.cat = "None"  //Reset category selection, cat req'd for each check
     }
