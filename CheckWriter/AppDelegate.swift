@@ -9,7 +9,7 @@
 import Cocoa
 
 let masterAppName = "New_Checkwriter"
-let check = Check()
+var check = Check()
 let register = Register()
 let data=Data()
 
@@ -25,6 +25,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         print ("App Launched, register date is \(register.date)")
         
         //  Preferences go here?
+    
     
     }
 

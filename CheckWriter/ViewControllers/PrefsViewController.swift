@@ -12,9 +12,13 @@ class PrefsViewController: NSViewController {
     @IBOutlet weak var accoutChoice: NSPopUpButton!
     @IBOutlet weak var printer: NSTextField!
     
+    //  Preferences
+    var prefs = Preferences()  //  Instantiate preferences
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do view setup here.
+        showPrefs()
     }
     
     @IBAction func changeAccount(_ sender: Any) {
@@ -28,4 +32,11 @@ class PrefsViewController: NSViewController {
     @IBAction func acceptPref(_ sender: Any) {
         print("Accept Prefs")
     }
+    //  Preferences functions
+    func showPrefs() {
+        print ("Got here")
+        // var cPrinter = prefs.checkPrinter  // Doesn't work yet
+    }
+
+    
 }

@@ -25,9 +25,10 @@ class ViewController: NSViewController {
     @IBOutlet weak var jointAccount: NSButton!
     @IBOutlet weak var andyAccount: NSButton!
     @IBOutlet weak var llcAccount: NSButton!
-    
+   
     let today:NSDate = NSDate()
     var registerDate:String = ""
+    var todayString = ""
     var categoryChosen:Bool = false
     var category:String = "None"
     var moneyMaker: MoneyMaker = MoneyMaker()
@@ -119,6 +120,16 @@ class ViewController: NSViewController {
             register.memo = memoField.stringValue
             register.printData()  // Now we have to write this to a file. Perhaps via ObjC intermediary
         }
+        if printChosen != nil {
+            check.amount = amountField.stringValue
+            check.date = todayString
+            check.payee = toField.stringValue
+            check.memo = memoField.stringValue
+            check.amountWords = output.stringValue
+            check.printData()  // use when Check is a class rather than struct
+            // Use the following when Check is a struct
+            // print ("Printed check: \(check.date):\(check.amount):\(check.payee):\(check.cat):\(check.memo)")
+        }
         categoryChosen = false; category = "None"; register.cat = "None"  //Reset category selection, cat req'd for each check
     }
     
@@ -136,7 +147,7 @@ class ViewController: NSViewController {
         _ = shortDate.dateFormat = "d MMM yyyy"
         
         
-        let todayString = dateFormatter.string(from: today as Date);
+        todayString = dateFormatter.string(from: today as Date);
         registerDate = shortDate.string(from: today as Date)
         dateField.stringValue = todayString;
     }
@@ -150,6 +161,8 @@ class ViewController: NSViewController {
         alert.addButton(withTitle: "Cancel")
         return alert.runModal() == .alertFirstButtonReturn
     }
+    
+
     
 }
 

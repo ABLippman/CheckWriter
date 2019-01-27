@@ -1144,6 +1144,6 @@ Gw
         </scene>
     </scenes>
     <resources>
-        <image name="NewCheck" width="128" height="128"/>
+        <image name="NewCheck" width="48" height="48"/>
     </resources>
 </document>
