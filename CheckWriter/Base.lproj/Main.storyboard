@@ -992,7 +992,7 @@
                                     <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                 </textFieldCell>
                             </textField>
-                            <popUpButton verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="YFR-8Z-K7f">
+                            <popUpButton toolTip="category" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="YFR-8Z-K7f">
                                 <rect key="frame" x="470" y="149" width="190" height="26"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <popUpButtonCell key="cell" type="push" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" id="7FH-3u-K4m">
@@ -1054,28 +1054,6 @@
                         <rect key="frame" x="0.0" y="0.0" width="416" height="214"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <subviews>
-                            <popUpButton verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="X41-Mm-067">
-                                <rect key="frame" x="185" y="156" width="185" height="26"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                <popUpButtonCell key="cell" type="push" title="Joint" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" tag="1" imageScaling="proportionallyDown" inset="2" selectedItem="J19-Fx-UXQ" id="ss7-YH-9Vv">
-                                    <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
-                                    <font key="font" metaFont="menu"/>
-                                    <menu key="menu" id="jjx-8R-J98">
-                                        <items>
-                                            <menuItem title="Joint" state="on" tag="1" id="J19-Fx-UXQ"/>
-                                            <menuItem title="Andy" tag="2" id="NCu-eR-9GY"/>
-                                            <menuItem title="LLC" tag="3" id="joW-J2-USr"/>
-                                            <menuItem isSeparatorItem="YES" id="U4W-1w-2ch"/>
-                                            <menuItem title="Add New" tag="4" id="2Da-t6-hFj">
-                                                <modifierMask key="keyEquivalentModifierMask"/>
-                                            </menuItem>
-                                        </items>
-                                    </menu>
-                                </popUpButtonCell>
-                                <connections>
-                                    <action selector="changeAccount:" target="xU8-YW-5ps" id="F2k-dm-foY"/>
-                                </connections>
-                            </popUpButton>
                             <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="3kC-qG-5tk">
                                 <rect key="frame" x="314" y="27" width="59" height="32"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
@@ -1116,7 +1094,7 @@ Gw
                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="YkU-o0-lzU">
                                 <rect key="frame" x="32" y="161" width="139" height="17"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="Initial Account" id="Zkh-45-Wm2">
+                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="Account Location" id="Zkh-45-Wm2">
                                     <font key="font" metaFont="system"/>
                                     <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                     <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
@@ -1131,10 +1109,22 @@ Gw
                                     <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                 </textFieldCell>
                             </textField>
+                            <textField verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="3V9-so-OA8">
+                                <rect key="frame" x="187" y="158" width="180" height="22"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" drawsBackground="YES" id="QlX-qI-Yq7">
+                                    <font key="font" metaFont="system"/>
+                                    <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
+                                    <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                </textFieldCell>
+                            </textField>
                         </subviews>
                     </view>
                     <connections>
-                        <outlet property="accoutChoice" destination="X41-Mm-067" id="90n-Se-v9f"/>
+                        <outlet property="a" destination="3V9-so-OA8" id="YfD-EA-JTm"/>
+                        <outlet property="accountDir" destination="3V9-so-OA8" id="G3q-2G-wjW"/>
+                        <outlet property="dir" destination="3V9-so-OA8" id="dOa-ud-q5r"/>
+                        <outlet property="p" destination="OA6-hg-5d0" id="2Bg-W5-cQD"/>
                         <outlet property="printer" destination="OA6-hg-5d0" id="xAL-bY-GVA"/>
                     </connections>
                 </viewController>

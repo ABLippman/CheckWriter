@@ -9,8 +9,9 @@
 import Cocoa
 
 class PrefsViewController: NSViewController {
-    @IBOutlet weak var accoutChoice: NSPopUpButton!
-    @IBOutlet weak var printer: NSTextField!
+
+    @IBOutlet weak var a: NSTextField!
+    @IBOutlet weak var p: NSTextField!
     
     //  Preferences
     var prefs = Preferences()  //  Instantiate preferences
@@ -21,19 +22,17 @@ class PrefsViewController: NSViewController {
         showPrefs()
     }
     
-    @IBAction func changeAccount(_ sender: Any) {
-        print("Account changed ...")
-    }
-    
     @IBAction func cancelPref(_ sender: Any) {
         print("Cancel Prefs")
     }
     
     @IBAction func acceptPref(_ sender: Any) {
         print("Accept Prefs")
+        prefs.printer = p.stringValue  // this seems wrong with prefs as a struct...
+        prefs.accountDir = a.stringValue
     }
     //  Preferences functions
-    func showPrefs() {
+    func showPrefs() {  // check defaults
         print ("Got here")
         // var cPrinter = prefs.checkPrinter  // Doesn't work yet
     }

@@ -22,5 +22,5 @@ class Register {
 class Data {
     var balance:Float = 1000.00
     var number:Int32 = 1000
-    var categories = ["Home", "Miscellaneous", "Business"]
+    var categories = ["None","Home", "Miscellaneous", "Business"]
 }

@@ -131,6 +131,8 @@ class ViewController: NSViewController {
             // print ("Printed check: \(check.date):\(check.amount):\(check.payee):\(check.cat):\(check.memo)")
         }
         categoryChosen = false; category = "None"; register.cat = "None"  //Reset category selection, cat req'd for each check
+        
+        categoryPopup.selectItem(at: 0)
     }
     
     @IBAction func showName(_ sender: Any) {

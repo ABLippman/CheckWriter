@@ -8,7 +8,7 @@
 
 import Foundation
 struct Preferences {
-    var checkPrinter:String {
+    var printer:String {
         get {
             let defaultPrinter = UserDefaults.standard.string(forKey: "printer")
             return (defaultPrinter)!
@@ -17,4 +17,12 @@ struct Preferences {
             UserDefaults.standard.set(newValue, forKey: "printer")
         }
     }
-}
+    var accountDir:String {
+        get {
+            let defaultAccount = UserDefaults.standard.string(forKey: "account")
+            return (defaultAccount)!
+        }
+        set {
+            UserDefaults.standard.set(newValue, forKey: "account")
+        }
+    }}
