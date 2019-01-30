@@ -8,6 +8,23 @@
 
 import Cocoa
 
+extension ViewController {
+    
+  //  Insert notification code here
+ 
+ // MARK: - Preferences
+    
+    func setupPrefs() {        
+        let notificationName = Notification.Name(rawValue: "PrefsChanged")
+        NotificationCenter.default.addObserver(forName: notificationName,
+                                               object: nil, queue: nil) {
+                                                (notification) in
+                                                self.updateFromPrefs()
+        }
+    }
+    
+    
+}
 
 class ViewController: NSViewController {
     @IBOutlet weak var amountField: NSTextField!
@@ -25,6 +42,7 @@ class ViewController: NSViewController {
     @IBOutlet weak var jointAccount: NSButton!
     @IBOutlet weak var andyAccount: NSButton!
     @IBOutlet weak var llcAccount: NSButton!
+    var prefs = Preferences()
    
     let today:NSDate = NSDate()
     var registerDate:String = ""
@@ -32,7 +50,7 @@ class ViewController: NSViewController {
     var categoryChosen:Bool = false
     var category:String = "None"
     var moneyMaker: MoneyMaker = MoneyMaker()
-    
+    let appDelegate = NSApplication.shared.delegate as! AppDelegate  // We now have a reference to the app delegate...
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -41,7 +59,9 @@ class ViewController: NSViewController {
         print ("View did load")
         data.categories.forEach {entry in
             categoryPopup.addItem(withTitle:entry)
+            print (appDelegate.testConstant)  // TEST ONLY to print from app delegate const
         }
+        self.setupPrefs()
     }
     
     override func viewDidAppear() { // This occurs later than the load...
@@ -164,7 +184,9 @@ class ViewController: NSViewController {
         return alert.runModal() == .alertFirstButtonReturn
     }
     
-
+    func updateFromPrefs() {
+        print("Got the Preference notification")
+    }
     
 }
 

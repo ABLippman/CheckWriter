@@ -19,7 +19,7 @@ class PrefsViewController: NSViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do view setup here.
-        showPrefs()
+        showExistingPrefs()
     }
     
     @IBAction func cancelPref(_ sender: Any) {
@@ -28,14 +28,16 @@ class PrefsViewController: NSViewController {
     
     @IBAction func acceptPref(_ sender: Any) {
         print("Accept Prefs")
-        prefs.printer = p.stringValue  // this seems wrong with prefs as a struct...
+        prefs.printer = p.stringValue 
         prefs.accountDir = a.stringValue
+        NotificationCenter.default.post(name: Notification.Name(rawValue: "PrefsChanged"),
+                                        object: nil)
     }
     //  Preferences functions
-    func showPrefs() {  // check defaults
+    func showExistingPrefs() {  // check defaults
         print ("Got here")
-        // var cPrinter = prefs.checkPrinter  // Doesn't work yet
+        let selectedPrinter = prefs.printer
     }
 
-    
+
 }

@@ -17,6 +17,7 @@ let data=Data()
 class AppDelegate: NSObject, NSApplicationDelegate {
 
     @IBOutlet weak var name: NSMenuItem!
+    let testConstant = "This is a constant in the app delegate"
     
 
     func applicationDidFinishLaunching(_ aNotification: Notification) {
