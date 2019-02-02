@@ -9,7 +9,7 @@
 import Foundation
 class Register {
     var amount:Float = 0.0
-    var date = "Some Date   "
+    var date = "Some Date"
     var payee = "Nobody"
     var cat = "None"
     var memo = ""

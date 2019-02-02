@@ -11,7 +11,10 @@ struct Preferences {
     var printer:String {
         get {
             let defaultPrinter = UserDefaults.standard.string(forKey: "printer")
-            return (defaultPrinter)!
+            if (defaultPrinter) != "" {
+                return defaultPrinter!}
+            return "Lip_Upstairs"
+        
         }
         set {
             UserDefaults.standard.set(newValue, forKey: "printer")
@@ -20,9 +23,14 @@ struct Preferences {
     var accountDir:String {
         get {
             let defaultAccount = UserDefaults.standard.string(forKey: "account")
-            return (defaultAccount)!
+            if (defaultAccount) != "" {
+                return defaultAccount!
+            }
+            return "~/tmp"
         }
         set {
             UserDefaults.standard.set(newValue, forKey: "account")
         }
-    }}
+    }
+    
+}

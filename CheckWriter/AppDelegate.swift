@@ -12,6 +12,8 @@ let masterAppName = "New_Checkwriter"
 var check = Check()
 let register = Register()
 let data=Data()
+let prefs = Preferences()  //  Instantiate preferences GLOBAL
+let filer = FileManager()  // Instantiate file Manager GLOBAL
 
 @NSApplicationMain
 class AppDelegate: NSObject, NSApplicationDelegate {
@@ -26,8 +28,8 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         print ("App Launched, register date is \(register.date)")
         
         //  Preferences go here?
-    
-    
+        print (filer.categories)
+        filer.changeAccount()
     }
 
     func applicationWillTerminate(_ aNotification: Notification) {

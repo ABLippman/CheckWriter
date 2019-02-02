@@ -51,6 +51,7 @@ class ViewController: NSViewController {
     var category:String = "None"
     var moneyMaker: MoneyMaker = MoneyMaker()
     let appDelegate = NSApplication.shared.delegate as! AppDelegate  // We now have a reference to the app delegate...
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -59,7 +60,6 @@ class ViewController: NSViewController {
         print ("View did load")
         data.categories.forEach {entry in
             categoryPopup.addItem(withTitle:entry)
-            print (appDelegate.testConstant)  // TEST ONLY to print from app delegate const
         }
         self.setupPrefs()
     }
@@ -69,6 +69,7 @@ class ViewController: NSViewController {
         print ("View Appeared")
         radioButtonChanged(AnyObject.self as AnyObject)
         numberField.intValue = data.number
+        print (" AccountRoot is: \(prefs.accountDir)")
     }
     
     override var representedObject: Any? {
