@@ -19,6 +19,7 @@
 		3697149821FE0546002D7D67 /* PrefsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3697149721FE0546002D7D67 /* PrefsViewController.swift */; };
 		3697149E21FE16BC002D7D67 /* Preferences.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3697149D21FE16BC002D7D67 /* Preferences.swift */; };
 		36D22A5F22065DE4005C9E66 /* FileManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36D22A5E22065DE4005C9E66 /* FileManager.swift */; };
+		36D22A65220666D0005C9E66 /* DepositController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36D22A64220666D0005C9E66 /* DepositController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -40,6 +41,7 @@
 		3697149721FE0546002D7D67 /* PrefsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrefsViewController.swift; sourceTree = "<group>"; };
 		3697149D21FE16BC002D7D67 /* Preferences.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Preferences.swift; sourceTree = "<group>"; };
 		36D22A5E22065DE4005C9E66 /* FileManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileManager.swift; sourceTree = "<group>"; };
+		36D22A64220666D0005C9E66 /* DepositController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DepositController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -113,6 +115,7 @@
 			children = (
 				363A9CCC21FC95330039703D /* ViewController.swift */,
 				3697149721FE0546002D7D67 /* PrefsViewController.swift */,
+				36D22A64220666D0005C9E66 /* DepositController.swift */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -192,6 +195,7 @@
 			files = (
 				36404E2821FD0C3200DB38AA /* Register.swift in Sources */,
 				363A9CDF21FC95BA0039703D /* money.c in Sources */,
+				36D22A65220666D0005C9E66 /* DepositController.swift in Sources */,
 				363A9CCD21FC95330039703D /* ViewController.swift in Sources */,
 				36404E2621FD043000DB38AA /* Check.swift in Sources */,
 				363A9CCB21FC95330039703D /* AppDelegate.swift in Sources */,

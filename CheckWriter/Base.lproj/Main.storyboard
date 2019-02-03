@@ -78,7 +78,11 @@
                                                 <action selector="performClose:" target="Ady-hI-5gd" id="HmO-Ls-i7Q"/>
                                             </connections>
                                         </menuItem>
-                                        <menuItem title="Deposit" keyEquivalent="d" id="Ps9-H0-PDv"/>
+                                        <menuItem title="Deposit" keyEquivalent="d" id="Ps9-H0-PDv">
+                                            <connections>
+                                                <segue destination="huN-uN-3JU" kind="show" id="xNZ-VA-yDV"/>
+                                            </connections>
+                                        </menuItem>
                                         <menuItem title="Debit" keyEquivalent="D" id="kyF-nE-FPW"/>
                                         <menuItem isSeparatorItem="YES" id="aJh-i4-bef"/>
                                         <menuItem title="Page Setup…" keyEquivalent="P" id="qIS-W8-SiK">
@@ -808,6 +812,40 @@ Gw
                 <customObject id="1AP-rD-SJX" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-98" y="1704"/>
+        </scene>
+        <!--Window Controller-->
+        <scene sceneID="J09-77-YIY">
+            <objects>
+                <windowController id="huN-uN-3JU" sceneMemberID="viewController">
+                    <window key="window" title="Enter Deposit" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" oneShot="NO" releasedWhenClosed="NO" showsToolbarButton="NO" visibleAtLaunch="NO" frameAutosaveName="" animationBehavior="default" id="sUd-8p-CC5">
+                        <windowStyleMask key="styleMask" titled="YES" closable="YES"/>
+                        <windowPositionMask key="initialPositionMask" leftStrut="YES" topStrut="YES" bottomStrut="YES"/>
+                        <rect key="contentRect" x="255" y="476" width="480" height="237"/>
+                        <rect key="screenRect" x="0.0" y="0.0" width="2560" height="1417"/>
+                        <connections>
+                            <outlet property="delegate" destination="huN-uN-3JU" id="yuh-TO-l1z"/>
+                        </connections>
+                    </window>
+                    <connections>
+                        <segue destination="tr1-vE-Abc" kind="relationship" relationship="window.shadowedContentViewController" id="ePb-2k-Seg"/>
+                    </connections>
+                </windowController>
+                <customObject id="B3I-YZ-mG7" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="400" y="1274.5"/>
+        </scene>
+        <!--Enter Deposit-->
+        <scene sceneID="ucd-di-ktM">
+            <objects>
+                <viewController title="Enter Deposit" id="tr1-vE-Abc" customClass="DepositController" customModule="CheckWriter" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" id="GmS-PO-0Wi">
+                        <rect key="frame" x="0.0" y="0.0" width="480" height="270"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </view>
+                </viewController>
+                <customObject id="k2d-pl-vKI" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="360" y="1676"/>
         </scene>
     </scenes>
     <resources>
