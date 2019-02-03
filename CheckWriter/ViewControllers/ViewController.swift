@@ -51,7 +51,9 @@ class ViewController: NSViewController {
     var category:String = "None"
     var moneyMaker: MoneyMaker = MoneyMaker()
     let appDelegate = NSApplication.shared.delegate as! AppDelegate  // We now have a reference to the app delegate...
-    
+    let printACheck:LipScrollView = LipScrollView.init(frame: NSMakeRect(0, 0, (8.5*72), (11*72))) //  Creates the check view with appropriate frame size.  Need to fix...
+
+
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -62,6 +64,7 @@ class ViewController: NSViewController {
             categoryPopup.addItem(withTitle:entry)
         }
         self.setupPrefs()
+
     }
     
     override func viewDidAppear() { // This occurs later than the load...
@@ -116,6 +119,7 @@ class ViewController: NSViewController {
     }
     
     @IBAction func printCheck(_ sender: Any) {
+
         //  First check category, then proceed...
         
         if !categoryChosen {
@@ -150,6 +154,8 @@ class ViewController: NSViewController {
             check.printData()  // use when Check is a class rather than struct
             // Use the following when Check is a struct
             // print ("Printed check: \(check.date):\(check.amount):\(check.payee):\(check.cat):\(check.memo)")
+            print (printACheck.frame)
+
             printACheck.printWithNoPanel(self)
         }
         categoryChosen = false; category = "None"; register.cat = "None"  //Reset category selection, cat req'd for each check

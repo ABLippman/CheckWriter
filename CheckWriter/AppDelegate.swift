@@ -14,7 +14,6 @@ let register = Register()
 let data=Data()
 let prefs = Preferences()  //  Instantiate preferences GLOBAL
 let filer = FileManager()  // Instantiate file Manager GLOBAL
-let printACheck = LipScrollView()
 
 @NSApplicationMain
 class AppDelegate: NSObject, NSApplicationDelegate {
