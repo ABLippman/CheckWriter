@@ -10,7 +10,13 @@
 
 @interface LipScrollView : NSView
 
-@property (unsafe_unretained) NSString *p;
+@property (unsafe_unretained) NSString *p;  //  THis is the printer
+@property (unsafe_unretained) NSString * number;
+@property (unsafe_unretained) NSString * amount;
+@property (unsafe_unretained) NSString * payee;
+@property (unsafe_unretained) NSString * numText;
+@property (unsafe_unretained) NSString * memo1;
+@property (unsafe_unretained) NSString * date;
 
 
 - (void)printWithNoPanel:(id)sender;

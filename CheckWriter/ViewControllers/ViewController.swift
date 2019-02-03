@@ -43,6 +43,7 @@ class ViewController: NSViewController {
     @IBOutlet weak var categoryPopup: NSPopUpButton!
     @IBOutlet weak var updateChosen: NSButton!
     @IBOutlet weak var printChosen: NSButton!
+    @IBOutlet weak var sequenceButton: NSButton!
     
     
     @IBOutlet weak var jointAccount: NSButton!
@@ -58,7 +59,6 @@ class ViewController: NSViewController {
     var moneyMaker: MoneyMaker = MoneyMaker()
     let appDelegate = NSApplication.shared.delegate as! AppDelegate  // We now have a reference to the app delegate...
     //  Could this be in the print func?  Does it get released?
-    let printACheck:LipScrollView = LipScrollView.init(frame: NSMakeRect(0, 0, (8.0*72), (10.5*72))) //  Creates the check view with appropriate frame size. MARGINS!!!
 
 
     override func viewDidLoad() {
@@ -125,10 +125,15 @@ class ViewController: NSViewController {
         category = categoryPopup.selectedItem?.title ?? "None"
     }
     
-    @IBAction func printCheck(_ sender: Any) {
-
-        //  First check category, then proceed...
+    @IBAction func issueCheck(_ sender: Any) {
         
+        /*  Main routine
+         *   sets printer, verifies category
+         *   Prints if req'd, registers if req'd
+         */
+        //  Currently bypasses Check structure, is there a need?
+        
+        printACheck.p = prefs.printer as NSString  //  Set printer from Prefs each time...
         if !categoryChosen {
             category = "None"
             let answer = alertOKCancel(question: "No Category", text: "Please enter a category, proceed?")
@@ -137,37 +142,36 @@ class ViewController: NSViewController {
         else {
             register.cat = category
         }
-        
-        print(amountField.stringValue)
-        print (moneyMaker.makeMoney(amountField.stringValue))
-        // self.becomeFirstResponder()
-        // amountField.selectText(sender)
-        self.amountField.becomeFirstResponder()
-        check.amount  = output.stringValue
-        print ("Printing a check for: \(check.amount)")
-        if updateChosen != nil {
+
+
+        if updateChosen.state == NSControl.StateValue.on {
+            print ("Update button: \(updateChosen)")
             register.amount = amountField.floatValue
             register.date = registerDate
             register.payee = toField.stringValue
             register.memo = memoField.stringValue
-            register.printData()  // Now we have to write this to a file. Perhaps via ObjC intermediary
+            register.cat = (categoryPopup.selectedItem?.title)!
+            register.storeRegisteredCheck()  // Now we have to write this to a file. Perhaps via ObjC intermediary
+            balanceField.floatValue = register.updateBalance(amt: balanceField.floatValue)
+            if sequenceButton != nil {
+                numberField.intValue = register.updateSequence(num: numberField.intValue)
+            }
         }
-        if printChosen != nil {
-            check.amount = amountField.stringValue
-            check.date = todayString
-            check.payee = toField.stringValue
-            check.memo = memoField.stringValue
-            check.amountWords = output.stringValue
-            check.printData()  // use when Check is a class rather than struct
-            // Use the following when Check is a struct
-            // print ("Printed check: \(check.date):\(check.amount):\(check.payee):\(check.cat):\(check.memo)")
-            print (printACheck.frame)
-
-            printACheck.printWithNoPanel(self)
+        
+        if printChosen.state == NSControl.StateValue.on {
+            printACheck.amount = amountField.stringValue as NSString
+            printACheck.date = todayString as NSString
+            printACheck.payee = toField.stringValue as NSString
+            printACheck.memo1 = memoField.stringValue as NSString
+            printACheck.numText = output.stringValue as NSString
+            printACheck.printWithNoPanel(self) // PRINTS the check
         }
         categoryChosen = false; category = "None"; register.cat = "None"  //Reset category selection, cat req'd for each check
         
         categoryPopup.selectItem(at: 0)
+        // self.becomeFirstResponder()
+        // amountField.selectText(sender)
+        self.amountField.becomeFirstResponder()
     }
     
     @IBAction func showName(_ sender: Any) {

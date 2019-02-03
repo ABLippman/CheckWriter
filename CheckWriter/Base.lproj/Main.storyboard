@@ -429,14 +429,14 @@
                                 </textFieldCell>
                             </textField>
                             <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="sbq-qa-f0r">
-                                <rect key="frame" x="561" y="25" width="89" height="32"/>
+                                <rect key="frame" x="549" y="25" width="114" height="32"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                <buttonCell key="cell" type="push" title="Print" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="7xt-tP-97u">
+                                <buttonCell key="cell" type="push" title="Issue Check" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="7xt-tP-97u">
                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                     <font key="font" metaFont="system"/>
                                 </buttonCell>
                                 <connections>
-                                    <action selector="printCheck:" target="XfG-lQ-9wD" id="G91-Ne-Wfz"/>
+                                    <action selector="issueCheck:" target="XfG-lQ-9wD" id="j4O-tE-Dya"/>
                                 </connections>
                             </button>
                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="5o1-VV-Q6l">
@@ -493,7 +493,7 @@
                                 </buttonCell>
                             </button>
                             <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="zEH-aN-PNt">
-                                <rect key="frame" x="486" y="25" width="81" height="32"/>
+                                <rect key="frame" x="466" y="25" width="81" height="32"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <buttonCell key="cell" type="push" title="Button" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="bG1-5p-gk6">
                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -503,16 +503,8 @@
                                     <action selector="showName:" target="XfG-lQ-9wD" id="Lf6-GT-NOu"/>
                                 </connections>
                             </button>
-                            <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="R62-El-AlU">
-                                <rect key="frame" x="405" y="25" width="81" height="32"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                <buttonCell key="cell" type="push" title="Button" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="U6V-Ts-wqF">
-                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                    <font key="font" metaFont="system"/>
-                                </buttonCell>
-                            </button>
                             <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="dxv-Sv-vH2">
-                                <rect key="frame" x="324" y="25" width="81" height="32"/>
+                                <rect key="frame" x="306" y="25" width="81" height="32"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <buttonCell key="cell" type="push" title="Button" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="m8O-Im-ZJC">
                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -685,6 +677,14 @@
                                     <action selector="setCategoryChosen:" target="XfG-lQ-9wD" id="jhr-Lp-PKL"/>
                                 </connections>
                             </popUpButton>
+                            <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="R62-El-AlU">
+                                <rect key="frame" x="385" y="25" width="81" height="32"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <buttonCell key="cell" type="push" title="Button" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="U6V-Ts-wqF">
+                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                    <font key="font" metaFont="system"/>
+                                </buttonCell>
+                            </button>
                         </subviews>
                     </view>
                     <connections>
@@ -699,6 +699,7 @@
                         <outlet property="numberField" destination="I2U-tT-TpW" id="kGb-dn-fia"/>
                         <outlet property="output" destination="jkK-dY-9Xk" id="bHJ-cg-RL1"/>
                         <outlet property="printChosen" destination="JKh-5D-58U" id="OYg-OO-U0s"/>
+                        <outlet property="sequenceButton" destination="f4n-na-sZC" id="3ki-Vu-x4O"/>
                         <outlet property="toField" destination="DFD-P2-Rbg" id="jl4-hP-Enn"/>
                         <outlet property="updateChosen" destination="frJ-UO-Fd4" id="zpM-3F-D8T"/>
                     </connections>
