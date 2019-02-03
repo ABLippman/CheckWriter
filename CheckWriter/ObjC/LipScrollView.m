@@ -74,7 +74,7 @@ NSString * addressee;
     [printSpecs setLeftMargin:0];
     [printSpecs setPaperSize:paperSize];
     op = [NSPrintOperation printOperationWithView:self printInfo:printSpecs];
-    [op setShowsPrintPanel:YES];  // Use NO mornally, YES for debuggin
+    [op setShowsPrintPanel:YES];  // Use NO normally, YES for debuggin. 
     [op runOperation];
 }
 
