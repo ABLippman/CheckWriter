@@ -150,6 +150,7 @@ class ViewController: NSViewController {
             check.printData()  // use when Check is a class rather than struct
             // Use the following when Check is a struct
             // print ("Printed check: \(check.date):\(check.amount):\(check.payee):\(check.cat):\(check.memo)")
+            printACheck.printWithNoPanel(self)
         }
         categoryChosen = false; category = "None"; register.cat = "None"  //Reset category selection, cat req'd for each check
         
