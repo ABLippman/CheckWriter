@@ -18,7 +18,7 @@ class Register {
     func storeRegisteredCheck() {
         let serialNumber: NSDate = NSDate() // new serialization date each time
         print ("Registering the Check")
-        print ("\(date):\(amount):\(payee):\(cat):\(memo)")
+        print ("\(date):\(Int (serialNumber.timeIntervalSince1970)):\(amount):\(payee):\(cat):\(memo):Out:")
         print (Int (serialNumber.timeIntervalSince1970))
     }
     func updateBalance(amt:Float) -> Float {
@@ -36,6 +36,10 @@ class Register {
     }
     func openAccount(account:String) {
         print ("Opening account \(account)")
+    }
+    func changeAccount() {
+        //  Close current accounts if any, open new account
+        //  Called with account number
     }
 }
 

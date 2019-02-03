@@ -693,6 +693,7 @@
                         <outlet property="balanceField" destination="Gzz-zn-Sdb" id="epG-a2-CYR"/>
                         <outlet property="categoryPopup" destination="YFR-8Z-K7f" id="CeC-81-7fy"/>
                         <outlet property="dateField" destination="HZE-ox-LcD" id="uxN-ik-buw"/>
+                        <outlet property="doIt" destination="sbq-qa-f0r" id="lsX-EO-tAw"/>
                         <outlet property="jointAccount" destination="E1I-TB-Gwg" id="lNq-RZ-Pa4"/>
                         <outlet property="llcAccount" destination="Qnr-fb-0Or" id="HTT-fm-ArB"/>
                         <outlet property="memoField" destination="7G2-QB-agd" id="hcI-ET-7Yg"/>

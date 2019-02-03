@@ -44,6 +44,7 @@ class ViewController: NSViewController {
     @IBOutlet weak var updateChosen: NSButton!
     @IBOutlet weak var printChosen: NSButton!
     @IBOutlet weak var sequenceButton: NSButton!
+    @IBOutlet weak var doIt: NSButton!
     
     
     @IBOutlet weak var jointAccount: NSButton!
@@ -51,11 +52,10 @@ class ViewController: NSViewController {
     @IBOutlet weak var llcAccount: NSButton!
     var prefs = Preferences()
    
-    let today:NSDate = NSDate()
+    let today:Date = Date()
     var registerDate:String = ""
     var todayString = ""
     var categoryChosen:Bool = false
-    var category:String = "None"
     var moneyMaker: MoneyMaker = MoneyMaker()
     let appDelegate = NSApplication.shared.delegate as! AppDelegate  // We now have a reference to the app delegate...
 
@@ -116,7 +116,6 @@ class ViewController: NSViewController {
     
     @IBAction func setCategoryChosen(_ sender: NSPopUpButton) {
         categoryChosen = true
-        category = categoryPopup.selectedItem?.title ?? "None"
     }
     
     @IBAction func issueCheck(_ sender: Any) {
@@ -125,18 +124,18 @@ class ViewController: NSViewController {
          *   sets printer, verifies category
          *   Prints if req'd, registers if req'd
          */
-        //  Currently bypasses Check structure, is there a need?
+        //  Currently bypasses Check structure, is there a need for it?
         
-        printACheck.p = prefs.printer as NSString  //  Set printer from Prefs each time...
-        if !categoryChosen {
-            category = "None"
+
+        if categoryChosen {
+            register.cat = (categoryPopup.selectedItem?.title)!
+        }
+        else {
             let answer = alertOKCancel(question: "No Category", text: "Please enter a category, proceed?")
             if !answer { return }
         }
-        else {
-            register.cat = category
-        }
-
+        
+        
         if updateChosen.state == NSControl.StateValue.on {
             print ("Update button: \(updateChosen)")
             register.amount = amountField.floatValue
@@ -152,6 +151,8 @@ class ViewController: NSViewController {
         }
         
         if printChosen.state == NSControl.StateValue.on {
+            printACheck.p = prefs.printer as NSString  //  Set printer from Prefs each time...
+            printACheck.number = numberField.stringValue as NSString
             printACheck.amount = amountField.stringValue as NSString
             printACheck.date = todayString as NSString
             printACheck.payee = toField.stringValue as NSString
@@ -159,12 +160,10 @@ class ViewController: NSViewController {
             printACheck.numText = output.stringValue as NSString
             printACheck.printWithNoPanel(self) // PRINTS the check
         }
-        categoryChosen = false; category = "None"; register.cat = "None"  //Reset category selection, cat req'd for each check
-        
-        categoryPopup.selectItem(at: 0)
-        // self.becomeFirstResponder()
-        // amountField.selectText(sender)
+        //  Finish setting up for next check...
         self.amountField.becomeFirstResponder()
+        categoryChosen = false
+        categoryPopup.selectItem(at: 0)  // Revert to first title == "None"
     }
     
     @IBAction func showName(_ sender: Any) {
@@ -174,13 +173,11 @@ class ViewController: NSViewController {
     func setDate() {
         let dateFormatter = DateFormatter()
         let shortDate = DateFormatter()
-        
         _ = dateFormatter.dateFormat = "d MMMM, yyyy"
         _ = shortDate.dateFormat = "d MMM yyyy"
         
-        
-        todayString = dateFormatter.string(from: today as Date);
-        registerDate = shortDate.string(from: today as Date)
+        todayString = dateFormatter.string(from: today)
+        registerDate = shortDate.string(from: today)
         dateField.stringValue = todayString;
     }
     
@@ -189,12 +186,12 @@ class ViewController: NSViewController {
         alert.messageText = question
         alert.informativeText = text
         alert.alertStyle = .warning
-        alert.addButton(withTitle: "OK")
-        alert.addButton(withTitle: "Cancel")
+        alert.addButton(withTitle: "Proceed")
+        alert.addButton(withTitle: "Fix")
         return alert.runModal() == .alertFirstButtonReturn
     }
     
-    func updateFromPrefs() {
+    func updateFromPrefs() {  // does nothing now, should if account base changes...
         print("Got the Preference notification")
     }
     

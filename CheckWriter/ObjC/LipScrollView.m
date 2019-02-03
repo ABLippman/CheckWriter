@@ -61,7 +61,7 @@ NSString * addressee;
     NSString *memo2 = [NSString stringWithString:@"Political"];
      */
     
-    [number drawAtPoint:NSPointFromCGPoint(CGPointMake(7*72, 9.75*72)) withAttributes:[NSDictionary dictionaryWithObject:scriptFont forKey:NSFontAttributeName]];
+    [number drawAtPoint:NSPointFromCGPoint(CGPointMake(7*72, 6.75*72)) withAttributes:[NSDictionary dictionaryWithObject:scriptFont forKey:NSFontAttributeName]];
     [amount drawAtPoint:NSPointFromCGPoint(CGPointMake(7*72, 9.250*72)) withAttributes:[NSDictionary dictionaryWithObject:romanFont forKey:NSFontAttributeName]];
     [payee drawAtPoint:NSPointFromCGPoint(CGPointMake(1*72, 9.250*72)) withAttributes:[NSDictionary dictionaryWithObject:romanFont forKey:NSFontAttributeName]];
     [numText drawAtPoint:NSPointFromCGPoint(CGPointMake(1*72, 8.875*72)) withAttributes:[NSDictionary dictionaryWithObject:romanFont forKey:NSFontAttributeName]];
