@@ -10,6 +10,9 @@
 
 @interface LipScrollView : NSView
 
+@property (unsafe_unretained) NSString *p;
+
+
 - (void)printWithNoPanel:(id)sender;
 - (void)setContent:(NSString *)data;
 @end

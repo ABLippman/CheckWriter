@@ -5,12 +5,21 @@
 //  Created by Andrew Lippman on 12/12/11.
 //  Copyright 2011 __MyCompanyName__. All rights reserved.
 //
+/*
+ *  Old code to print.  Added Printer selection from Prefs...
+ *
+ *
+ */
 
 #import "LipScrollView.h"
 
 @implementation LipScrollView
 
+@synthesize p;
+
+
 NSString * addressee;
+
 
 
 - (id)init
@@ -67,12 +76,14 @@ NSString * addressee;
     
     NSPrintOperation *op;
     NSPrintInfo *printSpecs = [[NSPrintInfo alloc] init ];
+    NSPrinter *chosenPrinter = [NSPrinter printerWithName:@"Lip_Upstairs"];
     
     [printSpecs setTopMargin:0.0];
     [printSpecs setBottomMargin:0];
     [printSpecs setRightMargin:0];
     [printSpecs setLeftMargin:0];
     [printSpecs setPaperSize:paperSize];
+    [printSpecs setPrinter:chosenPrinter];
     op = [NSPrintOperation printOperationWithView:self printInfo:printSpecs];
     [op setShowsPrintPanel:YES];  // Use NO normally, YES for debugging. 
     [op runOperation];

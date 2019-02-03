@@ -5,6 +5,12 @@
 //  Created by lip on 1/26/19.
 //  Copyright © 2019 Andrew Lippman. All rights reserved.
 //
+/*
+ *   Note that this controller sets up and initializes the print view (called
+ *  LipScrollView for historical reasons...
+ *
+ *
+ */
 
 import Cocoa
 
@@ -51,7 +57,8 @@ class ViewController: NSViewController {
     var category:String = "None"
     var moneyMaker: MoneyMaker = MoneyMaker()
     let appDelegate = NSApplication.shared.delegate as! AppDelegate  // We now have a reference to the app delegate...
-    let printACheck:LipScrollView = LipScrollView.init(frame: NSMakeRect(0, 0, (8.5*72), (11*72))) //  Creates the check view with appropriate frame size.  Need to fix...
+    //  Could this be in the print func?  Does it get released?
+    let printACheck:LipScrollView = LipScrollView.init(frame: NSMakeRect(0, 0, (8.0*72), (10.5*72))) //  Creates the check view with appropriate frame size. MARGINS!!!
 
 
     override func viewDidLoad() {
