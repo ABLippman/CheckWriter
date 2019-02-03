@@ -58,8 +58,6 @@ class ViewController: NSViewController {
     var category:String = "None"
     var moneyMaker: MoneyMaker = MoneyMaker()
     let appDelegate = NSApplication.shared.delegate as! AppDelegate  // We now have a reference to the app delegate...
-    //  Could this be in the print func?  Does it get released?
-
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -71,7 +69,6 @@ class ViewController: NSViewController {
             categoryPopup.addItem(withTitle:entry)
         }
         self.setupPrefs()
-
     }
     
     override func viewDidAppear() { // This occurs later than the load...
@@ -109,15 +106,12 @@ class ViewController: NSViewController {
     
     @IBAction func amountEntered(_ sender: Any) {
         output.stringValue = moneyMaker.makeMoney(amountField.stringValue)
-        print("Amount Entered")
     }
     
     @IBAction func toEntered(_ sender: Any) {
-        print("Recipient Entered")
     }
     
     @IBAction func memoEntered(_ sender: Any) {
-        print("Memo Entered")
     }
     
     @IBAction func setCategoryChosen(_ sender: NSPopUpButton) {
@@ -142,7 +136,6 @@ class ViewController: NSViewController {
         else {
             register.cat = category
         }
-
 
         if updateChosen.state == NSControl.StateValue.on {
             print ("Update button: \(updateChosen)")
@@ -177,9 +170,7 @@ class ViewController: NSViewController {
     @IBAction func showName(_ sender: Any) {
         print(masterAppName)
     }
-    
-    
-    
+   
     func setDate() {
         let dateFormatter = DateFormatter()
         let shortDate = DateFormatter()
