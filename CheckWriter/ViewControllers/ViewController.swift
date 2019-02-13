@@ -14,6 +14,7 @@
 
 import Cocoa
 
+
 extension ViewController {
     
   //  Insert notification code here
@@ -112,10 +113,25 @@ class ViewController: NSViewController {
     }
     
     @IBAction func memoEntered(_ sender: Any) {
+        var q = ""
+        for char in memoField.stringValue { char == ":" ? q.append("-") : q.append(char)}
+        print (q)
+        memoField.stringValue = q
     }
     
     @IBAction func setCategoryChosen(_ sender: NSPopUpButton) {
         categoryChosen = true
+    }
+    
+    func setBalanceField() {
+        //  Dirty code in that it talk directly to interface
+        balanceField.floatValue = register.updateBalance(amt: balanceField.floatValue)
+        if balanceField.floatValue < 0.0 {
+            balanceField.backgroundColor = NSColor.red
+        }
+        else {
+            balanceField.backgroundColor = NSColor.green.withAlphaComponent(0.999)
+        }
     }
     
     @IBAction func issueCheck(_ sender: Any) {
@@ -144,7 +160,7 @@ class ViewController: NSViewController {
             register.memo = memoField.stringValue
             register.cat = (categoryPopup.selectedItem?.title)!
             register.storeRegisteredCheck()  // Now we have to write this to a file. Perhaps via ObjC intermediary
-            balanceField.floatValue = register.updateBalance(amt: balanceField.floatValue)
+            self.setBalanceField()   // put outseide to change colors
             if sequenceButton != nil {
                 numberField.intValue = register.updateSequence(num: numberField.intValue)
             }

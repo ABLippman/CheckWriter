@@ -479,10 +479,10 @@
                                     <font key="font" metaFont="system"/>
                                     <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
                                     <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
-                                    <connections>
-                                        <action selector="performClick:" target="7xt-tP-97u" id="Nlb-ka-zDg"/>
-                                    </connections>
                                 </textFieldCell>
+                                <connections>
+                                    <action selector="memoEntered:" target="XfG-lQ-9wD" id="hNV-0F-40x"/>
+                                </connections>
                             </textField>
                             <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="JKh-5D-58U">
                                 <rect key="frame" x="139" y="34" width="51" height="18"/>
@@ -651,7 +651,7 @@
                             <textField verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Gzz-zn-Sdb">
                                 <rect key="frame" x="509" y="61" width="142" height="55"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" drawsBackground="YES" id="O9x-7Z-jW5">
+                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" refusesFirstResponder="YES" allowsUndo="NO" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" drawsBackground="YES" id="O9x-7Z-jW5">
                                     <numberFormatter key="formatter" formatterBehavior="10_0" positiveFormat="$ #,##0.00" negativeFormat="($ #,##0.00)" thousandSeparator="," id="AQ7-yZ-YwO">
                                         <textAttributesForNegativeValues/>
                                         <attributedString key="attributedStringForZero">
@@ -662,7 +662,7 @@
                                     </numberFormatter>
                                     <font key="font" metaFont="system"/>
                                     <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
-                                    <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                    <color key="backgroundColor" red="0.4895580685" green="1" blue="0.55729661070000003" alpha="1" colorSpace="calibratedRGB"/>
                                 </textFieldCell>
                             </textField>
                             <popUpButton toolTip="category" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="YFR-8Z-K7f">

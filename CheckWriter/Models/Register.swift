@@ -19,7 +19,6 @@ class Register {
         let serialNumber: NSDate = NSDate() // new serialization date each time
         print ("Registering the Check")
         print ("\(date):\(Int (serialNumber.timeIntervalSince1970)):\(amount):\(payee):\(cat):\(memo):Out:")
-        print (Int (serialNumber.timeIntervalSince1970))
     }
     func updateBalance(amt:Float) -> Float {
         let newBalance = amt - amount
