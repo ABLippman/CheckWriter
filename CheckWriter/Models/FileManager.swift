@@ -23,7 +23,23 @@ class FileManager: NSObject {
     var categories:[String] = ["1","2"]
     
     func changeAccount() {
-        print("Changing account")
+        let dirname = NSString(string: prefs.accountDir).expandingTildeInPath
+        let fullname = dirname.appending(".txt")
+        let fileURL = URL(string: "file://\(fullname)")
+        print ("Account Directory is:  \(fileURL)")
+        
+        /*
+        *  Test code for files
+        */
+        let garbage = "This is the second test for a file\n"
+        do {
+            try garbage.write(to: fileURL!, atomically:true, encoding: String.Encoding.utf8)
+        } catch let error as NSError{
+            print ("That didn't work:  \(error)")
+        }
+
+        
+        
     }
 
 }

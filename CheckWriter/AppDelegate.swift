@@ -35,6 +35,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         //  Preferences go here?
         print (filer.categories)
         filer.changeAccount()  // Initially set up an account
+        print("Startup... Printer is \(prefs.printer)")
     }
 
     func applicationWillTerminate(_ aNotification: Notification) {

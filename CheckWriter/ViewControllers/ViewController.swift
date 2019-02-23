@@ -46,6 +46,7 @@ class ViewController: NSViewController {
     @IBOutlet weak var printChosen: NSButton!
     @IBOutlet weak var sequenceButton: NSButton!
     @IBOutlet weak var doIt: NSButton!
+    @IBOutlet weak var manual: NSButton!
     
     
     @IBOutlet weak var jointAccount: NSButton!
@@ -78,6 +79,7 @@ class ViewController: NSViewController {
         radioButtonChanged(AnyObject.self as AnyObject)
         numberField.intValue = data.number
         print (" AccountRoot is: \(prefs.accountDir)")
+        manual.state = NSControl.StateValue.off
     }
     
     override var representedObject: Any? {

@@ -9,6 +9,7 @@
 import Foundation
 class Register {
     var amount:Float = 0.0
+    var number:Int = 0000
     var date = "Some Date"
     var payee = "Nobody"
     var cat = "None"

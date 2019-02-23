@@ -5,9 +5,13 @@
 //  Created by lip on 1/27/19.
 //  Copyright © 2019 Andrew Lippman. All rights reserved.
 //
+/*
+ *  User Defaults code goes here.
+ *
+ */
 
 import Foundation
-struct Preferences {
+class Preferences {
     var printer:String {
         get {
             let defaultPrinter = UserDefaults.standard.string(forKey: "printer")
