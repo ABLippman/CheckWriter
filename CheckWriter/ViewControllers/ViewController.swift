@@ -158,6 +158,7 @@ class ViewController: NSViewController {
         }
         
         /*  Change this to use the FileInterface (filer).  There is no need for Register  */
+/*
         if updateChosen.state == NSControl.StateValue.on {
             print ("Update button: \(updateChosen)")
             register.amount = amountField.floatValue
@@ -171,6 +172,24 @@ class ViewController: NSViewController {
                 numberField.intValue = register.updateSequence(num: numberField.intValue)
             }
         }
+   */
+        if updateChosen.state == NSControl.StateValue.on {
+            check.amount = amountField.doubleValue
+            check.date = registerDate
+            check.payee = toField.stringValue
+            check.memo = memoField.stringValue
+            check.cat = (categoryPopup.selectedItem?.title)!
+            filer.registerCheck(account: "16641301", checkData:check)  //  Need to fix for accounts!!!
+            //  Finish update details:  Update seq and bal only when registering a check
+            if sequenceButton != nil {
+                var n:Int32 = numberField.intValue
+                n = n + 1
+                numberField.intValue = n
+            }
+            self.setBalanceField()
+        }
+
+        
         
         if printChosen.state == NSControl.StateValue.on {
             printACheck.p = prefs.printer as NSString  //  Set printer from Prefs each time...
@@ -183,9 +202,10 @@ class ViewController: NSViewController {
             printACheck.printWithNoPanel(self) // PRINTS the check
         }
         //  Finish setting up for next check...
-        self.amountField.becomeFirstResponder()
+
         categoryChosen = false
         categoryPopup.selectItem(at: 0)  // Revert to first title == "None"
+        self.amountField.becomeFirstResponder()
     }
     
     @IBAction func showName(_ sender: Any) {

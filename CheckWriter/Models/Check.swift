@@ -8,7 +8,7 @@
 
 import Foundation
 class Check {  // playing with struct rather than class for value-based rather than reference-based
-    var amount = "00.0"
+    var amount = 00.0
     var date = "today"
     var payee = "Nobody"
     var cat = "None"
