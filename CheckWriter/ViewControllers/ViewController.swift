@@ -80,6 +80,10 @@ class ViewController: NSViewController {
         numberField.intValue = data.number
         print (" AccountRoot is: \(prefs.accountDir)")
         manual.state = NSControl.StateValue.off
+        /*
+    *  Now lets play with opening and account...
+    */
+        print ("Result of opening account: \(filer.openAccount(account: "16641301").auto)")
     }
     
     override var representedObject: Any? {
@@ -153,7 +157,7 @@ class ViewController: NSViewController {
             if !answer { return }
         }
         
-        
+        /*  Change this to use the FileInterface (filer).  There is no need for Register  */
         if updateChosen.state == NSControl.StateValue.on {
             print ("Update button: \(updateChosen)")
             register.amount = amountField.floatValue

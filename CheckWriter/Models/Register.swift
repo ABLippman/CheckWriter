@@ -6,6 +6,10 @@
 //  Copyright © 2019 Andrew Lippman. All rights reserved.
 //
 
+/*  WHy is this here?  Why is this not all done in the file interface???
+ *  Answer:  IT will be tomorrow when i put this all together...
+ */
+
 import Foundation
 class Register {
     var amount:Float = 0.0
@@ -17,7 +21,7 @@ class Register {
 
     
     func storeRegisteredCheck() {
-        let serialNumber: NSDate = NSDate() // new serialization date each time
+        let serialNumber: NSDate = NSDate() // new serialization date each time MOVE to File Interface
         print ("Registering the Check")
         print ("\(date):\(Int (serialNumber.timeIntervalSince1970)):\(amount):\(payee):\(cat):\(memo):Out:")
     }
