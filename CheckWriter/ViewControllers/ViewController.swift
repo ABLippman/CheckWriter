@@ -77,13 +77,26 @@ class ViewController: NSViewController {
         super.viewDidAppear()
         print ("View Appeared")
         radioButtonChanged(AnyObject.self as AnyObject)
-        numberField.intValue = data.number
+        // numberField.intValue = data.number
         print (" AccountRoot is: \(prefs.accountDir)")
         manual.state = NSControl.StateValue.off
         /*
-    *  Now lets play with opening and account...
+    *  Now lets play with all accounts and set up the interface
     */
-        print ("Return from Find is: \(filer.findAccounts())")   //  Assume that window is already up...  filer will put up an alert!
+        let accountInfo:[[String]] = filer.findAccounts()
+        /*
+        *  The following is a test of loading the first account
+        *  Really should set the buttons, then load first
+        */
+        for a in accountInfo {
+        //  Filling in buttons here
+        }
+        //  Setup first account for user
+        self.view.window?.title = accountInfo[0][3]
+        balanceField.stringValue = filer.openAccount(account: accountInfo[0][0]).bal
+        print ("Sequence number string is: \(filer.openAccount(account: accountInfo[0][0]).seq)")
+        numberField.intValue = Int32((filer.openAccount(account: accountInfo[0][0]).seq as NSString).integerValue)
+        
         
     }
     

@@ -625,15 +625,10 @@
                                 <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" alignment="right" drawsBackground="YES" id="n5D-dx-wG0">
                                     <numberFormatter key="formatter" formatterBehavior="10_0" positiveFormat="0" negativeFormat="-0" hasThousandSeparators="NO" thousandSeparator="," id="FTO-ov-iIC">
                                         <attributedString key="attributedStringForZero">
-                                            <fragment content="0">
-                                                <attributes>
-                                                    <font key="NSFont" size="12" name="Helvetica"/>
-                                                    <paragraphStyle key="NSParagraphStyle" alignment="right" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
-                                                </attributes>
-                                            </fragment>
+                                            <fragment content="0"/>
                                         </attributedString>
-                                        <decimal key="minimum" value="NaN"/>
-                                        <real key="maximum" value="0.0"/>
+                                        <real key="minimum" value="0.0"/>
+                                        <real key="maximum" value="10000"/>
                                     </numberFormatter>
                                     <font key="font" metaFont="system"/>
                                     <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>

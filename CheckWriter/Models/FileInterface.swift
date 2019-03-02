@@ -65,6 +65,16 @@ class FileInterface: NSObject {
         super.init()
     }
     
+    func stripComments(_ s:[String]) -> [String]{  // Takes \n-separated arrays, removes elements starting with # or empty
+        var answer :[String] = []
+        for each in s {
+            if (each.first != "#") && (each.first != nil) {
+                answer.append(each)
+            }
+        }
+        return answer
+    }
+    
     func allowFolder() -> URL? {
         let openPanel = NSOpenPanel()
         openPanel.allowsMultipleSelection = false
@@ -106,12 +116,11 @@ class FileInterface: NSObject {
         }
         let accountEach:[String] = accountsFile.components(separatedBy: "\n")
         var f:[[String]] = []
-        for each in accountEach {
-            let e = each.components(separatedBy: ":")
-            if e.count > 2 {f.append(e)}  //  Remove empty lines in Accounts file
-            print ("Each one is: \(e), count is \(e.count)")
+        let accountFix = stripComments(accountEach)
+        for each in accountFix[...2] { // ****  up to three accounts
+            f.append(each.components(separatedBy: ":"))
         }
-        return f
+        return f  //  Returns the array of accounts with elements as an array
     }
     
     func openAccount(account a:String) -> (categories:[String],   //  Takes account number string
@@ -179,7 +188,7 @@ class FileInterface: NSObject {
     }
     
 
-    func changeAccount() {   // *****  THis is all test code to test file interface.  Does not do real work!!!
+    func changeAccount() {   // *****  THis is all test code to test file interface.  Is this used?
         let dirname = prefs.accountDir.path
         let fullname = dirname.appending(".txt")
         let fileURL = URL(string: "file://\(fullname)")
