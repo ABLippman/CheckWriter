@@ -48,21 +48,70 @@ import Cocoa
     */
 
 class FileInterface: NSObject {
+    var accounts:String = ""
     let fm = FileManager.default    // Create a file manager for all this work
-    var accountBase:URL                 //  Global for base of account files
     var account = ""                //  This is the global account number string
     var categories:[String] = ["1","2"]
     var register = "/tmp/dummyRegister"  //String.  Used to close old register then open a new one on change
     
     override init() {   //  Set up the account root directory
-        accountBase = FileManager.default.homeDirectoryForCurrentUser  // Start with User Home
         /*
         *  Code to creat account directory if it doesn't exist  NO NO
         */
-        if !fm.fileExists(atPath: prefs.accountDir) {     //  If the specified account root doesn't exists make it
+        if !fm.fileExists(atPath: prefs.accountDir.path) {     //  If the specified account root doesn't exists make it
             //  Check via alert that there is no account, create one?
+            
         }
         super.init()
+    }
+    
+    func allowFolder() -> URL? {
+        let openPanel = NSOpenPanel()
+        openPanel.allowsMultipleSelection = false
+        openPanel.canChooseDirectories = true
+        openPanel.canCreateDirectories = true
+        openPanel.canChooseFiles = false
+        if openPanel.runModal() == .OK {
+            print("OK clicked...")
+            return openPanel.url != nil ? openPanel.url :  URL.init(string: "/Users/lip/Desktop")
+        }
+        print ("Nothing selected")
+        return URL.init(string: "/Users/lip/Desktop")
+    }
+
+    func findAccounts() -> [[String]] {  // Tests that root is  accessible and finds all accounts, returns array for each acct
+        var accountsFile = ""           //  This is the file of account base info
+        var accountsAll:[String] = []
+
+        print ("finding and testing accounts")
+        do {
+            accountsFile = try NSString(contentsOfFile: prefs.accountDir.appendingPathComponent("Accounts").path,
+                                        encoding: String.Encoding.utf8.rawValue) as String
+        }
+        catch let error {
+            print ("****  Finding accounts:  Failed!\n \(error)")
+            //  Code to open Preference Panel...
+            var myWindow: NSWindow? = nil
+            let storyboard = NSStoryboard(name: NSStoryboard.Name(rawValue: "Main"),bundle: nil)
+            let controller: PrefsViewController = storyboard.instantiateController(withIdentifier: NSStoryboard.SceneIdentifier(rawValue: "andyPref")) as! PrefsViewController
+            myWindow = NSWindow(contentViewController: controller)
+            myWindow?.makeKeyAndOrderFront(self)
+            let vc = NSWindowController(window: myWindow)
+            vc.showWindow(self)
+/*
+             let url = allowFolder()
+            print("Found one: \(url!.path)")
+          prefs.accountDir = url!.path  */
+
+        }
+        let accountEach:[String] = accountsFile.components(separatedBy: "\n")
+        var f:[[String]] = []
+        for each in accountEach {
+            let e = each.components(separatedBy: ":")
+            if e.count > 2 {f.append(e)}  //  Remove empty lines in Accounts file
+            print ("Each one is: \(e), count is \(e.count)")
+        }
+        return f
     }
     
     func openAccount(account a:String) -> (categories:[String],   //  Takes account number string
@@ -77,7 +126,7 @@ class FileInterface: NSObject {
             *  i.e., the account base + the account number
             *  Returns all the information needed to write checks
             */
-            let pathURL =  accountBase.appendingPathComponent(prefs.accountDir).appendingPathComponent(a)
+            let pathURL =  prefs.accountDir.appendingPathComponent(a)
             let balURL = pathURL.appendingPathExtension("bal")
             let seqURL = pathURL.appendingPathExtension("seq")
             let catURL = pathURL.appendingPathExtension("cat")
@@ -118,7 +167,7 @@ class FileInterface: NSObject {
 
         let rData = (r as NSString).data(using: String.Encoding.utf8.rawValue)
         
-        let pathURL =  accountBase.appendingPathComponent(prefs.accountDir).appendingPathComponent(a).appendingPathExtension("reg")
+        let pathURL =  prefs.accountDir.appendingPathComponent(a).appendingPathExtension("reg")
         do { let handleWrite2 = try FileHandle(forWritingTo:pathURL) as FileHandle?
             handleWrite2!.seekToEndOfFile()  // This is for appending
             handleWrite2!.write(rData!)   //  This should append the data.
@@ -131,7 +180,7 @@ class FileInterface: NSObject {
     
 
     func changeAccount() {   // *****  THis is all test code to test file interface.  Does not do real work!!!
-        let dirname = NSString(string: prefs.accountDir).expandingTildeInPath
+        let dirname = prefs.accountDir.path
         let fullname = dirname.appending(".txt")
         let fileURL = URL(string: "file://\(fullname)")
         print ("Account is:  \(String(describing: fileURL))")
@@ -149,7 +198,6 @@ class FileInterface: NSObject {
         let cat = ".cat"
         //  Following is to be filled in by app.  These are tests
         let currentAccount = "16641301"
-        let accountBase = "~lip/tmp"
         var balance = 123.45
         var balanceString = String(format: "%10.2f", balance)
         print (balanceString)

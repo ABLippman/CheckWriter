@@ -83,7 +83,8 @@ class ViewController: NSViewController {
         /*
     *  Now lets play with opening and account...
     */
-        print ("Result of opening account: \(filer.openAccount(account: "16641301").auto)")
+        print ("Return from Find is: \(filer.findAccounts())")   //  Assume that window is already up...  filer will put up an alert!
+        
     }
     
     override var representedObject: Any? {

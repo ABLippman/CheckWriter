@@ -12,10 +12,12 @@
 
 import Foundation
 class Preferences {
+    
+
     var printer:String {
         get {
             let defaultPrinter = UserDefaults.standard.string(forKey: "printer")
-            if (defaultPrinter) != "" {
+            if (defaultPrinter) != nil {
                 return defaultPrinter!}
             return "Lip_Upstairs"
         
@@ -24,17 +26,18 @@ class Preferences {
             UserDefaults.standard.set(newValue, forKey: "printer")
         }
     }
-    var accountDir:String {
+    var accountDir:URL {  //  Changed accountDir to a URL.  Fix throughout fileManager
         get {
             let defaultAccount = UserDefaults.standard.string(forKey: "account")
-            if (defaultAccount) != "" {
-                return defaultAccount!
+            if (defaultAccount) != nil {
+                return URL.init(fileURLWithPath:defaultAccount!)
             }
-            return "~/tmp"
+            return URL.init(fileURLWithPath: "~/tmp")
         }
         set {
             UserDefaults.standard.set(newValue, forKey: "account")
         }
     }
+
     
 }

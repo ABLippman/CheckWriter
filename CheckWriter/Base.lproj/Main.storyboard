@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="13771" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" initialViewController="B8D-0N-5wS">
+<document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="13771" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" initialViewController="XfG-lQ-9wD">
     <dependencies>
         <deployment identifier="macosx"/>
         <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="13771"/>
@@ -734,7 +734,7 @@
         <!--Prefs View Controller-->
         <scene sceneID="Nzn-sZ-zGD">
             <objects>
-                <viewController id="xU8-YW-5ps" customClass="PrefsViewController" customModule="CheckWriter" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController identifier="andyPref" storyboardIdentifier="andyPref" showSeguePresentationStyle="single" id="xU8-YW-5ps" customClass="PrefsViewController" customModule="CheckWriter" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" id="g91-Pr-Rf2">
                         <rect key="frame" x="0.0" y="0.0" width="416" height="214"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -777,7 +777,7 @@ Gw
                                 </textFieldCell>
                             </textField>
                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="YkU-o0-lzU">
-                                <rect key="frame" x="32" y="161" width="139" height="17"/>
+                                <rect key="frame" x="-21" y="161" width="139" height="17"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="Account Location" id="Zkh-45-Wm2">
                                     <font key="font" metaFont="system"/>
@@ -795,7 +795,7 @@ Gw
                                 </textFieldCell>
                             </textField>
                             <textField verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="3V9-so-OA8">
-                                <rect key="frame" x="187" y="158" width="180" height="22"/>
+                                <rect key="frame" x="124" y="158" width="150" height="22"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" drawsBackground="YES" id="QlX-qI-Yq7">
                                     <font key="font" metaFont="system"/>
@@ -803,6 +803,17 @@ Gw
                                     <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                 </textFieldCell>
                             </textField>
+                            <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="OYk-qf-XTJ">
+                                <rect key="frame" x="289" y="152" width="87" height="32"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <buttonCell key="cell" type="push" title="Change" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="eqQ-ji-rZs">
+                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                    <font key="font" metaFont="system"/>
+                                </buttonCell>
+                                <connections>
+                                    <action selector="changeRoot:" target="xU8-YW-5ps" id="04w-L9-eKn"/>
+                                </connections>
+                            </button>
                         </subviews>
                     </view>
                     <connections>

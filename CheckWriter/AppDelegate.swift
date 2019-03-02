@@ -34,8 +34,6 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 
         
         //  Preferences go here?
-        print (filer.categories)
-        filer.changeAccount()  // Initially set up an account  MAY CHANGE to OPENACCOUNT...
         print("Startup... Printer is \(prefs.printer)")
     }
 
