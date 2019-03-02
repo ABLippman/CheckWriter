@@ -40,7 +40,7 @@ class ViewController: NSViewController {
     @IBOutlet weak var toField: NSTextField!
     @IBOutlet weak var memoField: NSTextField!
     @IBOutlet weak var balanceField: NSTextField!
-    @IBOutlet weak var numberField: NSTextField!
+    @IBOutlet weak var numberField: NSTextField!  //  Wants to be an int or unpolluted string, no \n
     @IBOutlet weak var categoryPopup: NSPopUpButton!
     @IBOutlet weak var updateChosen: NSButton!
     @IBOutlet weak var printChosen: NSButton!
@@ -82,6 +82,8 @@ class ViewController: NSViewController {
         manual.state = NSControl.StateValue.off
         /*
     *  Now lets play with all accounts and set up the interface
+    *   NOTE that we use the interface elements to shift between strings and ints/floats
+    *   which means the data has to be convertible:  no \n's in the file
     */
         let accountInfo:[[String]] = filer.findAccounts()
         /*
@@ -91,13 +93,11 @@ class ViewController: NSViewController {
         for a in accountInfo {
         //  Filling in buttons here
         }
-        //  Setup first account for user
+        //  Setup first account for user in accounts file
         self.view.window?.title = accountInfo[0][3]
         balanceField.stringValue = filer.openAccount(account: accountInfo[0][0]).bal
-        print ("Sequence number string is: \(filer.openAccount(account: accountInfo[0][0]).seq)")
-        numberField.intValue = Int32((filer.openAccount(account: accountInfo[0][0]).seq as NSString).integerValue)
-        
-        
+        numberField.stringValue = filer.openAccount(account: accountInfo[0][0]).seq  //  OK iof seq file has no \n ending
+
     }
     
     override var representedObject: Any? {
@@ -144,8 +144,8 @@ class ViewController: NSViewController {
     }
     
     func setBalanceField() {
-        //  Dirty code in that it talk directly to interface
-        balanceField.floatValue = register.updateBalance(amt: balanceField.floatValue)
+        //  Dirty code in that it talks directly to interface
+        balanceField.floatValue = balanceField.floatValue - amountField.floatValue  
         if balanceField.floatValue < 0.0 {
             balanceField.backgroundColor = NSColor.red
         }
@@ -193,13 +193,14 @@ class ViewController: NSViewController {
             check.payee = toField.stringValue
             check.memo = memoField.stringValue
             check.cat = (categoryPopup.selectedItem?.title)!
-            filer.registerCheck(account: "16641301", checkData:check)  //  Need to fix for accounts!!!
+            filer.registerCheck(account: "16641301", checkData:check)  //  Need to fix for accounts and lose checks!!!
             //  Finish update details:  Update seq and bal only when registering a check
             if sequenceButton != nil {
                 var n:Int32 = numberField.intValue
-                n = n + 1
+                n += 1
                 numberField.intValue = n
             }
+            filer.registerBalance(balanceField.floatValue)
             self.setBalanceField()
         }
 

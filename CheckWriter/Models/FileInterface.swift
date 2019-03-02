@@ -185,8 +185,12 @@ class FileInterface: NSObject {
             print("Register Error: \(error)")
             
         }
+        
     }
     
+    func registerBalance (_ b:Float) {
+        do { print ("Have to update the balance here!!!") }
+    }
 
     func changeAccount() {   // *****  THis is all test code to test file interface.  Is this used?
         let dirname = prefs.accountDir.path
