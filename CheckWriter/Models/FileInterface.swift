@@ -45,6 +45,8 @@ import Cocoa
     *
     *  At some future time, we may add the ability to add categories...
     *
+    *  No need to close accounts.  All file I/O closes when done
+    *
     */
 
 class FileInterface: NSObject {
@@ -75,7 +77,7 @@ class FileInterface: NSObject {
         return answer
     }
     
-    func allowFolder() -> URL? {
+    func allowFolder() -> URL? {  // get URL of account root via OpenPanel
         let openPanel = NSOpenPanel()
         openPanel.allowsMultipleSelection = false
         openPanel.canChooseDirectories = true
@@ -91,10 +93,8 @@ class FileInterface: NSObject {
 
     func findAccounts() -> [[String]] {  // Tests that root is  accessible and finds all accounts, returns array for each acct
         var accountsFile = ""           //  This is the file of account base info
-        var accountsAll:[String] = []
-
         print ("finding and testing accounts")
-        do {
+        do {  //  "Accounts"  has the list of accounts and names for them
             accountsFile = try NSString(contentsOfFile: prefs.accountDir.appendingPathComponent("Accounts").path,
                                         encoding: String.Encoding.utf8.rawValue) as String
         }
@@ -117,10 +117,124 @@ class FileInterface: NSObject {
         let accountEach:[String] = accountsFile.components(separatedBy: "\n")
         var f:[[String]] = []
         let accountFix = stripComments(accountEach)
-        for each in accountFix[...2] { // ****  up to three accounts
+        
+        print ("Number of Accounts is: \(accountFix.count)")
+        for each in accountFix[0..<accountFix.count] { // ****  up to three accounts
             f.append(each.components(separatedBy: ":"))
         }
         return f  //  Returns the array of accounts with elements as an array
+    }
+    
+    /*  New funcs to separate bal, seq, cat, eba, and aut.  A call for each
+    *   with an account number.  Global root should be set.
+    */
+    
+
+    func balance(account a:String, balance b:String? = nil) -> String? {   //  Uses optional second argument
+        let pathURL =  prefs.accountDir.appendingPathComponent(a).appendingPathExtension("bal")
+        if b != nil{  //  unwrap with optional...
+            do { try b!.write(to: pathURL, atomically: false, encoding: .utf8) }
+            catch let error { print ("File didn't open \(error)") }
+            return nil
+        }
+        var bal = ""
+        do {
+            bal = try NSString(contentsOfFile: pathURL.path,
+                               encoding: String.Encoding.utf8.rawValue) as String //  Uses NSString and string path, not URL
+        } catch let error {
+            print ("File didn't open \(error)")
+        }
+        return bal
+    }
+    
+    func seq(account a:String) -> String {   //Fetch Sequence
+        let pathURL =  prefs.accountDir.appendingPathComponent(a).appendingPathExtension("seq")
+        var seq = ""
+        do {
+            seq = try NSString(contentsOfFile: pathURL.path,
+                               encoding: String.Encoding.utf8.rawValue) as String //  Uses NSString and string path, not URL
+        } catch let error {
+            print ("File didn't open \(error)")
+        }
+        return seq
+    }
+    func updateSeq(account a:String, sequence b:String) {
+        let pathURL =  prefs.accountDir.appendingPathComponent(a).appendingPathExtension("seq")
+        do { try b.write(to: pathURL, atomically: false, encoding: .utf8) }
+        catch let error {
+            print ("File didn't open \(error)")
+        }
+    }
+
+    func cat(account a:String) -> [String] {
+        let pathURL =  prefs.accountDir.appendingPathComponent(a).appendingPathExtension("cat")
+        var cats: [String] = []
+        do {
+            let tmp = try NSString(contentsOfFile: pathURL.path,
+                                   encoding: String.Encoding.utf8.rawValue) as String //  Uses NSString and string path, not URL
+            cats = tmp.components(separatedBy: "\n")
+            cats = stripComments(cats)
+        } catch let error {
+            print ("File didn't open \(error)")
+        }
+        return cats
+    }
+    
+    func eba(account a:String) -> [[String]] {
+        let pathURL =  prefs.accountDir.appendingPathComponent(a).appendingPathExtension("eba")
+        var tmp: String = ""
+        var ebas: [String] = []
+        var ebasArray:[[String]] = []
+        do {
+            tmp = try NSString(contentsOfFile: pathURL.path,
+                                   encoding: String.Encoding.utf8.rawValue) as String //  Uses NSString and string path, not URL
+            ebas = stripComments(tmp.components(separatedBy: "\n"))  //  ****Check strip first or after
+//            ebas = stripComments(ebas)
+        } catch let error {
+            print ("File didn't open \(error)")
+        }
+        for each in ebas {
+        ebasArray.append(each.components(separatedBy: ":"))
+        }
+        return ebasArray
+    }
+    
+    func aut(account a:String) -> [[String]] {
+        let pathURL =  prefs.accountDir.appendingPathComponent(a).appendingPathExtension("aut")
+        var tmp: String = ""
+        var auts: [String] = []
+        var autsArray:[[String]] = []
+        do {
+            tmp = try NSString(contentsOfFile: pathURL.path,
+                               encoding: String.Encoding.utf8.rawValue) as String //  Uses NSString and string path, not URL
+            auts = stripComments(tmp.components(separatedBy: "\n"))  //  ****Check strip first or after
+            //            auts = stripComments(ebas)
+        } catch let error {
+            print ("File didn't open \(error)")
+        }
+        for each in auts {
+            autsArray.append(each.components(separatedBy: ":"))
+        }
+        return autsArray
+    }
+    
+
+    func registerCheck(account a:String, checkData d:Check) {
+        let serialNumber: NSDate = NSDate() // new serialization date each time MOVE to File Interface
+        let amountString = String(format: "%7.2f", d.amount)
+        //        let r = ("\(d.date):\(Int (serialNumber.timeIntervalSince1970)):\(d.amount):\(d.payee):\(d.cat):\(d.memo):Out:\n")
+        let r = ("\(d.date):\(Int (serialNumber.timeIntervalSince1970)):\(amountString):\(d.payee):\(d.cat):\(d.memo):Out:\n")
+        
+        let rData = (r as NSString).data(using: String.Encoding.utf8.rawValue)
+        
+        let pathURL =  prefs.accountDir.appendingPathComponent(a).appendingPathExtension("reg")
+        do { let handleWrite2 = try FileHandle(forWritingTo:pathURL) as FileHandle?
+            handleWrite2!.seekToEndOfFile()  // This is for appending
+            handleWrite2!.write(rData!)   //  This should append the data.
+            handleWrite2!.closeFile()
+        } catch let error {
+            print("Register Error: \(error)")
+        }
     }
     
     func openAccount(account a:String) -> (categories:[String],   //  Takes account number string
@@ -168,25 +282,7 @@ class FileInterface: NSObject {
             return (categories, auto, eba, seq, bal)
         }
     
-    func registerCheck(account a:String, checkData d:Check) {
-        let serialNumber: NSDate = NSDate() // new serialization date each time MOVE to File Interface
-        let amountString = String(format: "%7.2f", d.amount)
-//        let r = ("\(d.date):\(Int (serialNumber.timeIntervalSince1970)):\(d.amount):\(d.payee):\(d.cat):\(d.memo):Out:\n")
-        let r = ("\(d.date):\(Int (serialNumber.timeIntervalSince1970)):\(amountString):\(d.payee):\(d.cat):\(d.memo):Out:\n")
 
-        let rData = (r as NSString).data(using: String.Encoding.utf8.rawValue)
-        
-        let pathURL =  prefs.accountDir.appendingPathComponent(a).appendingPathExtension("reg")
-        do { let handleWrite2 = try FileHandle(forWritingTo:pathURL) as FileHandle?
-            handleWrite2!.seekToEndOfFile()  // This is for appending
-            handleWrite2!.write(rData!)   //  This should append the data.
-            handleWrite2!.closeFile()
-        } catch let error {
-            print("Register Error: \(error)")
-            
-        }
-        
-    }
     
     func registerBalance (_ b:Float) {
         do { print ("Have to update the balance here!!!") }

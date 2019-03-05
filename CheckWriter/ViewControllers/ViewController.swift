@@ -18,10 +18,7 @@ import Cocoa
 extension ViewController {
     
   //  Insert notification code here
- 
- // MARK: - Preferences
-    
-    func setupPrefs() {        
+    func setupPrefs() {
         let notificationName = Notification.Name(rawValue: "PrefsChanged")
         NotificationCenter.default.addObserver(forName: notificationName,
                                                object: nil, queue: nil) {
@@ -29,8 +26,6 @@ extension ViewController {
                                                 self.updateFromPrefs()
         }
     }
-    
-    
 }
 
 class ViewController: NSViewController {
@@ -47,57 +42,49 @@ class ViewController: NSViewController {
     @IBOutlet weak var sequenceButton: NSButton!
     @IBOutlet weak var doIt: NSButton!
     @IBOutlet weak var manual: NSButton!
+    @IBOutlet weak var accountPulldown: NSPopUpButton!
     
     
-    @IBOutlet weak var jointAccount: NSButton!
-    @IBOutlet weak var andyAccount: NSButton!
-    @IBOutlet weak var llcAccount: NSButton!
+
     var prefs = Preferences()
-   
     let today:Date = Date()
     var registerDate:String = ""
     var todayString = ""
     var categoryChosen:Bool = false
     var moneyMaker: MoneyMaker = MoneyMaker()
     let appDelegate = NSApplication.shared.delegate as! AppDelegate  // We now have a reference to the app delegate...
-
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        
-        // Do any additional setup after loading the view.
-        setDate()  //And display it in dateField
-        print ("View did load")
-        data.categories.forEach {entry in
-            categoryPopup.addItem(withTitle:entry)
+    var accountInfo:[[String]] = []  // Global for the array of account arrays
+    
+    func initializeInterfaceForAccounts() {
+        //  Uses Global Accounts array of arrays, fills in acccounts Pulldown
+        accountInfo = filer.findAccounts()
+        for  i in 0..<accountInfo.count {
+            accountPulldown.addItem(withTitle: accountInfo[i][3])
         }
-        self.setupPrefs()
     }
     
+    func initializeAccount (account a:[String]){    //  Fill in the title, Balance, seq, and cats for an account
+        self.view.window?.title = a[3]
+        balanceField.stringValue = filer.balance(account: a[0])!
+        self.colorBalanceField()
+        numberField.stringValue = filer.seq(account: a[0])
+        for i in 0..<filer.cat(account: a[0]).count {
+            categoryPopup.addItem(withTitle: filer.cat(account: a[0])[i])
+        }
+    }
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        setDate()  //  ****  Should be Duplicated in issue check.  Set Date then, and at launch
+        setupPrefs()
+    }
+
     override func viewDidAppear() { // This occurs later than the load...
         super.viewDidAppear()
-        print ("View Appeared")
-        radioButtonChanged(AnyObject.self as AnyObject)
-        // numberField.intValue = data.number
         print (" AccountRoot is: \(prefs.accountDir)")
         manual.state = NSControl.StateValue.off
-        /*
-    *  Now lets play with all accounts and set up the interface
-    *   NOTE that we use the interface elements to shift between strings and ints/floats
-    *   which means the data has to be convertible:  no \n's in the file
-    */
-        let accountInfo:[[String]] = filer.findAccounts()
-        /*
-        *  The following is a test of loading the first account
-        *  Really should set the buttons, then load first
-        */
-        for a in accountInfo {
-        //  Filling in buttons here
-        }
-        //  Setup first account for user in accounts file
-        self.view.window?.title = accountInfo[0][3]
-        balanceField.stringValue = filer.openAccount(account: accountInfo[0][0]).bal
-        numberField.stringValue = filer.openAccount(account: accountInfo[0][0]).seq  //  OK iof seq file has no \n ending
-
+        initializeInterfaceForAccounts()
+        initializeAccount(account: accountInfo[0]) //  Use first account in accounts file
     }
     
     override var representedObject: Any? {
@@ -107,21 +94,16 @@ class ViewController: NSViewController {
         }
     }
     
-    //  Make radio buttons group action
-    @IBAction func radioButtonChanged(_ sender: AnyObject) {
+    @IBAction func accountPulldownChanged(_ sender: AnyObject) {
         print("Account Changed")
-        if jointAccount.state == NSControl.StateValue.on {
-            print ("Joint Account Chosen")
-            self.view.window?.title = "CheckWriter: Joint Account"
+        //  THis is now hard.  Have to get the array, not just the number
+        //  Iterate through the accounts until the number matches the pulldown title
+        for i in 0..<accountInfo.count {
+            if accountInfo[i][3] == accountPulldown.titleOfSelectedItem {
+                initializeAccount(account: accountInfo[i])
+            }
         }
-        else if andyAccount.state == NSControl.StateValue.on {
-            print ("Andy account selected")
-            self.view.window?.title = "CheckWriter: Andy's Account"
-        }
-        else if llcAccount.state == NSControl.StateValue.on {
-            print ("LLC Account selected")
-            self.view.window?.title = "CheckWriter: LLC Account"
-        }
+
     }
     
     
@@ -143,9 +125,8 @@ class ViewController: NSViewController {
         categoryChosen = true
     }
     
-    func setBalanceField() {
+    func colorBalanceField() {
         //  Dirty code in that it talks directly to interface
-        balanceField.floatValue = balanceField.floatValue - amountField.floatValue  
         if balanceField.floatValue < 0.0 {
             balanceField.backgroundColor = NSColor.red
         }
@@ -171,24 +152,8 @@ class ViewController: NSViewController {
             if !answer { return }
         }
         
-        /*  Change this to use the FileInterface (filer).  There is no need for Register  */
-/*
         if updateChosen.state == NSControl.StateValue.on {
-            print ("Update button: \(updateChosen)")
-            register.amount = amountField.floatValue
-            register.date = registerDate
-            register.payee = toField.stringValue
-            register.memo = memoField.stringValue
-            register.cat = (categoryPopup.selectedItem?.title)!
-            register.storeRegisteredCheck()  // Now we have to write this to a file. Perhaps via ObjC intermediary
-            self.setBalanceField()   // put outseide to change colors
-            if sequenceButton != nil {
-                numberField.intValue = register.updateSequence(num: numberField.intValue)
-            }
-        }
-   */
-        if updateChosen.state == NSControl.StateValue.on {
-            check.amount = amountField.doubleValue
+            check.amount = amountField.floatValue
             check.date = registerDate
             check.payee = toField.stringValue
             check.memo = memoField.stringValue
@@ -196,12 +161,12 @@ class ViewController: NSViewController {
             filer.registerCheck(account: "16641301", checkData:check)  //  Need to fix for accounts and lose checks!!!
             //  Finish update details:  Update seq and bal only when registering a check
             if sequenceButton != nil {
-                var n:Int32 = numberField.intValue
-                n += 1
-                numberField.intValue = n
+                numberField.intValue += 1
+                filer.updateSeq(account: "16641301", sequence: numberField.stringValue)  // This is correct for new FileInterface
             }
-            filer.registerBalance(balanceField.floatValue)
-            self.setBalanceField()
+            balanceField.floatValue -= amountField.floatValue
+            _ = filer.balance(account: "16641301", balance: balanceField.stringValue)  //  Result is unused
+            self.colorBalanceField()
         }
 
         
