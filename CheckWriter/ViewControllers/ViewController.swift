@@ -73,6 +73,22 @@ class ViewController: NSViewController {
         }
     }
     
+    func colorBalanceField() {
+        //  Dirty code in that it talks directly to interface
+        if balanceField.floatValue < 0.0 {
+            balanceField.backgroundColor = NSColor.red
+        }
+        else {
+            balanceField.backgroundColor = NSColor.green.withAlphaComponent(0.999)
+        }
+    }
+    
+    func fixRegisterText(_ s:String) -> String {
+        var q = ""
+        for char in s { char == ":" ? q.append("-") : q.append(char)}
+        return q
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         setDate()  //  ****  Should be Duplicated in issue check.  Set Date then, and at launch
@@ -86,13 +102,15 @@ class ViewController: NSViewController {
         initializeInterfaceForAccounts()
         initializeAccount(account: accountInfo[0]) //  Use first account in accounts file
     }
-    
+
+    /*  WHy do we need this???
     override var representedObject: Any? {
         didSet {
             // Update the view, if already loaded.
             print ("Represented Object")  // No idea about this
         }
     }
+    */
     
     @IBAction func accountPulldownChanged(_ sender: AnyObject) {
         print("Account Changed")
@@ -103,38 +121,25 @@ class ViewController: NSViewController {
                 initializeAccount(account: accountInfo[i])
             }
         }
-
     }
-    
     
     @IBAction func amountEntered(_ sender: Any) {
         output.stringValue = moneyMaker.makeMoney(amountField.stringValue)
     }
     
     @IBAction func toEntered(_ sender: Any) {
+        toField.stringValue = fixRegisterText(toField.stringValue)
     }
     
     @IBAction func memoEntered(_ sender: Any) {
-        var q = ""
-        for char in memoField.stringValue { char == ":" ? q.append("-") : q.append(char)}
-        print (q)
-        memoField.stringValue = q
+        memoField.stringValue = fixRegisterText(memoField.stringValue)
     }
     
     @IBAction func setCategoryChosen(_ sender: NSPopUpButton) {
         categoryChosen = true
     }
     
-    func colorBalanceField() {
-        //  Dirty code in that it talks directly to interface
-        if balanceField.floatValue < 0.0 {
-            balanceField.backgroundColor = NSColor.red
-        }
-        else {
-            balanceField.backgroundColor = NSColor.green.withAlphaComponent(0.999)
-        }
-    }
-    
+
     @IBAction func issueCheck(_ sender: Any) {
         
         /*  Main routine
