@@ -55,6 +55,17 @@ class ViewController: NSViewController {
     let appDelegate = NSApplication.shared.delegate as! AppDelegate  // We now have a reference to the app delegate...
     var accountInfo:[[String]] = []  // Global for the array of account arrays
     
+    func setDate() {
+        let dateFormatter = DateFormatter()
+        let shortDate = DateFormatter()
+        _ = dateFormatter.dateFormat = "d MMMM, yyyy"
+        _ = shortDate.dateFormat = "d MMM yyyy"
+        
+        todayString = dateFormatter.string(from: today)
+        registerDate = shortDate.string(from: today)
+        dateField.stringValue = todayString;
+    }
+    
     func initializeInterfaceForAccounts() {
         //  Uses Global Accounts array of arrays, fills in acccounts Pulldown
         accountInfo = filer.findAccounts()
@@ -87,6 +98,20 @@ class ViewController: NSViewController {
         var q = ""
         for char in s { char == ":" ? q.append("-") : q.append(char)}
         return q
+    }
+    
+    func alertOKCancel(question: String, text: String) -> Bool {
+        let alert = NSAlert()
+        alert.messageText = question
+        alert.informativeText = text
+        alert.alertStyle = .warning
+        alert.addButton(withTitle: "Proceed")
+        alert.addButton(withTitle: "Fix")
+        return alert.runModal() == .alertFirstButtonReturn
+    }
+    
+    func updateFromPrefs() {  // does nothing now, should if account base changes...
+        print("Got the Preference notification")
     }
     
     override func viewDidLoad() {
@@ -138,7 +163,6 @@ class ViewController: NSViewController {
     @IBAction func setCategoryChosen(_ sender: NSPopUpButton) {
         categoryChosen = true
     }
-    
 
     @IBAction func issueCheck(_ sender: Any) {
         
@@ -148,7 +172,7 @@ class ViewController: NSViewController {
          */
         //  Currently bypasses Check structure, is there a need for it?
         
-
+        self.setDate()  //  Why not reset the date in case it runs overnight...
         if categoryChosen {
             register.cat = (categoryPopup.selectedItem?.title)!
         }
@@ -158,6 +182,7 @@ class ViewController: NSViewController {
         }
         
         if updateChosen.state == NSControl.StateValue.on {
+            check.seq = numberField.integerValue
             check.amount = amountField.floatValue
             check.date = registerDate
             check.payee = toField.stringValue
@@ -197,31 +222,7 @@ class ViewController: NSViewController {
         print(masterAppName)
     }
    
-    func setDate() {
-        let dateFormatter = DateFormatter()
-        let shortDate = DateFormatter()
-        _ = dateFormatter.dateFormat = "d MMMM, yyyy"
-        _ = shortDate.dateFormat = "d MMM yyyy"
-        
-        todayString = dateFormatter.string(from: today)
-        registerDate = shortDate.string(from: today)
-        dateField.stringValue = todayString;
-    }
-    
-    func alertOKCancel(question: String, text: String) -> Bool {
-        let alert = NSAlert()
-        alert.messageText = question
-        alert.informativeText = text
-        alert.alertStyle = .warning
-        alert.addButton(withTitle: "Proceed")
-        alert.addButton(withTitle: "Fix")
-        return alert.runModal() == .alertFirstButtonReturn
-    }
-    
-    func updateFromPrefs() {  // does nothing now, should if account base changes...
-        print("Got the Preference notification")
-    }
-    
+
 }
 
 

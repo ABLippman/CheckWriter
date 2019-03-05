@@ -8,6 +8,7 @@
 
 import Foundation
 class Check {  // playing with struct rather than class for value-based rather than reference-based
+    var seq:Int = 1
     var amount:Float = 00.0
     var date = "today"
     var payee = "Nobody"
@@ -16,6 +17,6 @@ class Check {  // playing with struct rather than class for value-based rather t
     var amountWords = "No Dollars"
     
     func printData() {
-        Swift.print ("Printed check: \(check.date):\(check.amount):\(amountWords):\(check.payee):\(check.cat):\(check.memo)")
+        Swift.print ("Printed check: \(check.seq):\(check.date):\(check.amount):\(amountWords):\(check.payee):\(check.cat):\(check.memo)")
     }
 }
