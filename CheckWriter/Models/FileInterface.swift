@@ -237,6 +237,24 @@ class FileInterface: NSObject {
         }
     }
     
+    func registerDeposit(account a:String, checkData d:Check) {
+        let serialNumber: NSDate = NSDate() // new serialization date each time MOVE to File Interface
+        let amountString = String(format: "%7.2f", d.amount)
+        //        let r = ("\(d.date):\(Int (serialNumber.timeIntervalSince1970)):\(d.amount):\(d.payee):\(d.cat):\(d.memo):Out:\n")
+        let r = ("\(check.seq):\(d.date):\(Int (serialNumber.timeIntervalSince1970)):\(amountString):\(d.payee):\(d.cat):\(d.memo):Out:\n")
+        
+        let rData = (r as NSString).data(using: String.Encoding.utf8.rawValue)
+        
+        let pathURL =  prefs.accountDir.appendingPathComponent(a).appendingPathExtension("reg")
+        do { let handleWrite2 = try FileHandle(forWritingTo:pathURL) as FileHandle?
+            handleWrite2!.seekToEndOfFile()  // This is for appending
+            handleWrite2!.write(rData!)   //  This should append the data.
+            handleWrite2!.closeFile()
+        } catch let error {
+            print("Register Error: \(error)")
+        }
+    }
+    
     func openAccount(account a:String) -> (categories:[String],   //  Takes account number string
         auto:[String],
         eba:[String],

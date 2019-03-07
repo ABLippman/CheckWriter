@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		36168CAB2231D4D700E49A33 /* common.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36168CAA2231D4D700E49A33 /* common.swift */; };
 		363A9CCB21FC95330039703D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 363A9CCA21FC95330039703D /* AppDelegate.swift */; };
 		363A9CCD21FC95330039703D /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 363A9CCC21FC95330039703D /* ViewController.swift */; };
 		363A9CCF21FC95330039703D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 363A9CCE21FC95330039703D /* Assets.xcassets */; };
@@ -24,6 +25,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		36168CAA2231D4D700E49A33 /* common.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = common.swift; sourceTree = "<group>"; };
 		363A9CC721FC95330039703D /* CheckWriter.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CheckWriter.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		363A9CCA21FC95330039703D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		363A9CCC21FC95330039703D /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -95,6 +97,7 @@
 		3697149921FE110F002D7D67 /* Money */ = {
 			isa = PBXGroup;
 			children = (
+				36168CAA2231D4D700E49A33 /* common.swift */,
 				363A9CDC21FC95B90039703D /* money.c */,
 				363A9CDE21FC95BA0039703D /* money.h */,
 				363A9CDB21FC95B90039703D /* MoneyMaker.h */,
@@ -219,6 +222,7 @@
 				36404E2621FD043000DB38AA /* Check.swift in Sources */,
 				363A9CCB21FC95330039703D /* AppDelegate.swift in Sources */,
 				363A9CE021FC95BA0039703D /* MoneyMaker.m in Sources */,
+				36168CAB2231D4D700E49A33 /* common.swift in Sources */,
 				36D22A5F22065DE4005C9E66 /* FileInterface.swift in Sources */,
 				3697149E21FE16BC002D7D67 /* Preferences.swift in Sources */,
 				3697149821FE0546002D7D67 /* PrefsViewController.swift in Sources */,

@@ -369,7 +369,7 @@
                 <customObject id="YLy-65-1bz" customClass="NSFontManager"/>
                 <customObject id="Ady-hI-5gd" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-98" y="1058"/>
+            <point key="canvasLocation" x="-354" y="780"/>
         </scene>
         <!--Window Controller-->
         <scene sceneID="R2V-B0-nI4">
@@ -391,12 +391,12 @@
                 </windowController>
                 <customObject id="Oky-zY-oP4" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="75" y="250"/>
+            <point key="canvasLocation" x="72" y="300"/>
         </scene>
         <!--View Controller-->
         <scene sceneID="hIz-AP-VOD">
             <objects>
-                <viewController id="XfG-lQ-9wD" customClass="ViewController" customModule="CheckWriter" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController identifier="mainCheckView" storyboardIdentifier="mainCheckView" showSeguePresentationStyle="single" id="XfG-lQ-9wD" customClass="ViewController" customModule="CheckWriter" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" wantsLayer="YES" id="62z-tA-CIg">
                         <rect key="frame" x="0.0" y="0.0" width="721" height="380"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -681,12 +681,12 @@
                 </viewController>
                 <customObject id="rPt-NT-nkU" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="292.5" y="782"/>
+            <point key="canvasLocation" x="301" y="827"/>
         </scene>
         <!--Window Controller-->
         <scene sceneID="QK8-Jb-bdc">
             <objects>
-                <windowController id="lxC-xP-h5i" sceneMemberID="viewController">
+                <windowController showSeguePresentationStyle="single" id="lxC-xP-h5i" sceneMemberID="viewController">
                     <window key="window" title="Window" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" oneShot="NO" releasedWhenClosed="NO" showsToolbarButton="NO" visibleAtLaunch="NO" frameAutosaveName="" animationBehavior="default" id="Mzj-pw-bGX">
                         <windowStyleMask key="styleMask" titled="YES" closable="YES"/>
                         <rect key="contentRect" x="425" y="461" width="416" height="214"/>
@@ -800,7 +800,7 @@ Gw
         <!--Window Controller-->
         <scene sceneID="J09-77-YIY">
             <objects>
-                <windowController id="huN-uN-3JU" sceneMemberID="viewController">
+                <windowController showSeguePresentationStyle="single" id="huN-uN-3JU" sceneMemberID="viewController">
                     <window key="window" title="Enter Deposit" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" oneShot="NO" releasedWhenClosed="NO" showsToolbarButton="NO" visibleAtLaunch="NO" frameAutosaveName="" animationBehavior="default" id="sUd-8p-CC5">
                         <windowStyleMask key="styleMask" titled="YES" closable="YES"/>
                         <windowPositionMask key="initialPositionMask" leftStrut="YES" topStrut="YES" bottomStrut="YES"/>
@@ -816,12 +816,12 @@ Gw
                 </windowController>
                 <customObject id="B3I-YZ-mG7" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="400" y="1274.5"/>
+            <point key="canvasLocation" x="221" y="1347"/>
         </scene>
         <!--Enter Deposit-->
         <scene sceneID="ucd-di-ktM">
             <objects>
-                <viewController title="Enter Deposit" id="tr1-vE-Abc" customClass="DepositController" customModule="CheckWriter" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController title="Enter Deposit" showSeguePresentationStyle="single" id="tr1-vE-Abc" customClass="DepositController" customModule="CheckWriter" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" id="GmS-PO-0Wi">
                         <rect key="frame" x="0.0" y="0.0" width="480" height="220"/>
                         <autoresizingMask key="autoresizingMask"/>

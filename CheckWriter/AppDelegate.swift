@@ -20,7 +20,7 @@ let prefs = Preferences()  //  Instantiate preferences GLOBAL
 let filer = FileInterface()  // Instantiate file Manager GLOBAL
 let printACheck:LipScrollView = LipScrollView.init(frame: NSMakeRect(0, 0, (8.0*72), (10.5*72))) //  Creates the check printing view with appropriate frame size. MARGINS!!!
 var currentAccount = "16641301"
-
+var myCheckController:ViewController? = nil   //  Trying to do it via a global
 
 @NSApplicationMain
 class AppDelegate: NSObject, NSApplicationDelegate {

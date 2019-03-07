@@ -55,6 +55,7 @@ class ViewController: NSViewController {
     let appDelegate = NSApplication.shared.delegate as! AppDelegate  // We now have a reference to the app delegate...
     var accountInfo:[[String]] = []  // Global for the array of account arrays
     
+    
     func setDate() {
         let dateFormatter = DateFormatter()
         let shortDate = DateFormatter()
@@ -95,12 +96,7 @@ class ViewController: NSViewController {
         }
     }
     
-    func fixRegisterText(_ s:String) -> String {
-        var q = ""
-        for char in s { char == ":" ? q.append("-") : q.append(char)}
-        return q
-    }
-    
+
     func alertOKCancel(question: String, text: String) -> Bool {
         let alert = NSAlert()
         alert.messageText = question
@@ -127,6 +123,7 @@ class ViewController: NSViewController {
         manual.state = NSControl.StateValue.off
         initializeInterfaceForAccounts()
         initializeAccount(account: accountInfo[0]) //  Use first account in accounts file
+        myCheckController = self
     }
 
     /*  WHy do we need this???
@@ -137,6 +134,11 @@ class ViewController: NSViewController {
         }
     }
     */
+    func updateBalanceField(delta d:Float) {
+    balanceField.floatValue += d
+    _ = filer.balance(account: currentAccount, balance: balanceField.stringValue)  //  Result is unused
+    self.colorBalanceField()
+    }
     
     @IBAction func accountPulldownChanged(_ sender: AnyObject) {
         print("Account Changed")
@@ -186,8 +188,8 @@ class ViewController: NSViewController {
             check.seq = numberField.integerValue
             check.amount = amountField.floatValue
             check.date = registerDate
-            check.payee = toField.stringValue
-            check.memo = memoField.stringValue
+            check.payee = fixRegisterText(toField.stringValue) 
+            check.memo = fixRegisterText(memoField.stringValue)
             check.cat = (categoryPopup.selectedItem?.title)!
             filer.registerCheck(account: currentAccount, checkData:check)  //  Need to fix for accounts and lose checks!!!
             //  Finish update details:  Update seq and bal only when registering a check
@@ -195,9 +197,7 @@ class ViewController: NSViewController {
                 numberField.intValue += 1
                 filer.updateSeq(account: currentAccount, sequence: numberField.stringValue)  // This is correct for new FileInterface
             }
-            balanceField.floatValue -= amountField.floatValue
-            _ = filer.balance(account: currentAccount, balance: balanceField.stringValue)  //  Result is unused
-            self.colorBalanceField()
+            updateBalanceField(delta: -amountField.floatValue)
         }
 
         
