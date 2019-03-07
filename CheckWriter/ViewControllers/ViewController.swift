@@ -76,6 +76,7 @@ class ViewController: NSViewController {
     
     func initializeAccount (account a:[String]){    //  Fill in the title, Balance, seq, and cats for an account
         self.view.window?.title = a[3]
+        currentAccount = a[0]  //  Need this set globally for deposits and debits
         balanceField.stringValue = filer.balance(account: a[0])!
         self.colorBalanceField()
         numberField.stringValue = filer.seq(account: a[0])
@@ -188,14 +189,14 @@ class ViewController: NSViewController {
             check.payee = toField.stringValue
             check.memo = memoField.stringValue
             check.cat = (categoryPopup.selectedItem?.title)!
-            filer.registerCheck(account: "16641301", checkData:check)  //  Need to fix for accounts and lose checks!!!
+            filer.registerCheck(account: currentAccount, checkData:check)  //  Need to fix for accounts and lose checks!!!
             //  Finish update details:  Update seq and bal only when registering a check
             if sequenceButton != nil {
                 numberField.intValue += 1
-                filer.updateSeq(account: "16641301", sequence: numberField.stringValue)  // This is correct for new FileInterface
+                filer.updateSeq(account: currentAccount, sequence: numberField.stringValue)  // This is correct for new FileInterface
             }
             balanceField.floatValue -= amountField.floatValue
-            _ = filer.balance(account: "16641301", balance: balanceField.stringValue)  //  Result is unused
+            _ = filer.balance(account: currentAccount, balance: balanceField.stringValue)  //  Result is unused
             self.colorBalanceField()
         }
 

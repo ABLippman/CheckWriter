@@ -22,10 +22,7 @@ class DepositController: NSViewController {
         self.setDate()
         // Do view setup here.
     }
-    
-    @IBAction func doDeposit(_ sender: Any) {
-        print ("Doing a Deposit! \(amountField.floatValue)")
-    }
+
     func setDate() {
         let dateFormatter = DateFormatter()
         let shortDate = DateFormatter()
@@ -37,6 +34,10 @@ class DepositController: NSViewController {
         dateField.stringValue = todayString;
     }
     
+    @IBAction func doDeposit(_ sender: Any) {
+        print ("Doing a Deposit! \(amountField.floatValue)")
+    }
+
     
     
 }
