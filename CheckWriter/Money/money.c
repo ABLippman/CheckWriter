@@ -1,10 +1,11 @@
 //
 //  money.c
-//  test_M
+//  in Checkwriter (Swift)
 //
 //  Created by lip on 1/25/19.
 //  Copyright © 2019 Andrew Lippman. All rights reserved.
 //
+//  Added Zero Dollars rather than blank  3/5/19
 
 #include "money.h"
 
@@ -12,7 +13,7 @@ static char *table[120] = {NULL, NULL};
 
 int
 initTable(){
-    table[0] = "";
+    table[0] = "Zero";
     table[1] = "One";
     table[2] = "Two";
     table[3] = "Three";
