@@ -42,7 +42,8 @@ class DepositController: NSViewController {
         check.date = registerDate
         check.memo = fixRegisterText(commentField.stringValue)
         //  check.cat = "????"   //  We don't add a category for deposits yet but we could
-        filer.registerDeposit(account: currentAccount, checkData: check)
+//        filer.registerDeposit(account: currentAccount, checkData: check)
+        filer.registerCheck(account: currentAccount, checkData: check)
 
         myCheckController?.updateBalanceField(delta: amountField.floatValue)
 

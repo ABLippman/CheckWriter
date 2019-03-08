@@ -43,7 +43,7 @@ class ViewController: NSViewController {
     @IBOutlet weak var doIt: NSButton!
     @IBOutlet weak var manual: NSButton!
     @IBOutlet weak var accountPulldown: NSPopUpButton!
-    
+    @IBOutlet weak var batchButton: NSButton!
     
 
     var prefs = Preferences()
@@ -54,7 +54,7 @@ class ViewController: NSViewController {
     var moneyMaker: MoneyMaker = MoneyMaker()
     let appDelegate = NSApplication.shared.delegate as! AppDelegate  // We now have a reference to the app delegate...
     var accountInfo:[[String]] = []  // Global for the array of account arrays
-    
+
     
     func setDate() {
         let dateFormatter = DateFormatter()
@@ -77,10 +77,13 @@ class ViewController: NSViewController {
     
     func initializeAccount (account a:[String]){    //  Fill in the title, Balance, seq, and cats for an account
         self.view.window?.title = a[3]
+        closeBatch()  //  reset batch mode
         currentAccount = a[0]  //  Need this set globally for deposits and debits
         balanceField.stringValue = filer.balance(account: a[0])!
         self.colorBalanceField()
         numberField.stringValue = filer.seq(account: a[0])
+        categoryPopup.removeAllItems()
+        categoryPopup.addItem(withTitle: "None")
         for i in 0..<filer.cat(account: a[0]).count {
             categoryPopup.addItem(withTitle: filer.cat(account: a[0])[i])
         }
@@ -96,7 +99,6 @@ class ViewController: NSViewController {
         }
     }
     
-
     func alertOKCancel(question: String, text: String) -> Bool {
         let alert = NSAlert()
         alert.messageText = question
@@ -109,6 +111,15 @@ class ViewController: NSViewController {
     
     func updateFromPrefs() {  // does nothing now, should if account base changes...
         print("Got the Preference notification")
+    }
+    
+    func fillCheckFromEntry (_ entry:[String]){ // Used for batch modes
+        toField.stringValue = entry[0]
+        amountField.floatValue =  (entry[1] as NSString).floatValue
+        memoField.stringValue = entry[2]
+        output.stringValue = moneyMaker.makeMoney(amountField.stringValue)
+        categoryPopup.selectItem(withTitle: entry[3])
+        categoryChosen = true
     }
     
     override func viewDidLoad() {
@@ -188,7 +199,7 @@ class ViewController: NSViewController {
             check.seq = numberField.integerValue
             check.amount = amountField.floatValue
             check.date = registerDate
-            check.payee = fixRegisterText(toField.stringValue) 
+            check.payee = fixRegisterText(toField.stringValue)
             check.memo = fixRegisterText(memoField.stringValue)
             check.cat = (categoryPopup.selectedItem?.title)!
             filer.registerCheck(account: currentAccount, checkData:check)  //  Need to fix for accounts and lose checks!!!
@@ -214,10 +225,56 @@ class ViewController: NSViewController {
         }
         //  Finish setting up for next check...
 
-        categoryChosen = false
         categoryPopup.selectItem(at: 0)  // Revert to first title == "None"
-        self.amountField.becomeFirstResponder()
+        if batchMode {
+            doBatch(self)
+            categoryChosen = true
+        }
+        else {
+            categoryChosen = false
+            self.amountField.becomeFirstResponder()
+        }
     }
+ 
+    //  Batch elements:  The funcs to start, continue, and end
+    //  Uses Instance global batchMode: Bool
+    
+    var batchMode:Bool = false  //  Mode
+    var batchIndex:Int = 0    //  Instance global to iterate through batch array
+    var batchChecks:[[String]] = []
+    
+    /*  This is logically flawed
+    *  What we want is to issue a check if we hit issue, and to iterate if not
+    */
+    
+    @IBAction func EnterBatch(_ sender: Any) {
+        /*  Response to Batch button:
+         *  Sets mode, fetches the batch data
+         */
+        batchMode = true
+        batchChecks = filer.eba(account: currentAccount)
+        categoryChosen = true
+        batchButton.title = "Batching"
+    }
+    
+    @IBAction func doBatch(_ sender: Any) {
+            //  Fill elements from each, issue check
+            //  Is each the sub-array?  That would be nice.
+        if !batchMode {EnterBatch(self)}
+        if batchIndex < batchChecks.count {
+            fillCheckFromEntry(batchChecks[batchIndex])
+            batchIndex += 1
+        }
+        else {closeBatch()}
+    }
+    
+    func closeBatch() {
+        batchMode = false
+        categoryChosen = false
+        batchIndex = 0
+        batchButton.title = "Batch"
+    }
+    
     
     @IBAction func showName(_ sender: Any) {
         print(masterAppName)

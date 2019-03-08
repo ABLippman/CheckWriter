@@ -76,6 +76,7 @@ class FileInterface: NSObject {
         }
         return answer
     }
+
     
     func allowFolder() -> URL? {  // get URL of account root via OpenPanel
         let openPanel = NSOpenPanel()
@@ -98,7 +99,7 @@ class FileInterface: NSObject {
             accountsFile = try NSString(contentsOfFile: prefs.accountDir.appendingPathComponent("Accounts").path,
                                         encoding: String.Encoding.utf8.rawValue) as String
         }
-        catch let error {
+        catch let error {  //  THis is demo code to show how to get the prefs view controller ID
             print ("****  Finding accounts:  Failed!\n \(error)")
             //  Code to open Preference Panel...
             var myWindow: NSWindow? = nil
@@ -208,7 +209,6 @@ class FileInterface: NSObject {
             tmp = try NSString(contentsOfFile: pathURL.path,
                                encoding: String.Encoding.utf8.rawValue) as String //  Uses NSString and string path, not URL
             auts = stripComments(tmp.components(separatedBy: "\n"))  //  ****Check strip first or after
-            //            auts = stripComments(ebas)
         } catch let error {
             print ("File didn't open \(error)")
         }
@@ -218,12 +218,11 @@ class FileInterface: NSObject {
         return autsArray
     }
     
-
     func registerCheck(account a:String, checkData d:Check) {
-        let serialNumber: NSDate = NSDate() // new serialization date each time MOVE to File Interface
+        let serialNumber: NSDate = NSDate() // new serialization date each time
         let amountString = String(format: "%7.2f", d.amount)
-        //        let r = ("\(d.date):\(Int (serialNumber.timeIntervalSince1970)):\(d.amount):\(d.payee):\(d.cat):\(d.memo):Out:\n")
-        let r = ("\(check.seq):\(d.date):\(Int (serialNumber.timeIntervalSince1970)):\(amountString):\(d.payee):\(d.cat):\(d.memo):Out:\n")
+        let seqString = String(format: "%04i", d.seq)
+        let r = ("\(seqString):\(d.date):\(Int (serialNumber.timeIntervalSince1970)):\(amountString):\(d.payee):\(d.cat):\(d.memo):Out:\n")
         
         let rData = (r as NSString).data(using: String.Encoding.utf8.rawValue)
         
@@ -237,11 +236,13 @@ class FileInterface: NSObject {
         }
     }
     
-    func registerDeposit(account a:String, checkData d:Check) {
+/*    This function is not needed.  Register Check works for deps and checks
+ func registerDeposit(account a:String, checkData d:Check) {
         let serialNumber: NSDate = NSDate() // new serialization date each time MOVE to File Interface
         let amountString = String(format: "%7.2f", d.amount)
-        //        let r = ("\(d.date):\(Int (serialNumber.timeIntervalSince1970)):\(d.amount):\(d.payee):\(d.cat):\(d.memo):Out:\n")
-        let r = ("\(check.seq):\(d.date):\(Int (serialNumber.timeIntervalSince1970)):\(amountString):\(d.payee):\(d.cat):\(d.memo):Out:\n")
+        let seqString = String(format: "%04i", d.seq)
+
+        let r = ("\(seqString):\(d.date):\(Int (serialNumber.timeIntervalSince1970)):\(amountString):\(d.payee):\(d.cat):\(d.memo):Out:\n")
         
         let rData = (r as NSString).data(using: String.Encoding.utf8.rawValue)
         
@@ -254,7 +255,7 @@ class FileInterface: NSObject {
             print("Register Error: \(error)")
         }
     }
-    
+ */
     func openAccount(account a:String) -> (categories:[String],   //  Takes account number string
         auto:[String],
         eba:[String],
@@ -300,9 +301,8 @@ class FileInterface: NSObject {
             return (categories, auto, eba, seq, bal)
         }
     
-
-    
-    func registerBalance (_ b:Float) {
+ /*  These are obsolete, not used or needed
+ func registerBalance (_ b:Float) {
         do { print ("Have to update the balance here!!!") }
     }
 
@@ -347,5 +347,6 @@ class FileInterface: NSObject {
         do { try balanceString.write(to: fileURL!, atomically: false, encoding: .utf8) }
         catch { print("Write failed!!")}
     }
+ */
 
 }
