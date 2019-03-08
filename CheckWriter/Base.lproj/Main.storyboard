@@ -78,12 +78,11 @@
                                                 <action selector="performClose:" target="Ady-hI-5gd" id="HmO-Ls-i7Q"/>
                                             </connections>
                                         </menuItem>
-                                        <menuItem title="Deposit" keyEquivalent="d" id="Ps9-H0-PDv">
+                                        <menuItem title="Deposit/Debit" keyEquivalent="d" id="Ps9-H0-PDv">
                                             <connections>
                                                 <segue destination="huN-uN-3JU" kind="show" id="4NK-gJ-Uvc"/>
                                             </connections>
                                         </menuItem>
-                                        <menuItem title="Debit" keyEquivalent="D" id="kyF-nE-FPW"/>
                                         <menuItem isSeparatorItem="YES" id="aJh-i4-bef"/>
                                         <menuItem title="Page Setup…" keyEquivalent="P" id="qIS-W8-SiK">
                                             <modifierMask key="keyEquivalentModifierMask" shift="YES" command="YES"/>
@@ -374,7 +373,7 @@
         <!--Window Controller-->
         <scene sceneID="R2V-B0-nI4">
             <objects>
-                <windowController id="B8D-0N-5wS" sceneMemberID="viewController">
+                <windowController storyboardIdentifier="checkWindow" showSeguePresentationStyle="single" id="B8D-0N-5wS" sceneMemberID="viewController">
                     <window key="window" title="CheckWriter" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" oneShot="NO" releasedWhenClosed="NO" showsToolbarButton="NO" visibleAtLaunch="NO" animationBehavior="default" id="IQv-IB-iLA">
                         <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" resizable="YES"/>
                         <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
@@ -815,10 +814,10 @@ Gw
             </objects>
             <point key="canvasLocation" x="221" y="1347"/>
         </scene>
-        <!--Enter Deposit-->
+        <!--Enter Deposit or Debit-->
         <scene sceneID="ucd-di-ktM">
             <objects>
-                <viewController title="Enter Deposit" showSeguePresentationStyle="single" id="tr1-vE-Abc" customClass="DepositController" customModule="CheckWriter" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController title="Enter Deposit or Debit" showSeguePresentationStyle="single" id="tr1-vE-Abc" customClass="DepositController" customModule="CheckWriter" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" id="GmS-PO-0Wi">
                         <rect key="frame" x="0.0" y="0.0" width="480" height="220"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -900,6 +899,17 @@ Gw
                                     <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                 </textFieldCell>
                             </textField>
+                            <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Z8J-fR-sv2">
+                                <rect key="frame" x="63" y="26" width="132" height="32"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <buttonCell key="cell" type="push" title="Debit" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="UeM-2Y-m5y">
+                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                    <font key="font" metaFont="system"/>
+                                </buttonCell>
+                                <connections>
+                                    <action selector="doDebit:" target="tr1-vE-Abc" id="fXM-ME-NCT"/>
+                                </connections>
+                            </button>
                         </subviews>
                     </view>
                     <connections>

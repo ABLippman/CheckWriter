@@ -42,13 +42,21 @@ class DepositController: NSViewController {
         check.date = registerDate
         check.memo = fixRegisterText(commentField.stringValue)
         //  check.cat = "????"   //  We don't add a category for deposits yet but we could
-//        filer.registerDeposit(account: currentAccount, checkData: check)
         filer.registerCheck(account: currentAccount, checkData: check)
-
         myCheckController?.updateBalanceField(delta: amountField.floatValue)
-
     }
 
-    
+    @IBAction func doDebit(_ sender: Any) {
+        print ("Doing a Debit! \(amountField.floatValue)")
+        setDate()  //  Reset the date for when the deposit is made
+        check.seq = 8000  //  Want this to be formatted as 0000
+        check.amount = amountField.floatValue //  Want this to be formatted as well
+        check.date = registerDate
+        check.memo = fixRegisterText(commentField.stringValue)
+        //  check.cat = "????"   //  We don't add a category for deposits yet but we could
+        filer.registerCheck(account: currentAccount, checkData: check)
+        myCheckController?.updateBalanceField(delta: -amountField.floatValue)
+    }
+
     
 }
