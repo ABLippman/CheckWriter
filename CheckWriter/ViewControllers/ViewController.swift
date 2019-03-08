@@ -44,6 +44,7 @@ class ViewController: NSViewController {
     @IBOutlet weak var manual: NSButton!
     @IBOutlet weak var accountPulldown: NSPopUpButton!
     @IBOutlet weak var batchButton: NSButton!
+    @IBOutlet weak var autButton: NSButton!
     
 
     var prefs = Preferences()
@@ -242,15 +243,19 @@ class ViewController: NSViewController {
     var batchMode:Bool = false  //  Mode
     var batchIndex:Int = 0    //  Instance global to iterate through batch array
     var batchChecks:[[String]] = []
+    var autMode:Bool = false
+    var autIndex:Int = 0
+    var autChecks:[[String]] = []
     
     /*  This is logically flawed
     *  What we want is to issue a check if we hit issue, and to iterate if not
     */
     
-    @IBAction func EnterBatch(_ sender: Any) {
+    @IBAction func enterBatch(_ sender: Any) {
         /*  Response to Batch button:
          *  Sets mode, fetches the batch data
          */
+        closeAuto()
         batchMode = true
         batchChecks = filer.eba(account: currentAccount)
         categoryChosen = true
@@ -260,7 +265,7 @@ class ViewController: NSViewController {
     @IBAction func doBatch(_ sender: Any) {
             //  Fill elements from each, issue check
             //  Is each the sub-array?  That would be nice.
-        if !batchMode {EnterBatch(self)}
+        if !batchMode {enterBatch(self)}
         if batchIndex < batchChecks.count {
             fillCheckFromEntry(batchChecks[batchIndex])
             batchIndex += 1
@@ -275,6 +280,31 @@ class ViewController: NSViewController {
         batchButton.title = "Batch"
     }
     
+    func enterAuto() {
+        closeBatch()
+        printChosen.state = NSControl.StateValue.off
+        autMode = true
+        autChecks = filer.aut(account: currentAccount)
+        categoryChosen = true
+        autButton.title = "Auto-ing"
+    }
+    
+    @IBAction func doAuto(_ sender: Any) {
+        if !autMode {enterAuto()}
+        if autIndex < autChecks.count {
+            fillCheckFromEntry(autChecks[autIndex])
+            autIndex += 1
+        }
+        else {closeAuto()}
+    }
+    
+    func closeAuto() {
+        autMode = false
+        printChosen.state = NSControl.StateValue.on   //  Might want to cache previous...
+        categoryChosen = false
+        autIndex = 0
+        autButton.title = "Auto"
+    }
     
     @IBAction func showName(_ sender: Any) {
         print(masterAppName)

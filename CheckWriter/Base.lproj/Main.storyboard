@@ -430,11 +430,11 @@
                                 </textFieldCell>
                             </textField>
                             <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="sbq-qa-f0r">
-                                <rect key="frame" x="583" y="26" width="114" height="32"/>
+                                <rect key="frame" x="543" y="20" width="142" height="43"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                <buttonCell key="cell" type="push" title="Issue Check" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="axesIndependently" inset="2" id="7xt-tP-97u">
+                                <buttonCell key="cell" type="square" title="Issue Check" bezelStyle="shadowlessSquare" alignment="center" borderStyle="border" imageScaling="axesIndependently" inset="2" id="7xt-tP-97u">
                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                    <font key="font" metaFont="system"/>
+                                    <font key="font" size="18" name="HelveticaNeue"/>
                                 </buttonCell>
                                 <connections>
                                     <action selector="issueCheck:" target="XfG-lQ-9wD" id="j4O-tE-Dya"/>
@@ -494,7 +494,7 @@
                                 </buttonCell>
                             </button>
                             <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="zEH-aN-PNt">
-                                <rect key="frame" x="488" y="26" width="101" height="32"/>
+                                <rect key="frame" x="420" y="26" width="115" height="32"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <buttonCell key="cell" type="push" title="Batch" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="bG1-5p-gk6">
                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -632,14 +632,6 @@
                                     <action selector="setCategoryChosen:" target="XfG-lQ-9wD" id="jhr-Lp-PKL"/>
                                 </connections>
                             </popUpButton>
-                            <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="R62-El-AlU">
-                                <rect key="frame" x="410" y="26" width="81" height="32"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                <buttonCell key="cell" type="push" title="Button" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="U6V-Ts-wqF">
-                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                    <font key="font" metaFont="system"/>
-                                </buttonCell>
-                            </button>
                             <popUpButton verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="cgh-EN-cQN">
                                 <rect key="frame" x="12" y="74" width="148" height="26"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
@@ -652,19 +644,23 @@
                                     <action selector="accountPulldownChanged:" target="XfG-lQ-9wD" id="UeD-9f-P9V"/>
                                 </connections>
                             </popUpButton>
-                            <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="dxv-Sv-vH2">
-                                <rect key="frame" x="331" y="26" width="81" height="32"/>
+                            <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="y8A-Cr-X7x">
+                                <rect key="frame" x="320" y="26" width="107" height="32"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                <buttonCell key="cell" type="push" title="Button" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="m8O-Im-ZJC">
+                                <buttonCell key="cell" type="push" title="Auto" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="HHT-Ji-0Ki">
                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                     <font key="font" metaFont="system"/>
                                 </buttonCell>
+                                <connections>
+                                    <action selector="doAuto:" target="XfG-lQ-9wD" id="SMk-v1-AD5"/>
+                                </connections>
                             </button>
                         </subviews>
                     </view>
                     <connections>
                         <outlet property="accountPulldown" destination="cgh-EN-cQN" id="Klc-un-M50"/>
                         <outlet property="amountField" destination="pfM-2c-TiQ" id="Nfh-Yg-Rjy"/>
+                        <outlet property="autButton" destination="y8A-Cr-X7x" id="EWR-wD-EKi"/>
                         <outlet property="balanceField" destination="Gzz-zn-Sdb" id="epG-a2-CYR"/>
                         <outlet property="batchButton" destination="zEH-aN-PNt" id="YKJ-1k-ROv"/>
                         <outlet property="categoryPopup" destination="YFR-8Z-K7f" id="CeC-81-7fy"/>

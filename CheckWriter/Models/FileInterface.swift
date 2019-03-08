@@ -120,7 +120,7 @@ class FileInterface: NSObject {
         let accountFix = stripComments(accountEach)
         
         print ("Number of Accounts is: \(accountFix.count)")
-        for each in accountFix[0..<accountFix.count] { // ****  up to three accounts
+        for each in accountFix[0..<accountFix.count] {
             f.append(each.components(separatedBy: ":"))
         }
         return f  //  Returns the array of accounts with elements as an array
@@ -256,7 +256,8 @@ class FileInterface: NSObject {
         }
     }
  */
-    func openAccount(account a:String) -> (categories:[String],   //  Takes account number string
+  /*  This is obsolete and not used
+ func openAccount(account a:String) -> (categories:[String],   //  Takes account number string
         auto:[String],
         eba:[String],
         seq:String,
@@ -300,7 +301,7 @@ class FileInterface: NSObject {
 
             return (categories, auto, eba, seq, bal)
         }
-    
+ */
  /*  These are obsolete, not used or needed
  func registerBalance (_ b:Float) {
         do { print ("Have to update the balance here!!!") }
