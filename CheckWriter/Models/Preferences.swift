@@ -26,7 +26,7 @@ class Preferences {
             UserDefaults.standard.set(newValue, forKey: "printer")
         }
     }
-    var accountDir:URL {  //  Changed accountDir to a URL.  Fix throughout fileManager
+/*    var accountDir:URL {
         get {
             let defaultAccount = UserDefaults.standard.string(forKey: "account")
             if (defaultAccount) != nil {
@@ -37,6 +37,11 @@ class Preferences {
         set {
             UserDefaults.standard.set(newValue, forKey: "account")
         }
+    }
+ */
+    var accountDir:URL {
+        get {return URL.init(fileURLWithPath:"/Users/lip/tmp")}
+        set {}
     }
 
     

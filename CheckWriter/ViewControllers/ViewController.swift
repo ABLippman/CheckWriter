@@ -56,7 +56,19 @@ class ViewController: NSViewController {
     let appDelegate = NSApplication.shared.delegate as! AppDelegate  // We now have a reference to the app delegate...
     var accountInfo:[[String]] = []  // Global for the array of account arrays
 
+    /*  Test code to control window...  */
     
+    @IBAction func openPref(_ sender: Any) {
+        var myWindow: NSWindow? = nil
+        let storyboard = NSStoryboard(name: NSStoryboard.Name(rawValue: "Main"),bundle: nil)
+        let controller: PrefsViewController = storyboard.instantiateController(withIdentifier: NSStoryboard.SceneIdentifier(rawValue: "andyPref")) as! PrefsViewController
+        myWindow = NSWindow(contentViewController: controller)
+        myWindow?.makeKeyAndOrderFront(self)
+        let vc = NSWindowController(window: myWindow)
+        vc.showWindow(self)
+        
+    }
+
     func setDate() {
         let dateFormatter = DateFormatter()
         let shortDate = DateFormatter()
@@ -68,9 +80,13 @@ class ViewController: NSViewController {
         dateField.stringValue = todayString;
     }
     
+    func accountsExist(){
+        accountInfo = filer.findAccounts()
+
+    }
+    
     func initializeInterfaceForAccounts() {
         //  Uses Global Accounts array of arrays, fills in acccounts Pulldown
-        accountInfo = filer.findAccounts()
         for  i in 0..<accountInfo.count {
             accountPulldown.addItem(withTitle: accountInfo[i][3])
         }
@@ -112,6 +128,7 @@ class ViewController: NSViewController {
     
     func updateFromPrefs() {  // does nothing now, should if account base changes...
         print("Got the Preference notification")
+        self.viewDidAppear()  //  Essentially restart the app
     }
     
     func fillCheckFromEntry (_ entry:[String]){ // Used for batch modes
@@ -133,6 +150,7 @@ class ViewController: NSViewController {
         super.viewDidAppear()
         print (" AccountRoot is: \(prefs.accountDir)")
         manual.state = NSControl.StateValue.off
+
         initializeInterfaceForAccounts()
         initializeAccount(account: accountInfo[0]) //  Use first account in accounts file
         myCheckController = self

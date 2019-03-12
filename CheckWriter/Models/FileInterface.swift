@@ -92,23 +92,22 @@ class FileInterface: NSObject {
         return URL.init(string: "/Users/lip/Desktop")
     }
 
-    func findAccounts() -> [[String]] {  // Tests that root is  accessible and finds all accounts, returns array for each acct
+    func findAccounts() -> [[String]] {  // Tests that root is  accessible and finds all accounts,
+        // returns array for each acct or empty array if non found
         var accountsFile = ""           //  This is the file of account base info
         print ("finding and testing accounts")
         do {  //  "Accounts"  has the list of accounts and names for them
             accountsFile = try NSString(contentsOfFile: prefs.accountDir.appendingPathComponent("Accounts").path,
                                         encoding: String.Encoding.utf8.rawValue) as String
         }
-        catch let error {  //  THis is demo code to show how to get the prefs view controller ID
+        catch let error {
             print ("****  Finding accounts:  Failed!\n \(error)")
             //  Code to open Preference Panel...
-            var myWindow: NSWindow? = nil
             let storyboard = NSStoryboard(name: NSStoryboard.Name(rawValue: "Main"),bundle: nil)
             let controller: PrefsViewController = storyboard.instantiateController(withIdentifier: NSStoryboard.SceneIdentifier(rawValue: "andyPref")) as! PrefsViewController
-            myWindow = NSWindow(contentViewController: controller)
-            myWindow?.makeKeyAndOrderFront(self)
-            let vc = NSWindowController(window: myWindow)
-            vc.showWindow(self)
+                myCheckController?.presentViewControllerAsModalWindow(controller)
+            return []
+
 /*
              let url = allowFolder()
             print("Found one: \(url!.path)")

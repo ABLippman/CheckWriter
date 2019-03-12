@@ -28,7 +28,6 @@ class PrefsViewController: NSViewController, NSTextFieldDelegate {
         super.viewDidAppear()
         self.view.window?.title = "Checkwriter preferences"
         print ("**** View Did Appear:  Preferences")
-  //      myViewController = self
     }
     
     @IBAction func cancelPref(_ sender: Any) {
