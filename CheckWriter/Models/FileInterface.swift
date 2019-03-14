@@ -18,6 +18,7 @@
  */
 
 import Cocoa
+
     /*  First question:  Is this brain dead?  Should we instantiate a different FileInterface
     *   for each account, or should this one be used for each account?
     *   For now it is simpler to have only one.  Then it can close the register and open a new one
@@ -91,38 +92,67 @@ class FileInterface: NSObject {
         print ("Nothing selected")
         return URL.init(string: "/Users/lip/Desktop")
     }
-
-    func findAccounts() -> [[String]] {  // Tests that root is  accessible and finds all accounts,
-        // returns array for each acct or empty array if non found
-        var accountsFile = ""           //  This is the file of account base info
-        print ("finding and testing accounts")
-        do {  //  "Accounts"  has the list of accounts and names for them
-            accountsFile = try NSString(contentsOfFile: prefs.accountDir.appendingPathComponent("Accounts").path,
-                                        encoding: String.Encoding.utf8.rawValue) as String
+    
+    func createAccountBase() -> Bool {
+        //  Appends an account description to the accounts file
+        //  or creates one
+        let base = prefs.accountDir.appendingPathComponent("Accounts")
+        if findAccounts() == nil {
+            do {try "# Default created\n".write(to: base, atomically: false, encoding: .utf8)}
+            catch let error {
+                print("Failed to creat an account base\(error)")
+                return false
+            }
+        }
+        do { let handleWrite2 = try FileHandle(forWritingTo:base) as FileHandle?
+            let rData = ("100001:none:bat:Account 100001" as NSString).data(using: String.Encoding.utf8.rawValue)
+            handleWrite2!.seekToEndOfFile()  // This is for appending
+            handleWrite2!.write(rData!)   //  This should append an initial \n.
+            handleWrite2!.closeFile()
+        } catch let error {
+            print("Register Error: \(error)")
+            return false
+        }
+        //  Now we have a prototype random account added to the Accounts file
+        //  Need to set up a register, a sequence, and a balance file.
+        //  Then we essentially return and restart the app
+        do { try "001".write(to: prefs.accountDir.appendingPathComponent("100001").appendingPathExtension("seq"), atomically: false, encoding: .utf8)
+        try "001".write(to: prefs.accountDir.appendingPathComponent("100001").appendingPathExtension("reg"), atomically: false, encoding: .utf8)
+        try "001".write(to: prefs.accountDir.appendingPathComponent("100001").appendingPathExtension("bal"), atomically: false, encoding: .utf8)
         }
         catch let error {
-            print ("****  Finding accounts:  Failed!\n \(error)")
-            //  Code to open Preference Panel...
-            let storyboard = NSStoryboard(name: NSStoryboard.Name(rawValue: "Main"),bundle: nil)
-            let controller: PrefsViewController = storyboard.instantiateController(withIdentifier: NSStoryboard.SceneIdentifier(rawValue: "andyPref")) as! PrefsViewController
-                myCheckController?.presentViewControllerAsModalWindow(controller)
-            return []
-
-/*
-             let url = allowFolder()
-            print("Found one: \(url!.path)")
-          prefs.accountDir = url!.path  */
-
+            print("Failed to set up auxiliary files \(error)")
+            return false
         }
-        let accountEach:[String] = accountsFile.components(separatedBy: "\n")
+        return true
+    }
+
+    func parseAccountsFileData(data d:String) -> [[String]] {
+        let accountEach:[String] = d.components(separatedBy: "\n")
         var f:[[String]] = []
         let accountFix = stripComments(accountEach)
-        
         print ("Number of Accounts is: \(accountFix.count)")
         for each in accountFix[0..<accountFix.count] {
             f.append(each.components(separatedBy: ":"))
         }
         return f  //  Returns the array of accounts with elements as an array
+    }
+    
+    
+    
+    func findAccounts() -> String? {  // Tests that root is  accessible and finds all accounts,
+        // returns array for each acct or nil if non found
+        var accountsFile = ""           //  This is the file of account base info
+        print ("finding and testing accounts")
+        do {  //  "Accounts"  has the list of accounts and names for them
+            accountsFile = try NSString(contentsOfFile: prefs.accountDir.appendingPathComponent("Accounts").path,
+                                        encoding: String.Encoding.utf8.rawValue) as String
+            return accountsFile
+        }
+        catch let error {
+            print ("****  Finding accounts:  Failed!\n \(error)")
+            return nil // just exit to view controller on account missing
+        }
     }
     
     /*  New funcs to separate bal, seq, cat, eba, and aut.  A call for each
@@ -143,6 +173,7 @@ class FileInterface: NSObject {
                                encoding: String.Encoding.utf8.rawValue) as String //  Uses NSString and string path, not URL
         } catch let error {
             print ("File didn't open \(error)")
+            bal = "00.00"
         }
         return bal
     }
@@ -155,9 +186,11 @@ class FileInterface: NSObject {
                                encoding: String.Encoding.utf8.rawValue) as String //  Uses NSString and string path, not URL
         } catch let error {
             print ("File didn't open \(error)")
+            seq = "0000"
         }
         return seq
     }
+    
     func updateSeq(account a:String, sequence b:String) {
         let pathURL =  prefs.accountDir.appendingPathComponent(a).appendingPathExtension("seq")
         do { try b.write(to: pathURL, atomically: false, encoding: .utf8) }

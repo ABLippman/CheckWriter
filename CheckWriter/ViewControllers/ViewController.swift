@@ -54,21 +54,32 @@ class ViewController: NSViewController {
     var categoryChosen:Bool = false
     var moneyMaker: MoneyMaker = MoneyMaker()
     let appDelegate = NSApplication.shared.delegate as! AppDelegate  // We now have a reference to the app delegate...
-    var accountInfo:[[String]] = []  // Global for the array of account arrays
+    var accountBaseData:String?
+    var accountInfo:[[String]]?  // Global for the array of account arrays
 
-    /*  Test code to control window...  */
-    
-    @IBAction func openPref(_ sender: Any) {
-        var myWindow: NSWindow? = nil
-        let storyboard = NSStoryboard(name: NSStoryboard.Name(rawValue: "Main"),bundle: nil)
-        let controller: PrefsViewController = storyboard.instantiateController(withIdentifier: NSStoryboard.SceneIdentifier(rawValue: "andyPref")) as! PrefsViewController
-        myWindow = NSWindow(contentViewController: controller)
-        myWindow?.makeKeyAndOrderFront(self)
-        let vc = NSWindowController(window: myWindow)
-        vc.showWindow(self)
-        
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        setDate()  //  Set Date at launch, updated with each check
+        setupPrefs()  // set initial account location and printer
     }
-
+    
+    override func viewDidAppear() { // This occurs later than the load...
+        super.viewDidAppear()
+        myCheckController = self
+        print (" AccountRoot is: \(prefs.accountDir)")
+        manual.state = NSControl.StateValue.off  // We never really use manual state anymore
+        setAndTestAccounts()  //  find or create base for accounts; set it up
+    }
+    
+    /*  WHy do we need this???
+     override var representedObject: Any? {
+     didSet {
+     // Update the view, if already loaded.
+     print ("Represented Object")  // No idea about this
+     }
+     }
+     */
+    
     func setDate() {
         let dateFormatter = DateFormatter()
         let shortDate = DateFormatter()
@@ -80,15 +91,56 @@ class ViewController: NSViewController {
         dateField.stringValue = todayString;
     }
     
-    func accountsExist(){
-        accountInfo = filer.findAccounts()
+    func alertOKCancel(question: String, text: String) -> Bool {
+        let alert = NSAlert()
+        alert.messageText = question
+        alert.informativeText = text
+        alert.alertStyle = .warning
+        alert.addButton(withTitle: "Proceed")
+        alert.addButton(withTitle: "Fix")
+        return alert.runModal() == .alertFirstButtonReturn
+    }
+    
+    @IBAction func openPrefWindow(_ sender: Any) {  // new code to programmatically open window
+        let storyboard = NSStoryboard(name: NSStoryboard.Name(rawValue: "Main"),bundle: nil)
+        let controller: PrefsViewController = storyboard.instantiateController(withIdentifier: NSStoryboard.SceneIdentifier(rawValue: "andyPref")) as! PrefsViewController
+        self.presentViewControllerAsModalWindow(controller)
+    }
+    
+    func updateFromPrefs() {  // if account base changes...
+        print("Got the Preference notification")
+        self.viewDidAppear()  //  Essentially restart the app
+    }
+    
+    func setAndTestAccounts(){
+        /*  Workhorse routine.  When leaving we have a valid account base (and files)
+        *   Note that prefs panel has to return from whence it was called
+        *   The order of setup (view did appear is do this first, then setup default acct
+        */
+        accountBaseData = filer.findAccounts() // Get account base file
+        if  accountBaseData != nil {  //  Check that we found one, Good ? setup : alert and fix
+            accountInfo = filer.parseAccountsFileData(data: accountBaseData!)
+            initializeAccount(account: accountInfo![0]) //  Use first account in accounts file
+            initializeInterfaceForAccounts()  //  Set up view for that account
+            return
+        }
+        let answer = alertOKCancel(question: "No Account files!!", text: "Pick another root or make a new one." )
+        if !answer {
+            // Open prefs and choose another
+            setupPrefs()  //  Maybe ****
+            openPrefWindow(self)  // exit into modal prefs window, setup incomplete until done
+        }
+        else {
+          // Create account in default directory
+            if filer.createAccountBase() {print("Success!")}
+        }
 
     }
     
-    func initializeInterfaceForAccounts() {
+    func initializeInterfaceForAccounts() {  // *****    SOmething wrong here   *****
         //  Uses Global Accounts array of arrays, fills in acccounts Pulldown
-        for  i in 0..<accountInfo.count {
-            accountPulldown.addItem(withTitle: accountInfo[i][3])
+        for  i in 0..<accountInfo!.count {
+            accountPulldown.addItem(withTitle: accountInfo![i][3])
         }
     }
     
@@ -116,21 +168,12 @@ class ViewController: NSViewController {
         }
     }
     
-    func alertOKCancel(question: String, text: String) -> Bool {
-        let alert = NSAlert()
-        alert.messageText = question
-        alert.informativeText = text
-        alert.alertStyle = .warning
-        alert.addButton(withTitle: "Proceed")
-        alert.addButton(withTitle: "Fix")
-        return alert.runModal() == .alertFirstButtonReturn
+    func updateBalanceField(delta d:Float) {
+        balanceField.floatValue += d
+        _ = filer.balance(account: currentAccount, balance: balanceField.stringValue)  //  Result is unused
+        self.colorBalanceField()
     }
-    
-    func updateFromPrefs() {  // does nothing now, should if account base changes...
-        print("Got the Preference notification")
-        self.viewDidAppear()  //  Essentially restart the app
-    }
-    
+
     func fillCheckFromEntry (_ entry:[String]){ // Used for batch modes
         toField.stringValue = entry[0]
         amountField.floatValue =  (entry[1] as NSString).floatValue
@@ -140,43 +183,13 @@ class ViewController: NSViewController {
         categoryChosen = true
     }
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        setDate()  //  ****  Should be Duplicated in issue check.  Set Date then, and at launch
-        setupPrefs()
-    }
-
-    override func viewDidAppear() { // This occurs later than the load...
-        super.viewDidAppear()
-        print (" AccountRoot is: \(prefs.accountDir)")
-        manual.state = NSControl.StateValue.off
-
-        initializeInterfaceForAccounts()
-        initializeAccount(account: accountInfo[0]) //  Use first account in accounts file
-        myCheckController = self
-    }
-
-    /*  WHy do we need this???
-    override var representedObject: Any? {
-        didSet {
-            // Update the view, if already loaded.
-            print ("Represented Object")  // No idea about this
-        }
-    }
-    */
-    func updateBalanceField(delta d:Float) {
-    balanceField.floatValue += d
-    _ = filer.balance(account: currentAccount, balance: balanceField.stringValue)  //  Result is unused
-    self.colorBalanceField()
-    }
-    
     @IBAction func accountPulldownChanged(_ sender: AnyObject) {
         print("Account Changed")
         //  THis is now hard.  Have to get the array, not just the number
         //  Iterate through the accounts until the number matches the pulldown title
-        for i in 0..<accountInfo.count {
-            if accountInfo[i][3] == accountPulldown.titleOfSelectedItem {
-                initializeAccount(account: accountInfo[i])
+        for i in 0..<accountInfo!.count {
+            if accountInfo![i][3] == accountPulldown.titleOfSelectedItem {
+                initializeAccount(account: accountInfo![i])
             }
         }
     }
@@ -230,8 +243,6 @@ class ViewController: NSViewController {
             updateBalanceField(delta: -amountField.floatValue)
         }
 
-        
-        
         if printChosen.state == NSControl.StateValue.on {
             printACheck.p = prefs.printer as NSString  //  Set printer from Prefs each time...
             printACheck.number = numberField.stringValue as NSString
@@ -324,7 +335,7 @@ class ViewController: NSViewController {
         autButton.title = "Auto"
     }
     
-    @IBAction func showName(_ sender: Any) {
+    @IBAction func showName(_ sender: Any) {  // what's this for?
         print(masterAppName)
     }
    

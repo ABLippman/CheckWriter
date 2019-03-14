@@ -654,17 +654,6 @@
                                     <action selector="doAuto:" target="XfG-lQ-9wD" id="SMk-v1-AD5"/>
                                 </connections>
                             </button>
-                            <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="BUW-8s-en8">
-                                <rect key="frame" x="16" y="26" width="133" height="32"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                <buttonCell key="cell" type="push" title="Prefs" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="exq-H7-R9y">
-                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                    <font key="font" metaFont="system"/>
-                                </buttonCell>
-                                <connections>
-                                    <action selector="openPref:" target="XfG-lQ-9wD" id="Vsq-bh-FRa"/>
-                                </connections>
-                            </button>
                         </subviews>
                     </view>
                     <connections>
