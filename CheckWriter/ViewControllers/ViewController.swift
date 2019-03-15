@@ -134,7 +134,6 @@ class ViewController: NSViewController {
           // Create account in default directory
             if filer.createAccountBase() {print("Success!")}
         }
-
     }
     
     func initializeInterfaceForAccounts() {  // *****    SOmething wrong here   *****
@@ -216,7 +215,6 @@ class ViewController: NSViewController {
          *   sets printer, verifies category
          *   Prints if req'd, registers if req'd
          */
-        //  Currently bypasses Check structure, is there a need for it?
         
         self.setDate()  //  Why not reset the date in case it runs overnight...
         if categoryChosen {
