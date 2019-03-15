@@ -69,6 +69,8 @@ class ViewController: NSViewController {
         print (" AccountRoot is: \(prefs.accountDir)")
         manual.state = NSControl.StateValue.off  // We never really use manual state anymore
         setAndTestAccounts()  //  find or create base for accounts; set it up
+        amountField.selectText(self)
+        amountField.nextKeyView = toField
     }
     
     /*  WHy do we need this???
@@ -261,6 +263,7 @@ class ViewController: NSViewController {
         else {
             categoryChosen = false
             self.amountField.becomeFirstResponder()
+//            amountField.selectText(self)
         }
     }
  

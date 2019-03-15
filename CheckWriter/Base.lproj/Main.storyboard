@@ -580,7 +580,7 @@
                             <textField verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="I2U-tT-TpW">
                                 <rect key="frame" x="618" y="328" width="73" height="22"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" alignment="right" drawsBackground="YES" id="n5D-dx-wG0">
+                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" refusesFirstResponder="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" alignment="right" drawsBackground="YES" id="n5D-dx-wG0">
                                     <numberFormatter key="formatter" formatterBehavior="10_0" positiveFormat="0" negativeFormat="-0" hasThousandSeparators="NO" thousandSeparator="," id="FTO-ov-iIC">
                                         <attributedString key="attributedStringForZero">
                                             <fragment content="0"/>
