@@ -236,7 +236,7 @@ class FileInterface: NSObject {
         let serialNumber: NSDate = NSDate() // new serialization date each time
         let amountString = String(format: "%7.2f", d.amount)
         let seqString = String(format: "%04i", d.seq)
-        let r = ("\(seqString):\(d.date):\(Int (serialNumber.timeIntervalSince1970)):\(amountString):\(d.payee):\(d.cat):\(d.memo):Out:\n")
+        let r = ("\(seqString):\(Int (serialNumber.timeIntervalSince1970)):\(d.date):\(amountString):\(d.payee):\(d.cat):\(d.memo):Out:\n")
         let rData = (r as NSString).data(using: String.Encoding.utf8.rawValue)
         let pathURL =  prefs.accountDir.appendingPathComponent(a).appendingPathExtension("reg")
         do { let handleWrite2 = try FileHandle(forWritingTo:pathURL) as FileHandle?
