@@ -26,7 +26,7 @@ class Preferences {
             UserDefaults.standard.set(newValue, forKey: "printer")
         }
     }
-   var accountDir:URL {
+   var accountDir:URL {  // for some reason this gets called a lot...
         get {
             let defaultAccount = UserDefaults.standard.string(forKey: "account")
             if (defaultAccount) != nil {
