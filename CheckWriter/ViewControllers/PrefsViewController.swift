@@ -37,8 +37,9 @@ class PrefsViewController: NSViewController, NSTextFieldDelegate {
     
     @IBAction func acceptPref(_ sender: Any) {
         print("Accept Prefs")
-        prefs.printer = p.stringValue 
-        prefs.accountDir = URL.init(string: a.stringValue)!
+        prefs.printer = p.stringValue
+        let escapedAddress = a.stringValue.addingPercentEncoding(withAllowedCharacters: CharacterSet.urlQueryAllowed)  // fix spaces in string to URL init!!!
+        prefs.accountDir = URL.init(string: escapedAddress!)!
         NotificationCenter.default.post(name: Notification.Name(rawValue: "PrefsChanged"), object: nil)
         self.view.window?.close()
     }
@@ -56,7 +57,7 @@ class PrefsViewController: NSViewController, NSTextFieldDelegate {
     return true
     }
     
-    func allowFolder() -> URL? {
+    func allowFolder() -> URL? {  //  Defaukts are specific for a non-sandbox app
         let openPanel = NSOpenPanel()
         openPanel.allowsMultipleSelection = false
         openPanel.canChooseDirectories = true
@@ -64,13 +65,13 @@ class PrefsViewController: NSViewController, NSTextFieldDelegate {
         openPanel.canChooseFiles = false
         if openPanel.runModal() == .OK {
            print("OK clicked...")
-            return openPanel.url != nil ? openPanel.url :  URL.init(string: "~/Documents")
+            return openPanel.url != nil ? openPanel.url :  URL.init(string: "/Users/lip/tmp")  // non-sandbox default
         }
         print ("Nothing selected")
-        return URL.init(string: "/Users/lip/Desktop")
+        return URL.init(string: "/Users/lip/tmp")
     }
 
-    @IBAction func changeRoot(_ sender: Any) {
+    @IBAction func changeRoot(_ sender: Any) {  // a bit of hair here: we get a URL and change it to a string momentarily
         let url = allowFolder()
         print("Found one: \(url!.path)")
         a.stringValue = url!.path

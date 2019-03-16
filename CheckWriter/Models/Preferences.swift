@@ -26,23 +26,17 @@ class Preferences {
             UserDefaults.standard.set(newValue, forKey: "printer")
         }
     }
-/*    var accountDir:URL {
+   var accountDir:URL {
         get {
             let defaultAccount = UserDefaults.standard.string(forKey: "account")
             if (defaultAccount) != nil {
+//                print ("Default account is: \(defaultAccount!)")
                 return URL.init(fileURLWithPath:defaultAccount!)
             }
-            return URL.init(fileURLWithPath: "~/tmp")
+            return URL.init(fileURLWithPath: "/Users/lip/Check")
         }
         set {
-            UserDefaults.standard.set(newValue, forKey: "account")
+            UserDefaults.standard.set(newValue.path, forKey: "account")
         }
     }
- */
-    var accountDir:URL {
-        get {return URL.init(fileURLWithPath:"/Users/lip/tmp")}
-        set {}
-    }
-
-    
 }

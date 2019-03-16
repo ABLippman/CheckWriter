@@ -34,7 +34,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 
         
         //  Preferences go here?
-        print("Startup... Printer is \(prefs.printer)")
+        print("Startup... Printer is \(prefs.printer), account is \(prefs.accountDir)")
     }
 
     func applicationWillTerminate(_ aNotification: Notification) {

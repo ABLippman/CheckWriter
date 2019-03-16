@@ -47,7 +47,7 @@ class ViewController: NSViewController {
     @IBOutlet weak var autButton: NSButton!
     
 
-    var prefs = Preferences()
+//    var prefs = Preferences()   //  This should have been gloablized in the app delegate
     let today:Date = Date()
     var registerDate:String = ""
     var todayString = ""
@@ -111,6 +111,8 @@ class ViewController: NSViewController {
     
     func updateFromPrefs() {  // if account base changes...
         print("Got the Preference notification")
+        print (prefs.printer)
+        accountPulldown.removeAllItems()  // Clear the accounts you had before then...
         self.viewDidAppear()  //  Essentially restart the app
     }
     
