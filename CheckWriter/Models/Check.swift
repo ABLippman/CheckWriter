@@ -15,8 +15,5 @@ class Check {  // playing with struct rather than class for value-based rather t
     var cat = "None"
     var memo = "None"
     var amountWords = "No Dollars"
-    
-    func printData() {  // UNUSED 5/7/18
-        Swift.print ("Printed check: \(check.seq):\(check.date):\(check.amount):\(amountWords):\(check.payee):\(check.cat):\(check.memo)")
-    }
+
 }

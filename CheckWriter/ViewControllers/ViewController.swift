@@ -53,7 +53,7 @@ class ViewController: NSViewController {
     var categoryChosen:Bool = false
     let appDelegate = NSApplication.shared.delegate as! AppDelegate  // We now have a reference to the app delegate...
     var accountBaseData:String?
-    var accountInfo:[[String]]?  // Global for the array of account arrays
+    var accountInfo:[Account]?  // Global for the array of account arrays
     var moneyMaker: MoneyMaker = MoneyMaker()
 
     override func viewDidLoad() {
@@ -143,21 +143,22 @@ class ViewController: NSViewController {
     func initializeInterfaceForAccounts() {
         //  Uses Global Accounts array of arrays, fills in accounts Pulldown
         for  i in 0..<accountInfo!.count {
-            accountPulldown.addItem(withTitle: accountInfo![i][3])
+            accountPulldown.addItem(withTitle: accountInfo![i].accountLabel)
         }
+        accountPulldown.addItem(withTitle: "Create Account")
     }
     
-    func initializeAccount (account a:[String]){    //  Fill in the title, Balance, seq, and cats for an account
-        self.view.window?.title = a[3]
+    func initializeAccount (account a:Account){    //  Fill in the title, Balance, seq, and cats for an account
+        self.view.window?.title = a.accountLabel
         closeBatch()  //  reset batch mode on account change
-        currentAccount = a[0]  //  Need this set globally for deposits and debits
-        balanceField.stringValue = filer.balance(account: a[0])!
+        currentAccount = a.account  //  Need this string set globally for deposits and debits
+        balanceField.stringValue = filer.balance(account: a.account)!
         self.colorBalanceField()
-        numberField.stringValue = filer.seq(account: a[0])
+        numberField.stringValue = filer.seq(account: a.account)
         categoryPopup.removeAllItems() //  Clear old popup
         categoryPopup.addItem(withTitle: "None") // first entry is none
-        for i in 0..<filer.cat(account: a[0]).count { // Now add the real ones.
-            categoryPopup.addItem(withTitle: filer.cat(account: a[0])[i])
+        for i in 0..<filer.cat(account: a.account).count { // Now add the real ones.
+            categoryPopup.addItem(withTitle: filer.cat(account: a.account)[i])
         }
     }
     
@@ -189,8 +190,12 @@ class ViewController: NSViewController {
         print("Account Changed")
         //  THis is now hard.  Have to get the array, not just the number
         //  Iterate through the accounts until the number matches the pulldown title
+        if accountPulldown.titleOfSelectedItem == "Create Account" {
+ //           filer.createAccountBase(prefs.accountDir)
+            print ("Someday we'll do this...")
+        }
         for i in 0..<accountInfo!.count {
-            if accountInfo![i][3] == accountPulldown.titleOfSelectedItem {
+            if accountInfo![i].accountLabel == accountPulldown.titleOfSelectedItem {
                 initializeAccount(account: accountInfo![i])
             }
         }

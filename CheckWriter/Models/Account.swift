@@ -7,3 +7,9 @@
 //
 
 import Foundation
+struct Account {
+    var account:String = "10001"
+    var printFile:String = "None"
+    var batchName:String = "bat"  // Not used
+    var accountLabel = "Dummy Account 10001"
+}

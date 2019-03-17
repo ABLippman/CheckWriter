@@ -60,7 +60,8 @@ class FileInterface: NSObject {
         return answer
     }
     
-    func allowFolder() -> URL? {  // get URL of account root via OpenPanel
+/*  This is not used, I thnk
+        func allowFolder() -> URL? {  // get URL of account root via OpenPanel
         let openPanel = NSOpenPanel()
         openPanel.allowsMultipleSelection = false
         openPanel.canChooseDirectories = true
@@ -73,6 +74,7 @@ class FileInterface: NSObject {
         print ("Nothing selected")
         return URL.init(string: "/Users/lip/Desktop")
     }
+ */
     
     func findAccounts(_ baseDir:URL) -> String? {  // Tests that root is accessible and finds all accounts,
         // returns array for each acct or nil if non found
@@ -123,6 +125,7 @@ class FileInterface: NSObject {
         return true
     }
 
+/*  The array of arrays version
     func parseAccountsFileData(data d:String) -> [[String]] {
         // Called by view controller as part of normal sequence.  Here because file format dependent
         let accountEach:[String] = d.components(separatedBy: "\n")
@@ -134,7 +137,21 @@ class FileInterface: NSObject {
         }
         return f  //  Returns the array of accounts with elements as an array
     }
+ */
     
+    func parseAccountsFileData(data d:String) -> [Account] {
+        // Called by view controller as part of normal sequence.  Here because file format dependent
+        let accountEach:[String] = d.components(separatedBy: "\n")
+        var f:[Account] = []
+        var elements:[String] = []
+        let accountFix = stripComments(accountEach)
+        print ("Number of Accounts is: \(accountFix.count)")
+        for each in accountFix[0..<accountFix.count] {
+            elements = (each.components(separatedBy: ":"))
+            f.append(Account(account:elements[0], printFile: "none", batchName:"none", accountLabel:elements[3]) )
+        }
+        return f  //  Returns the array of accounts with elements as an array
+    }
 
     /*  New funcs to separate bal, seq, cat, eba, and aut.  A call for each
     *   with an account number.  Global root should be set.
