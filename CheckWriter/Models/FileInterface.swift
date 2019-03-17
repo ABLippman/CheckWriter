@@ -83,6 +83,7 @@ class FileInterface: NSObject {
         do {  //  "Accounts"  has the list of accounts and names for them
             accountsFile = try NSString(contentsOfFile: baseDir.appendingPathComponent("Accounts").path,
                                         encoding: String.Encoding.utf8.rawValue) as String
+            print( "Accounts File contents: \(accountsFile)")
             return accountsFile
         }
         catch let error {
@@ -103,7 +104,7 @@ class FileInterface: NSObject {
             }
         }
         do { let handleWrite2 = try FileHandle(forWritingTo:base) as FileHandle?
-            let rData = ("100001:none:bat:Dummy Account 100001" as NSString).data(using: String.Encoding.utf8.rawValue)
+            let rData = ("100001:none:bat:Dummy Account 100001\n" as NSString).data(using: String.Encoding.utf8.rawValue)
             handleWrite2!.seekToEndOfFile()  // This is for appending
             handleWrite2!.write(rData!)   //  This should append an initial \n.
             handleWrite2!.closeFile()
@@ -125,20 +126,6 @@ class FileInterface: NSObject {
         return true
     }
 
-/*  The array of arrays version
-    func parseAccountsFileData(data d:String) -> [[String]] {
-        // Called by view controller as part of normal sequence.  Here because file format dependent
-        let accountEach:[String] = d.components(separatedBy: "\n")
-        var f:[[String]] = []
-        let accountFix = stripComments(accountEach)
-        print ("Number of Accounts is: \(accountFix.count)")
-        for each in accountFix[0..<accountFix.count] {
-            f.append(each.components(separatedBy: ":"))
-        }
-        return f  //  Returns the array of accounts with elements as an array
-    }
- */
-    
     func parseAccountsFileData(data d:String) -> [Account] {
         // Called by view controller as part of normal sequence.  Here because file format dependent
         let accountEach:[String] = d.components(separatedBy: "\n")
