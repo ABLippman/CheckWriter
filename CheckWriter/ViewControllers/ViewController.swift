@@ -47,15 +47,14 @@ class ViewController: NSViewController {
     @IBOutlet weak var autButton: NSButton!
     
 
-//    var prefs = Preferences()   //  This should have been gloablized in the app delegate
     let today:Date = Date()
     var registerDate:String = ""
     var todayString = ""
     var categoryChosen:Bool = false
-    var moneyMaker: MoneyMaker = MoneyMaker()
     let appDelegate = NSApplication.shared.delegate as! AppDelegate  // We now have a reference to the app delegate...
     var accountBaseData:String?
     var accountInfo:[[String]]?  // Global for the array of account arrays
+    var moneyMaker: MoneyMaker = MoneyMaker()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -66,10 +65,9 @@ class ViewController: NSViewController {
     override func viewDidAppear() { // This occurs later than the load...
         super.viewDidAppear()
         myCheckController = self
-        print (" AccountRoot is: \(prefs.accountDir)")
         manual.state = NSControl.StateValue.off  // We never really use manual state anymore
         setAndTestAccounts()  //  find or create base for accounts; set it up
-        amountField.selectText(self)
+        amountField.selectText(self)  //  programmatically define key object
         amountField.nextKeyView = toField
     }
     
@@ -82,18 +80,18 @@ class ViewController: NSViewController {
      }
      */
     
-    func setDate() {
+    func setDate() { //  Get and set date for display, print, and register
         let dateFormatter = DateFormatter()
         let shortDate = DateFormatter()
-        _ = dateFormatter.dateFormat = "d MMMM, yyyy"
-        _ = shortDate.dateFormat = "d MMM yyyy"
+        dateFormatter.dateFormat = "d MMMM, yyyy"
+        shortDate.dateFormat = "d MMM yyyy"
         
         todayString = dateFormatter.string(from: today)
         registerDate = shortDate.string(from: today)
         dateField.stringValue = todayString;
     }
     
-    func alertOKCancel(question: String, text: String) -> Bool {
+    func alertOKCancel(question: String, text: String) -> Bool {  // General panel for category and acct
         let alert = NSAlert()
         alert.messageText = question
         alert.informativeText = text
@@ -103,14 +101,13 @@ class ViewController: NSViewController {
         return alert.runModal() == .alertFirstButtonReturn
     }
     
-    @IBAction func openPrefWindow(_ sender: Any) {  // new code to programmatically open window
+    @IBAction func openPrefWindow(_ sender: Any) {  // Programmatically open window if no account base
         let storyboard = NSStoryboard(name: NSStoryboard.Name(rawValue: "Main"),bundle: nil)
         let controller: PrefsViewController = storyboard.instantiateController(withIdentifier: NSStoryboard.SceneIdentifier(rawValue: "andyPref")) as! PrefsViewController
         self.presentViewControllerAsModalWindow(controller)
     }
     
-    func updateFromPrefs() {  // if account base changes...
-        print("Got the Preference notification")
+    func updateFromPrefs() {  // if account base or printer changes...
         print (prefs.printer)
         accountPulldown.removeAllItems()  // Clear the accounts you had before then...
         self.viewDidAppear()  //  Essentially restart the app
@@ -121,7 +118,7 @@ class ViewController: NSViewController {
         *   Note that prefs panel has to return from whence it was called
         *   The order of setup (view did appear is do this first, then setup default acct
         */
-        accountBaseData = filer.findAccounts() // Get account base file
+        accountBaseData = filer.findAccounts(prefs.accountDir) // Get account base file
         if  accountBaseData != nil {  //  Check that we found one, Good ? setup : alert and fix
             accountInfo = filer.parseAccountsFileData(data: accountBaseData!)
             initializeAccount(account: accountInfo![0]) //  Use first account in accounts file
@@ -131,17 +128,20 @@ class ViewController: NSViewController {
         let answer = alertOKCancel(question: "No Account files!!", text: "Pick another root or make a new one." )
         if !answer {
             // Open prefs and choose another
-            setupPrefs()  //  Maybe ****
+//            setupPrefs()  //  Maybe ****
             openPrefWindow(self)  // exit into modal prefs window, setup incomplete until done
+            if filer.createAccountBase(prefs.accountDir) {print("Success! from Prefs")}
         }
         else {
           // Create account in default directory
-            if filer.createAccountBase() {print("Success!")}
+            if filer.createAccountBase(URL.init(fileURLWithPath: "/Users/lip/Desktop")) {print("Success! from /tmp")}
+            prefs.accountDir = URL.init(fileURLWithPath: "/Users/lip/Desktop")
+            updateFromPrefs()
         }
     }
     
-    func initializeInterfaceForAccounts() {  // *****    SOmething wrong here   *****
-        //  Uses Global Accounts array of arrays, fills in acccounts Pulldown
+    func initializeInterfaceForAccounts() {
+        //  Uses Global Accounts array of arrays, fills in accounts Pulldown
         for  i in 0..<accountInfo!.count {
             accountPulldown.addItem(withTitle: accountInfo![i][3])
         }
@@ -149,20 +149,19 @@ class ViewController: NSViewController {
     
     func initializeAccount (account a:[String]){    //  Fill in the title, Balance, seq, and cats for an account
         self.view.window?.title = a[3]
-        closeBatch()  //  reset batch mode
+        closeBatch()  //  reset batch mode on account change
         currentAccount = a[0]  //  Need this set globally for deposits and debits
         balanceField.stringValue = filer.balance(account: a[0])!
         self.colorBalanceField()
         numberField.stringValue = filer.seq(account: a[0])
-        categoryPopup.removeAllItems()
-        categoryPopup.addItem(withTitle: "None")
-        for i in 0..<filer.cat(account: a[0]).count {
+        categoryPopup.removeAllItems() //  Clear old popup
+        categoryPopup.addItem(withTitle: "None") // first entry is none
+        for i in 0..<filer.cat(account: a[0]).count { // Now add the real ones.
             categoryPopup.addItem(withTitle: filer.cat(account: a[0])[i])
         }
     }
     
     func colorBalanceField() {
-        //  Dirty code in that it talks directly to interface
         if balanceField.floatValue < 0.0 {
             balanceField.backgroundColor = NSColor.red
         }
@@ -221,10 +220,7 @@ class ViewController: NSViewController {
          */
         
         self.setDate()  //  Why not reset the date in case it runs overnight...
-        if categoryChosen {
-            register.cat = (categoryPopup.selectedItem?.title)!
-        }
-        else {
+        if !categoryChosen {  // Interrupt if you didn't set a category!
             let answer = alertOKCancel(question: "No Category", text: "Please enter a category, proceed?")
             if !answer { return }
         }

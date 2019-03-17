@@ -676,6 +676,7 @@
                     </connections>
                 </viewController>
                 <customObject id="rPt-NT-nkU" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
+                <userDefaultsController representsSharedInstance="YES" id="IYu-yr-K5B"/>
             </objects>
             <point key="canvasLocation" x="300.5" y="827"/>
         </scene>

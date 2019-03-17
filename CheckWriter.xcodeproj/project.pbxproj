@@ -16,7 +16,7 @@
 		363A9CE021FC95BA0039703D /* MoneyMaker.m in Sources */ = {isa = PBXBuildFile; fileRef = 363A9CDD21FC95BA0039703D /* MoneyMaker.m */; };
 		363A9CE221FC99C30039703D /* NewCheck.tiff in Resources */ = {isa = PBXBuildFile; fileRef = 363A9CE121FC99C30039703D /* NewCheck.tiff */; };
 		36404E2621FD043000DB38AA /* Check.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36404E2521FD043000DB38AA /* Check.swift */; };
-		36404E2821FD0C3200DB38AA /* Register.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36404E2721FD0C3200DB38AA /* Register.swift */; };
+		364065F5223DA152004D356D /* NumberTransformer.m in Sources */ = {isa = PBXBuildFile; fileRef = 364065F4223DA152004D356D /* NumberTransformer.m */; };
 		3697149821FE0546002D7D67 /* PrefsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3697149721FE0546002D7D67 /* PrefsViewController.swift */; };
 		3697149E21FE16BC002D7D67 /* Preferences.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3697149D21FE16BC002D7D67 /* Preferences.swift */; };
 		36D22A5F22065DE4005C9E66 /* FileInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36D22A5E22065DE4005C9E66 /* FileInterface.swift */; };
@@ -40,7 +40,8 @@
 		363A9CDE21FC95BA0039703D /* money.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = money.h; sourceTree = "<group>"; };
 		363A9CE121FC99C30039703D /* NewCheck.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = NewCheck.tiff; sourceTree = "<group>"; };
 		36404E2521FD043000DB38AA /* Check.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Check.swift; sourceTree = "<group>"; };
-		36404E2721FD0C3200DB38AA /* Register.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Register.swift; sourceTree = "<group>"; };
+		364065F3223DA152004D356D /* NumberTransformer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NumberTransformer.h; sourceTree = "<group>"; };
+		364065F4223DA152004D356D /* NumberTransformer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NumberTransformer.m; sourceTree = "<group>"; };
 		3697149721FE0546002D7D67 /* PrefsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrefsViewController.swift; sourceTree = "<group>"; };
 		3697149D21FE16BC002D7D67 /* Preferences.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Preferences.swift; sourceTree = "<group>"; };
 		36D22A5E22065DE4005C9E66 /* FileInterface.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileInterface.swift; sourceTree = "<group>"; };
@@ -102,6 +103,8 @@
 				363A9CDE21FC95BA0039703D /* money.h */,
 				363A9CDB21FC95B90039703D /* MoneyMaker.h */,
 				363A9CDD21FC95BA0039703D /* MoneyMaker.m */,
+				364065F3223DA152004D356D /* NumberTransformer.h */,
+				364065F4223DA152004D356D /* NumberTransformer.m */,
 			);
 			path = Money;
 			sourceTree = "<group>";
@@ -110,7 +113,6 @@
 			isa = PBXGroup;
 			children = (
 				36404E2521FD043000DB38AA /* Check.swift */,
-				36404E2721FD0C3200DB38AA /* Register.swift */,
 				3697149D21FE16BC002D7D67 /* Preferences.swift */,
 				36D22A5E22065DE4005C9E66 /* FileInterface.swift */,
 			);
@@ -214,7 +216,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				36404E2821FD0C3200DB38AA /* Register.swift in Sources */,
 				36D22A6922066C7B005C9E66 /* LipScrollView.m in Sources */,
 				363A9CDF21FC95BA0039703D /* money.c in Sources */,
 				36D22A65220666D0005C9E66 /* DepositController.swift in Sources */,
@@ -222,6 +223,7 @@
 				36404E2621FD043000DB38AA /* Check.swift in Sources */,
 				363A9CCB21FC95330039703D /* AppDelegate.swift in Sources */,
 				363A9CE021FC95BA0039703D /* MoneyMaker.m in Sources */,
+				364065F5223DA152004D356D /* NumberTransformer.m in Sources */,
 				36168CAB2231D4D700E49A33 /* common.swift in Sources */,
 				36D22A5F22065DE4005C9E66 /* FileInterface.swift in Sources */,
 				3697149E21FE16BC002D7D67 /* Preferences.swift in Sources */,

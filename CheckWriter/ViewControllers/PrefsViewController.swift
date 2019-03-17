@@ -57,7 +57,7 @@ class PrefsViewController: NSViewController, NSTextFieldDelegate {
     return true
     }
     
-    func allowFolder() -> URL? {  //  Defaukts are specific for a non-sandbox app
+    func allowFolder() -> URL? {  //  Defaults are specific for a non-sandbox app
         let openPanel = NSOpenPanel()
         openPanel.allowsMultipleSelection = false
         openPanel.canChooseDirectories = true

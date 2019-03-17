@@ -14,7 +14,6 @@ import Cocoa
 
 let masterAppName = "New_Checkwriter"
 var check = Check()
-let register = Register()
 let data=Data()
 let prefs = Preferences()  //  Instantiate preferences GLOBAL
 let filer = FileInterface()  // Instantiate file Manager GLOBAL
@@ -28,12 +27,8 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     @IBOutlet weak var name: NSMenuItem!
     let testConstant = "This is a constant in the app delegate"
     
-
     func applicationDidFinishLaunching(_ aNotification: Notification) {
         // Insert code here to initialize your application
-
-        
-        //  Preferences go here?
         print("Startup... Printer is \(prefs.printer), account is \(prefs.accountDir)")
     }
 

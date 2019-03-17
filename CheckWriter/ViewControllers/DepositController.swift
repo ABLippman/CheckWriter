@@ -21,6 +21,7 @@ class DepositController: NSViewController {
         super.viewDidLoad()
         self.setDate()
         // Do view setup here.
+        amountField.becomeFirstResponder()  //  This does nothing
     }
 
     func setDate() {
@@ -32,6 +33,7 @@ class DepositController: NSViewController {
         todayString = dateFormatter.string(from: today)
         registerDate = shortDate.string(from: today)
         dateField.stringValue = todayString;
+        amountField.selectText(self)  //  This does nothing on startup
     }
     
     @IBAction func doDeposit(_ sender: Any) {
@@ -44,6 +46,8 @@ class DepositController: NSViewController {
         //  check.cat = "????"   //  We don't add a category for deposits yet but we could
         filer.registerCheck(account: currentAccount, checkData: check)
         myCheckController?.updateBalanceField(delta: amountField.floatValue)
+        amountField.selectText(self)
+
     }
 
     @IBAction func doDebit(_ sender: Any) {
@@ -53,9 +57,11 @@ class DepositController: NSViewController {
         check.amount = amountField.floatValue //  Want this to be formatted as well
         check.date = registerDate
         check.memo = fixRegisterText(commentField.stringValue)
-        //  check.cat = "????"   //  We don't add a category for deposits yet but we could
+        //  check.cat = "????"   //  We don't add a category for debits yet but we could
         filer.registerCheck(account: currentAccount, checkData: check)
         myCheckController?.updateBalanceField(delta: -amountField.floatValue)
+        amountField.selectText(self)
+
     }
 
     

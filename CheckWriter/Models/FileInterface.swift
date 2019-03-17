@@ -18,18 +18,16 @@
 import Cocoa
 
     /*
-    *  File Interface is initialized on launch with a preferences base directory
+    *  File Interface is initialized by viewcontroller with a preferences base directory
     *  It is called to open an account and fetch the sequence, balance, categories, auto-pay lists
-    *  Close account closes the register.  Others need no close
-    *  Change account closes the register and opens a new account
     *
     *  Presumably the view that called this will then fill in the category popups and
     *  dothe right thing with the auto pay stuff
     *
     *  File Interface also registers the checks if view controllers asks to do so
     *
-    *  Note:   view controller only calls us with the account number.
-    *  We handle the base account directory here on launch and if it is
+    *  Note:   view controller usually only calls routines with the account number.
+    *  We handle the base account directory here on controller startup and if it is
     *  changed via the preference panel
     *
     *  We also handle requesting a new account to be set up from
@@ -76,12 +74,12 @@ class FileInterface: NSObject {
         return URL.init(string: "/Users/lip/Desktop")
     }
     
-    func findAccounts() -> String? {  // Tests that root is accessible and finds all accounts,
+    func findAccounts(_ baseDir:URL) -> String? {  // Tests that root is accessible and finds all accounts,
         // returns array for each acct or nil if non found
         var accountsFile = ""           //  This is the file of account base info
         print ("finding and testing accounts")
         do {  //  "Accounts"  has the list of accounts and names for them
-            accountsFile = try NSString(contentsOfFile: prefs.accountDir.appendingPathComponent("Accounts").path,
+            accountsFile = try NSString(contentsOfFile: baseDir.appendingPathComponent("Accounts").path,
                                         encoding: String.Encoding.utf8.rawValue) as String
             return accountsFile
         }
@@ -91,11 +89,11 @@ class FileInterface: NSObject {
         }
     }
     
-    func createAccountBase() -> Bool {
+    func createAccountBase(_ baseDir:URL) -> Bool {
         //  Appends an account description to the accounts file
         //  or creates an Accounts file if there is none.
-        let base = prefs.accountDir.appendingPathComponent("Accounts")
-        if findAccounts() == nil {
+        let base = baseDir.appendingPathComponent("Accounts")
+        if findAccounts(baseDir) == nil {
             do {try "# Default created\n".write(to: base, atomically: false, encoding: .utf8)}
             catch let error {
                 print("Failed to creat an account base\(error)")
@@ -103,7 +101,7 @@ class FileInterface: NSObject {
             }
         }
         do { let handleWrite2 = try FileHandle(forWritingTo:base) as FileHandle?
-            let rData = ("100001:none:bat:Account 100001" as NSString).data(using: String.Encoding.utf8.rawValue)
+            let rData = ("100001:none:bat:Dummy Account 100001" as NSString).data(using: String.Encoding.utf8.rawValue)
             handleWrite2!.seekToEndOfFile()  // This is for appending
             handleWrite2!.write(rData!)   //  This should append an initial \n.
             handleWrite2!.closeFile()
@@ -114,9 +112,9 @@ class FileInterface: NSObject {
         //  Now we have a prototype random account added to the Accounts file
         //  Need to set up a register, a sequence, and a balance file.
         //  Then we essentially return and restart the app
-        do { try "001".write(to: prefs.accountDir.appendingPathComponent("100001").appendingPathExtension("seq"), atomically: false, encoding: .utf8)
-        try "001".write(to: prefs.accountDir.appendingPathComponent("100001").appendingPathExtension("reg"), atomically: false, encoding: .utf8)
-        try "001".write(to: prefs.accountDir.appendingPathComponent("100001").appendingPathExtension("bal"), atomically: false, encoding: .utf8)
+        do { try "001".write(to: baseDir.appendingPathComponent("100001").appendingPathExtension("seq"), atomically: false, encoding: .utf8)
+        try "001".write(to: baseDir.appendingPathComponent("100001").appendingPathExtension("reg"), atomically: false, encoding: .utf8)
+        try "001".write(to: baseDir.appendingPathComponent("100001").appendingPathExtension("bal"), atomically: false, encoding: .utf8)
         }
         catch let error {
             print("Failed to set up auxiliary files \(error)")
