@@ -12,6 +12,8 @@ class DepositController: NSViewController {
     let today:Date = Date()
     var registerDate:String = ""
     var todayString = ""
+    let check = Check()
+
 
     @IBOutlet weak var dateField: NSTextField!
     @IBOutlet weak var amountField: NSTextField!

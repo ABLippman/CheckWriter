@@ -13,7 +13,7 @@
 import Cocoa
 
 let masterAppName = "New_Checkwriter"
-var check = Check()
+// var check = Check()  // Global for both deposits and checks
 let data=Data()
 let prefs = Preferences()  //  Instantiate preferences GLOBAL
 let filer = FileInterface()  // Instantiate file Manager GLOBAL

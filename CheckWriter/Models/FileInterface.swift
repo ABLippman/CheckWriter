@@ -18,25 +18,23 @@
 import Cocoa
 
     /*
-    *  File Interface is initialized by viewcontroller with a preferences base directory
+    *  File Interface is used by viewcontroller with a preferences base directory URL
     *  It is called to open an account and fetch the sequence, balance, categories, auto-pay lists
     *
-    *  Presumably the view that called this will then fill in the category popups and
+    *  The view that calls this will then fill in the category popups array,and
     *  dothe right thing with the auto pay stuff
     *
     *  File Interface also registers the checks if view controllers asks to do so
     *
-    *  Note:   view controller usually only calls routines with the account number.
-    *  We handle the base account directory here on controller startup and if it is
-    *  changed via the preference panel
+    *  On startup, call findAccounts with the base directory
+    *  If there is no account, call CreateAccountBase with base directory
     *
-    *  We also handle requesting a new account to be set up from
-    *  Preferences
+    *  View controller usually only calls routines with the account number.
+    *
     *  NOTE:  This app is not sandboxed!!!  Sandox code to be added later
     *
     *  At some future time, we may add the ability to add categories...
     *
-    *  No need to close accounts.  All file I/O closes when done
     *
     */
 
@@ -75,16 +73,28 @@ class FileInterface: NSObject {
         return URL.init(string: "/Users/lip/Desktop")
     }
  */
+    func parseAccountsFileData(data d:String) -> [Accounts] {
+        // Called by view controller as part of normal sequence.  Here because file format dependent
+        let accountEach:[String] = d.components(separatedBy: "\n")
+        var f:[Accounts] = []
+        var elements:[String] = []
+        let accountFix = stripComments(accountEach)
+        print ("Number of Accounts is: \(accountFix.count)")
+        for each in accountFix[0..<accountFix.count] {
+            elements = (each.components(separatedBy: ":"))
+            f.append(Accounts(account:elements[0], printFile: "none", batchName:"none", accountLabel:elements[3]) )
+        }
+        return f  //  Returns the array of accounts with elements as an array
+    }
     
-    func findAccounts(_ baseDir:URL) -> String? {  // Tests that root is accessible and finds all accounts,
+    func findAccounts(_ baseDir:URL) -> [Accounts]? {  // Tests that root is accessible and finds all accounts,
         // returns array for each acct or nil if non found
         var accountsFile = ""           //  This is the file of account base info
         print ("finding and testing accounts")
         do {  //  "Accounts"  has the list of accounts and names for them
             accountsFile = try NSString(contentsOfFile: baseDir.appendingPathComponent("Accounts").path,
                                         encoding: String.Encoding.utf8.rawValue) as String
-            print( "Accounts File contents: \(accountsFile)")
-            return accountsFile
+            return parseAccountsFileData(data: accountsFile)
         }
         catch let error {
             print ("****  Finding accounts:  Failed!\n \(error)")
@@ -126,22 +136,10 @@ class FileInterface: NSObject {
         return true
     }
 
-    func parseAccountsFileData(data d:String) -> [Account] {
-        // Called by view controller as part of normal sequence.  Here because file format dependent
-        let accountEach:[String] = d.components(separatedBy: "\n")
-        var f:[Account] = []
-        var elements:[String] = []
-        let accountFix = stripComments(accountEach)
-        print ("Number of Accounts is: \(accountFix.count)")
-        for each in accountFix[0..<accountFix.count] {
-            elements = (each.components(separatedBy: ":"))
-            f.append(Account(account:elements[0], printFile: "none", batchName:"none", accountLabel:elements[3]) )
-        }
-        return f  //  Returns the array of accounts with elements as an array
-    }
+
 
     /*  New funcs to separate bal, seq, cat, eba, and aut.  A call for each
-    *   with an account number.  Global root should be set.
+    *   with an account number.  Global root taken from Prefs
     */
     
 
@@ -192,47 +190,45 @@ class FileInterface: NSObject {
                                    encoding: String.Encoding.utf8.rawValue) as String //  Uses NSString and string path, not URL
             cats = tmp.components(separatedBy: "\n")
             cats = stripComments(cats)
-        } catch let error {
-            print ("cat file didn't open \(error)")
+        } catch {
+            print ("cat file didn't open...")
+            cats = ["Home", "Work"]  //  Arbitrary default set when no cat file
         }
         return cats
     }
     
-    func eba(account a:String) -> [[String]] {
-        let pathURL =  prefs.accountDir.appendingPathComponent(a).appendingPathExtension("eba")
+    func unpackBatchItems(pathURL:URL) -> [Batch] {
+        //  Opens the eba or aut file and
+        //  unpacks the batch or auto-pay file into an array
+        //  of structs:Batch
         var tmp: String = ""
-        var ebas: [String] = []
-        var ebasArray:[[String]] = []
-        do {
-            tmp = try NSString(contentsOfFile: pathURL.path,
-                                   encoding: String.Encoding.utf8.rawValue) as String //  Uses NSString and string path, not URL
-            ebas = stripComments(tmp.components(separatedBy: "\n"))  //  ****Check strip first or after
-        } catch let error {
-            print ("eba file didn't open \(error)")
-        }
-        for each in ebas {
-        ebasArray.append(each.components(separatedBy: ":"))
-        }
-        return ebasArray
-    }
-    
-    func aut(account a:String) -> [[String]] {
-        let pathURL =  prefs.accountDir.appendingPathComponent(a).appendingPathExtension("aut")
-        var tmp: String = ""
-        var auts: [String] = []
-        var autsArray:[[String]] = []
+        var aBatchEntry: [String] = []
+        var f:[Batch] = []
+        var elements:[String] = []
         do {
             tmp = try NSString(contentsOfFile: pathURL.path,
                                encoding: String.Encoding.utf8.rawValue) as String //  Uses NSString and string path, not URL
-            auts = stripComments(tmp.components(separatedBy: "\n"))  //  ****Check strip first or after
+            aBatchEntry = stripComments(tmp.components(separatedBy: "\n"))  //  ****Check strip first or after
         } catch let error {
-            print ("aut file didn't open \(error)")
+            print ("eba file didn't open \(error)")
         }
-        for each in auts {
-            autsArray.append(each.components(separatedBy: ":"))
+        for each in aBatchEntry {
+            elements = each.components(separatedBy: ":")
+            f.append(Batch(payee:elements[0], amount:elements[1], memo:elements[2], category:elements[3]) )
         }
-        return autsArray
+        return f
     }
+    
+    func eba(account a:String) -> [Batch] {  //  Builds filename:URL
+        let pathURL =  prefs.accountDir.appendingPathComponent(a).appendingPathExtension("eba")
+        return unpackBatchItems(pathURL: pathURL)
+    }
+    
+    func aut(account a:String) -> [Batch] {  //  Build filename:URL = [].aut
+        let pathURL =  prefs.accountDir.appendingPathComponent(a).appendingPathExtension("aut")
+        return unpackBatchItems(pathURL: pathURL)
+    }
+    
     
     func registerCheck(account a:String, checkData d:Check) {
         let serialNumber: NSDate = NSDate() // new serialization date each time

@@ -491,6 +491,9 @@
                                     <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                     <font key="font" metaFont="system"/>
                                 </buttonCell>
+                                <connections>
+                                    <action selector="printButtonChanged:" target="XfG-lQ-9wD" id="aN7-Z2-dr2"/>
+                                </connections>
                             </button>
                             <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="zEH-aN-PNt">
                                 <rect key="frame" x="420" y="26" width="115" height="32"/>
@@ -518,6 +521,9 @@
                                     <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                     <font key="font" metaFont="system"/>
                                 </buttonCell>
+                                <connections>
+                                    <action selector="sequenceButtonChanged:" target="XfG-lQ-9wD" id="TD9-pn-73c"/>
+                                </connections>
                             </button>
                             <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="gRA-Ng-X23">
                                 <rect key="frame" x="251" y="35" width="66" height="18"/>

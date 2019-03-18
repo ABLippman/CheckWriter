@@ -1,5 +1,5 @@
 //
-//  Account.swift
+//  Accounts.swift
 //  CheckWriter
 //
 //  Created by lip on 3/17/19.
@@ -7,7 +7,7 @@
 //
 
 import Foundation
-struct Account {
+struct Accounts {
     var account:String = "10001"
     var printFile:String = "None"
     var batchName:String = "bat"  // Not used

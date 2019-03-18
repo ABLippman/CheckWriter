@@ -52,9 +52,12 @@ class ViewController: NSViewController {
     var todayString = ""
     var categoryChosen:Bool = false
     let appDelegate = NSApplication.shared.delegate as! AppDelegate  // We now have a reference to the app delegate...
-    var accountBaseData:String?
-    var accountInfo:[Account]?  // Global for the array of account arrays
+//    var accountBaseData:String?
+    var accountInfo:[Accounts]?  // Global for the array of account structures
     var moneyMaker: MoneyMaker = MoneyMaker()
+    //  We are caching the print button state so we can restore it after batch and auto
+    //  In particular, auto turns it off, the shoulld restore it when conplete
+    var printButtonCache:NSControl.StateValue = NSControl.StateValue.on //  Initially save as ON state
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -118,10 +121,9 @@ class ViewController: NSViewController {
         *   Note that prefs panel has to return from whence it was called
         *   The order of setup (view did appear is do this first, then setup default acct
         */
-        accountBaseData = filer.findAccounts(prefs.accountDir) // Get account base file
-        if  accountBaseData != nil {  //  Check that we found one, Good ? setup : alert and fix
-            accountInfo = filer.parseAccountsFileData(data: accountBaseData!)
-            initializeAccount(account: accountInfo![0]) //  Use first account in accounts file
+        accountInfo = filer.findAccounts(prefs.accountDir) // Get account base file
+        if  accountInfo != nil {  //  Check that we found one, Good ? setup : alert and fix
+            initializeAccount(account: accountInfo![0]) //  Start on first account
             initializeInterfaceForAccounts()  //  Set up view for that account
             return
         }
@@ -145,10 +147,11 @@ class ViewController: NSViewController {
         for  i in 0..<accountInfo!.count {
             accountPulldown.addItem(withTitle: accountInfo![i].accountLabel)
         }
-        accountPulldown.addItem(withTitle: "Create Account")
+        accountPulldown.addItem(withTitle: "Create Account")  //  Added for future feature
     }
     
-    func initializeAccount (account a:Account){    //  Fill in the title, Balance, seq, and cats for an account
+    func initializeAccount (account a:Accounts){    //  Fill in the title, Balance, seq, and cats for an account
+        var categoryArray:[String] = filer.cat(account: a.account)
         self.view.window?.title = a.accountLabel
         closeBatch()  //  reset batch mode on account change
         currentAccount = a.account  //  Need this string set globally for deposits and debits
@@ -157,8 +160,8 @@ class ViewController: NSViewController {
         numberField.stringValue = filer.seq(account: a.account)
         categoryPopup.removeAllItems() //  Clear old popup
         categoryPopup.addItem(withTitle: "None") // first entry is none
-        for i in 0..<filer.cat(account: a.account).count { // Now add the real ones.
-            categoryPopup.addItem(withTitle: filer.cat(account: a.account)[i])
+        for i in 0..<categoryArray.count {
+            categoryPopup.addItem(withTitle: categoryArray[i])
         }
     }
     
@@ -177,22 +180,11 @@ class ViewController: NSViewController {
         self.colorBalanceField()
     }
 
-    func fillCheckFromEntry (_ entry:[String]){ // Used for batch modes
-        toField.stringValue = entry[0]
-        amountField.floatValue =  (entry[1] as NSString).floatValue
-        memoField.stringValue = entry[2]
-        output.stringValue = moneyMaker.makeMoney(amountField.stringValue)
-        categoryPopup.selectItem(withTitle: entry[3])
-        categoryChosen = true
-    }
-    
     @IBAction func accountPulldownChanged(_ sender: AnyObject) {
-        print("Account Changed")
-        //  THis is now hard.  Have to get the array, not just the number
-        //  Iterate through the accounts until the number matches the pulldown title
         if accountPulldown.titleOfSelectedItem == "Create Account" {
  //           filer.createAccountBase(prefs.accountDir)
-            print ("Someday we'll do this...")
+            print ("Someday we'll do this...")  // Meanwhile go back to account 1
+            accountPulldown.selectItem(at: 0)
         }
         for i in 0..<accountInfo!.count {
             if accountInfo![i].accountLabel == accountPulldown.titleOfSelectedItem {
@@ -217,13 +209,28 @@ class ViewController: NSViewController {
         categoryChosen = true
     }
 
+    @IBAction func sequenceButtonChanged(_ sender: Any) {
+        //  Allows for manual entry of a sequence
+        if sequenceButton.state == NSControl.StateValue.off {
+            numberField.intValue = 6000
+        }
+        else {
+            numberField.stringValue = filer.seq(account: currentAccount)
+        }
+    }
+    
+    @IBAction func printButtonChanged(_ sender: Any) {  //  Cache button state
+        printButtonCache = printChosen.state
+    }
+    
     @IBAction func issueCheck(_ sender: Any) {
         
         /*  Main routine
          *   sets printer, verifies category
          *   Prints if req'd, registers if req'd
          */
-        
+        let check = Check()
+
         self.setDate()  //  Why not reset the date in case it runs overnight...
         if !categoryChosen {  // Interrupt if you didn't set a category!
             let answer = alertOKCancel(question: "No Category", text: "Please enter a category, proceed?")
@@ -237,11 +244,12 @@ class ViewController: NSViewController {
             check.payee = fixRegisterText(toField.stringValue)
             check.memo = fixRegisterText(memoField.stringValue)
             check.cat = (categoryPopup.selectedItem?.title)!
+
             filer.registerCheck(account: currentAccount, checkData:check)  //  Need to fix for accounts and lose checks!!!
             //  Finish update details:  Update seq and bal only when registering a check
-            if sequenceButton != nil {
+            if sequenceButton.state == NSControl.StateValue.on  {
                 numberField.intValue += 1
-                filer.updateSeq(account: currentAccount, sequence: numberField.stringValue)  // This is correct for new FileInterface
+                filer.updateSeq(account: currentAccount, sequence: numberField.stringValue)
             }
             updateBalanceField(delta: -amountField.floatValue)
         }
@@ -275,31 +283,38 @@ class ViewController: NSViewController {
     
     var batchMode:Bool = false  //  Mode
     var batchIndex:Int = 0    //  Instance global to iterate through batch array
-    var batchChecks:[[String]] = []
     var autMode:Bool = false
     var autIndex:Int = 0
-    var autChecks:[[String]] = []
+    var batchChecks:[Batch] = []
+    var autChecks:[Batch] = []
     
-    /*  This is logically flawed
-    *  What we want is to issue a check if we hit issue, and to iterate if not
-    */
+    func fillCheckFromEntry (_ entry:Batch){ // Used for batch modes
+        toField.stringValue = entry.payee
+        amountField.floatValue =  (entry.amount as NSString).floatValue
+        memoField.stringValue = entry.memo
+        output.stringValue = moneyMaker.makeMoney(amountField.stringValue)
+        categoryPopup.selectItem(withTitle: entry.category)
+        numberField.intValue = 6000
+        if categoryPopup.selectedItem == nil {  // In case batch uses unknown category
+            categoryPopup.selectItem(at: 0)  //  Presumed to be "None"
+        }
+        categoryChosen = true
+    }
     
     @IBAction func enterBatch(_ sender: Any) {
-        /*  Response to Batch button:
-         *  Sets mode, fetches the batch data
-         */
         closeAuto()
         batchMode = true
         batchChecks = filer.eba(account: currentAccount)
         categoryChosen = true
         batchButton.title = "Batching"
+        sequenceButton.state = NSControl.StateValue.off
     }
     
     @IBAction func doBatch(_ sender: Any) {
             //  Fill elements from each, issue check
             //  Is each the sub-array?  That would be nice.
         if !batchMode {enterBatch(self)}
-        if batchIndex < batchChecks.count {
+        if (batchIndex < batchChecks.count) {
             fillCheckFromEntry(batchChecks[batchIndex])
             batchIndex += 1
         }
@@ -311,14 +326,18 @@ class ViewController: NSViewController {
         categoryChosen = false
         batchIndex = 0
         batchButton.title = "Batch"
+        sequenceButton.state = NSControl.StateValue.on
+        numberField.stringValue = filer.seq(account: currentAccount)
     }
     
     func enterAuto() {
         closeBatch()
-        printChosen.state = NSControl.StateValue.off
+        printButtonCache = printChosen.state  // cache the current state
+        printChosen.state = NSControl.StateValue.off  // off for auto
         autMode = true
         autChecks = filer.aut(account: currentAccount)
         categoryChosen = true
+        sequenceButton.state = NSControl.StateValue.off
         autButton.title = "Auto-ing"
     }
     
@@ -333,9 +352,11 @@ class ViewController: NSViewController {
     
     func closeAuto() {
         autMode = false
-        printChosen.state = NSControl.StateValue.on   //  Might want to cache previous...
+        printChosen.state = printButtonCache   //  Restore from cache
         categoryChosen = false
         autIndex = 0
+        sequenceButton.state = NSControl.StateValue.on
+        numberField.stringValue = filer.seq(account: currentAccount)
         autButton.title = "Auto"
     }
     
