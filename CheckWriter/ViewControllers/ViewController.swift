@@ -50,13 +50,13 @@ class ViewController: NSViewController {
     let today:Date = Date()
     var registerDate:String = ""
     var todayString = ""
-    var categoryChosen:Bool = false
-    let appDelegate = NSApplication.shared.delegate as! AppDelegate  // We now have a reference to the app delegate...
-//    var accountBaseData:String?
-    var accountInfo:[Accounts]?  // Global for the array of account structures
-    var moneyMaker: MoneyMaker = MoneyMaker()
+    var categoryChosen:Bool = false  //  persistent variable
+    //  Following line is instructional.  We don't use it here.  AppDel does little.
+    let appDelegate = NSApplication.shared.delegate as! AppDelegate
+    var accountInfo:[Accounts]?  // Global for the array of account structures at setup
+    var moneyMaker: MoneyMaker = MoneyMaker()  //  Routine to print English amount
     //  We are caching the print button state so we can restore it after batch and auto
-    //  In particular, auto turns it off, the shoulld restore it when conplete
+    //  In particular, auto turns it off, the should restore it when conplete
     var printButtonCache:NSControl.StateValue = NSControl.StateValue.on //  Initially save as ON state
 
     override func viewDidLoad() {
@@ -73,15 +73,6 @@ class ViewController: NSViewController {
         amountField.selectText(self)  //  programmatically define key object
         amountField.nextKeyView = toField
     }
-    
-    /*  WHy do we need this???
-     override var representedObject: Any? {
-     didSet {
-     // Update the view, if already loaded.
-     print ("Represented Object")  // No idea about this
-     }
-     }
-     */
     
     func setDate() { //  Get and set date for display, print, and register
         let dateFormatter = DateFormatter()
@@ -116,32 +107,6 @@ class ViewController: NSViewController {
         self.viewDidAppear()  //  Essentially restart the app
     }
     
-    func setAndTestAccounts(){
-        /*  Workhorse routine.  When leaving we have a valid account base (and files)
-        *   Note that prefs panel has to return from whence it was called
-        *   The order of setup (view did appear is do this first, then setup default acct
-        */
-        accountInfo = filer.findAccounts(prefs.accountDir) // Get account base file
-        if  accountInfo != nil {  //  Check that we found one, Good ? setup : alert and fix
-            initializeAccount(account: accountInfo![0]) //  Start on first account
-            initializeInterfaceForAccounts()  //  Set up view for that account
-            return
-        }
-        let answer = alertOKCancel(question: "No Account files!!", text: "Pick another root or make a new one." )
-        if !answer {
-            // Open prefs and choose another
-//            setupPrefs()  //  Maybe ****
-            openPrefWindow(self)  // exit into modal prefs window, setup incomplete until done
-            if filer.createAccountBase(prefs.accountDir) {print("Success! from Prefs")}
-        }
-        else {
-          // Create account in default directory
-            if filer.createAccountBase(URL.init(fileURLWithPath: "/Users/lip/Desktop")) {print("Success! from /tmp")}
-            prefs.accountDir = URL.init(fileURLWithPath: "/Users/lip/Desktop")
-            updateFromPrefs()
-        }
-    }
-    
     func initializeInterfaceForAccounts() {
         //  Uses Global Accounts array of arrays, fills in accounts Pulldown
         for  i in 0..<accountInfo!.count {
@@ -162,6 +127,31 @@ class ViewController: NSViewController {
         categoryPopup.addItem(withTitle: "None") // first entry is none
         for i in 0..<categoryArray.count {
             categoryPopup.addItem(withTitle: categoryArray[i])
+        }
+    }
+    
+    func setAndTestAccounts(){
+        /*  Workhorse routine.  When leaving we have a valid account base (and files)
+        *   Note that prefs panel has to return from whence it was called
+        *   The order of setup (view did appear is do this first, then setup default acct
+        */
+        accountInfo = filer.findAccounts(prefs.accountDir) // Get account base file
+        if  accountInfo != nil {  //  Check that we found one, Good ? setup : alert and fix
+            initializeAccount(account: accountInfo![0]) //  Start on first account
+            initializeInterfaceForAccounts()  //  Set up view for that account
+            return
+        }
+        let answer = alertOKCancel(question: "No Account files!!", text: "Pick another root or make a new one." )
+        if !answer {
+            // Open prefs and choose another
+            openPrefWindow(self)  // exit into modal prefs window, setup incomplete until done
+            if filer.createAccountBase(prefs.accountDir) {print("Success! from Prefs")}
+        }
+        else {
+          // Create account in default directory
+            if filer.createAccountBase(URL.init(fileURLWithPath: "/Users/lip/Desktop")) {print("Success! from /tmp")}
+            prefs.accountDir = URL.init(fileURLWithPath: "/Users/lip/Desktop")
+            updateFromPrefs()
         }
     }
     
@@ -364,7 +354,6 @@ class ViewController: NSViewController {
         print(masterAppName)
     }
    
-
 }
 
 
