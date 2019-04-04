@@ -377,9 +377,10 @@
                     <window key="window" title="CheckWriter" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" oneShot="NO" releasedWhenClosed="NO" showsToolbarButton="NO" visibleAtLaunch="NO" animationBehavior="default" id="IQv-IB-iLA">
                         <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" resizable="YES"/>
                         <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
-                        <rect key="contentRect" x="196" y="240" width="740" height="380"/>
+                        <rect key="contentRect" x="196" y="240" width="740" height="500"/>
                         <rect key="screenRect" x="0.0" y="0.0" width="1680" height="1027"/>
-                        <value key="minSize" type="size" width="740" height="270"/>
+                        <value key="minSize" type="size" width="740" height="380"/>
+                        <value key="maxSize" type="size" width="1000" height="380"/>
                         <connections>
                             <outlet property="delegate" destination="B8D-0N-5wS" id="98r-iN-zZc"/>
                         </connections>
@@ -397,7 +398,7 @@
             <objects>
                 <viewController identifier="mainCheckView" storyboardIdentifier="mainCheckView" showSeguePresentationStyle="single" id="XfG-lQ-9wD" customClass="ViewController" customModule="CheckWriter" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" wantsLayer="YES" id="62z-tA-CIg">
-                        <rect key="frame" x="0.0" y="0.0" width="721" height="380"/>
+                        <rect key="frame" x="0.0" y="0.0" width="791" height="380"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <subviews>
                             <textField verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="pfM-2c-TiQ">
@@ -684,7 +685,7 @@
                 <customObject id="rPt-NT-nkU" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
                 <userDefaultsController representsSharedInstance="YES" id="IYu-yr-K5B"/>
             </objects>
-            <point key="canvasLocation" x="300.5" y="827"/>
+            <point key="canvasLocation" x="335.5" y="827"/>
         </scene>
         <!--Window Controller-->
         <scene sceneID="QK8-Jb-bdc">
@@ -832,7 +833,7 @@ Gw
                             <textField verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="j45-HE-NBh">
                                 <rect key="frame" x="109" y="168" width="135" height="22"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" drawsBackground="YES" id="nt4-6B-t1n">
+                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" refusesFirstResponder="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" drawsBackground="YES" id="nt4-6B-t1n">
                                     <font key="font" metaFont="system"/>
                                     <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
                                     <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>

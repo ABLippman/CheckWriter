@@ -118,11 +118,11 @@ class ViewController: NSViewController {
     func initializeAccount (account a:Accounts){    //  Fill in the title, Balance, seq, and cats for an account
         var categoryArray:[String] = filer.cat(account: a.account)
         self.view.window?.title = a.accountLabel
-        closeBatch()  //  reset batch mode on account change
         currentAccount = a.account  //  Need this string set globally for deposits and debits
         balanceField.stringValue = filer.balance(account: a.account)!
         self.colorBalanceField()
         numberField.stringValue = filer.seq(account: a.account)
+        closeBatch()  //  reset batch mode on account change
         categoryPopup.removeAllItems() //  Clear old popup
         categoryPopup.addItem(withTitle: "None") // first entry is none
         for i in 0..<categoryArray.count {
