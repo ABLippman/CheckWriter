@@ -41,7 +41,6 @@ class ViewController: NSViewController {
     @IBOutlet weak var printChosen: NSButton!
     @IBOutlet weak var sequenceButton: NSButton!
     @IBOutlet weak var doIt: NSButton!
-    @IBOutlet weak var manual: NSButton!
     @IBOutlet weak var accountPulldown: NSPopUpButton!
     @IBOutlet weak var batchButton: NSButton!
     @IBOutlet weak var autButton: NSButton!
@@ -67,8 +66,10 @@ class ViewController: NSViewController {
     
     override func viewDidAppear() { // This occurs later than the load...
         super.viewDidAppear()
+        view.window?.minSize = CGSize(width: 760, height: 380)  //  Should be done in Interface builder...
+        view.window?.maxSize = CGSize(width:1000, height:380)
         myCheckController = self
-        manual.state = NSControl.StateValue.off  // We never really use manual state anymore
+        // manual.state = NSControl.StateValue.off  // We never really use manual state anymore
         setAndTestAccounts()  //  find or create base for accounts; set it up
         amountField.selectText(self)  //  programmatically define key object
         amountField.nextKeyView = toField

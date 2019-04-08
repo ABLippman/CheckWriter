@@ -21,7 +21,6 @@ class PrefsViewController: NSViewController, NSTextFieldDelegate {
         // Do view setup here.
         showExistingPrefs()
         self.a.delegate = self
-        
     }
     
     override func viewDidAppear() { // This occurs later than the load...
