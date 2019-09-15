@@ -39,6 +39,8 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     @IBAction func showName(_ sender: Any) {
         print(masterAppName)
     }
+
+
     
 }
 

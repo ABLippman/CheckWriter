@@ -28,7 +28,9 @@ extension ViewController {
     }
 }
 
-class ViewController: NSViewController {
+
+
+class ViewController: NSViewController, NSWindowDelegate {
     @IBOutlet weak var amountField: NSTextField!
     @IBOutlet weak var output: NSTextField!
     @IBOutlet weak var dateField: NSTextFieldCell!
@@ -73,6 +75,12 @@ class ViewController: NSViewController {
         setAndTestAccounts()  //  find or create base for accounts; set it up
         amountField.selectText(self)  //  programmatically define key object
         amountField.nextKeyView = toField
+        self.view.window?.delegate = self as! NSWindowDelegate
+    }
+    
+    func windowWillClose(_ aNotification: Notification) {
+        print("Window closing")
+        // appDelegate.applicationWillTerminate(willCloseNotification)  // notification to send?
     }
     
     func setDate() { //  Get and set date for display, print, and register
@@ -354,6 +362,9 @@ class ViewController: NSViewController {
     @IBAction func showName(_ sender: Any) {  // what's this for?
         print(masterAppName)
     }
+    
+    
+    
    
 }
 

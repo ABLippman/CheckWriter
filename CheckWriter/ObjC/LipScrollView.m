@@ -39,8 +39,8 @@ NSString * addressee;
 
 - (void)drawRect:(NSRect)dirtyRect
 {
-    NSFont *scriptFont = [NSFont fontWithName:@"Helvetica" size:11];
-    NSFont *romanFont = [NSFont fontWithName:@"Helvetica" size:11];
+    NSFont *scriptFont = [NSFont fontWithName:@"Brush Script Std Medium" size:16];
+    NSFont *romanFont = [NSFont fontWithName:@"Helvetica" size:12];
     
   /*
     NSPoint numberStart = NSMakePoint(7*72,9.75*72);
@@ -61,20 +61,21 @@ NSString * addressee;
     NSString *memo2 = [NSString stringWithString:@"Political"];
      */
     
-    [number drawAtPoint:NSPointFromCGPoint(CGPointMake(7*72, 6.75*72)) withAttributes:[NSDictionary dictionaryWithObject:scriptFont forKey:NSFontAttributeName]];
+    [number drawAtPoint:NSPointFromCGPoint(CGPointMake(7*72, 6.75*72)) withAttributes:[NSDictionary dictionaryWithObject:romanFont forKey:NSFontAttributeName]];
     [amount drawAtPoint:NSPointFromCGPoint(CGPointMake(7*72, 9.250*72)) withAttributes:[NSDictionary dictionaryWithObject:romanFont forKey:NSFontAttributeName]];
     [payee drawAtPoint:NSPointFromCGPoint(CGPointMake(1*72, 9.250*72)) withAttributes:[NSDictionary dictionaryWithObject:romanFont forKey:NSFontAttributeName]];
-    [numText drawAtPoint:NSPointFromCGPoint(CGPointMake(1*72, 8.875*72)) withAttributes:[NSDictionary dictionaryWithObject:romanFont forKey:NSFontAttributeName]];
+    [numText drawAtPoint:NSPointFromCGPoint(CGPointMake(1*72, 8.875*72)) withAttributes:[NSDictionary dictionaryWithObject:scriptFont forKey:NSFontAttributeName]];
     [memo1 drawAtPoint:NSPointFromCGPoint(CGPointMake(1*72, 7.875*72)) withAttributes:[NSDictionary dictionaryWithObject:romanFont forKey:NSFontAttributeName]];
     [date drawAtPoint:NSPointFromCGPoint(CGPointMake(1*72, 5.5*72)) withAttributes:[NSDictionary dictionaryWithObject:romanFont forKey:NSFontAttributeName]];
     
-    NSBezierPath* thePath = [NSBezierPath bezierPath];
+  /*  NSBezierPath* thePath = [NSBezierPath bezierPath];
     [thePath moveToPoint:NSMakePoint(0,0)];
     [thePath lineToPoint:NSMakePoint(8.*72,0)];
     [thePath lineToPoint:NSMakePoint(8.*72,10.5*72)];
     [thePath lineToPoint:NSMakePoint(0,10.5*72)];
     [thePath lineToPoint:NSMakePoint(0,0)];
     [thePath stroke];
+   */
 }
 
 - (void)printWithNoPanel:(id)sender {
