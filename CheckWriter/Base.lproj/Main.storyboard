@@ -1,9 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="13771" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" initialViewController="XfG-lQ-9wD">
+<document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" initialViewController="XfG-lQ-9wD">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="13771"/>
-        <capability name="box content view" minToolsVersion="7.0"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="14490.70"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -616,7 +615,7 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES"/>
                                 <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" drawsBackground="YES" id="dZy-e5-Cqc">
                                     <font key="font" metaFont="system"/>
-                                    <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
+                                    <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                     <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                 </textFieldCell>
                             </textField>
@@ -627,18 +626,19 @@
                                     <numberFormatter key="formatter" formatterBehavior="10_0" positiveFormat="$#,##0.00" negativeFormat="-$#,##0.00" thousandSeparator="," id="5NN-WL-V2F">
                                         <attributedString key="attributedStringForNil"/>
                                         <attributedString key="attributedStringForZero">
-                                            <fragment content="23.78">
+                                            <fragment content="0">
                                                 <attributes>
+                                                    <color key="NSColor" name="textColor" catalog="System" colorSpace="catalog"/>
                                                     <font key="NSFont" metaFont="smallSystem"/>
                                                     <paragraphStyle key="NSParagraphStyle" alignment="right" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
                                                 </attributes>
                                             </fragment>
                                         </attributedString>
                                         <real key="minimum" value="0.0"/>
-                                        <real key="maximum" value="100000"/>
+                                        <real key="maximum" value="99999"/>
                                     </numberFormatter>
                                     <font key="font" metaFont="system"/>
-                                    <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
+                                    <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                     <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                 </textFieldCell>
                                 <connections>
@@ -676,7 +676,7 @@
                                 <rect key="frame" x="69" y="55" width="275" height="43"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <view key="contentView" id="kS7-B3-C0r">
-                                    <rect key="frame" x="2" y="2" width="271" height="26"/>
+                                    <rect key="frame" x="3" y="3" width="269" height="25"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 </view>
                                 <shadow key="shadow">
