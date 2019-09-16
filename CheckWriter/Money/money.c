@@ -13,7 +13,7 @@ static char *table[120] = {NULL, NULL};
 
 int
 initTable(){
-    table[0] = "Zero";
+    table[0] = "";
     table[1] = "One";
     table[2] = "Two";
     table[3] = "Three";
@@ -146,7 +146,8 @@ money(char *s){         //  Fixed to cut off at 99K and too many pennies  10/13
       //  NOTE:  This effectively eliminates printing zero ever.  Fix it!
         char *tensd = table[tens+ones];
         if ((tens+ones)>0 ) sprintf(r+strlen(r),"%s dollars",tensd);
-        else sprintf(r+strlen(r)," dollars");
+        else if (strlen(r)>1) sprintf(r+strlen(r)," dollars");
+        else sprintf(r+strlen(r),"Zero dollars");
     }
  
     else if ( (tens >= 20) && (tens <= 90) && (ones > 0)){
