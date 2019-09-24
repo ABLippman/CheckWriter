@@ -66,7 +66,7 @@ NSString * addressee;
     [payee drawAtPoint:NSPointFromCGPoint(CGPointMake(1*72, 9.250*72)) withAttributes:[NSDictionary dictionaryWithObject:romanFont forKey:NSFontAttributeName]];
     [numText drawAtPoint:NSPointFromCGPoint(CGPointMake(1*72, 8.875*72)) withAttributes:[NSDictionary dictionaryWithObject:scriptFont forKey:NSFontAttributeName]];
     [memo1 drawAtPoint:NSPointFromCGPoint(CGPointMake(1*72, 7.875*72)) withAttributes:[NSDictionary dictionaryWithObject:romanFont forKey:NSFontAttributeName]];
-    [date drawAtPoint:NSPointFromCGPoint(CGPointMake(7*72, 9.75*72)) withAttributes:[NSDictionary dictionaryWithObject:romanFont forKey:NSFontAttributeName]];
+    [date drawAtPoint:NSPointFromCGPoint(CGPointMake(6.25*72, 9.75*72)) withAttributes:[NSDictionary dictionaryWithObject:romanFont forKey:NSFontAttributeName]];
     
   /*  NSBezierPath* thePath = [NSBezierPath bezierPath];
     [thePath moveToPoint:NSMakePoint(0,0)];
@@ -95,7 +95,7 @@ NSString * addressee;
     [printSpecs setPaperSize:paperSize];
     [printSpecs setPrinter:chosenPrinter];
     op = [NSPrintOperation printOperationWithView:self printInfo:printSpecs];
-    [op setShowsPrintPanel:YES];  // Use NO normally, YES for debugging.
+    [op setShowsPrintPanel:NO];  // Use NO normally, YES for debugging.
     [op runOperation];
 }
 
