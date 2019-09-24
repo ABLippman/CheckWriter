@@ -625,15 +625,7 @@
                                 <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" alignment="right" drawsBackground="YES" id="W0E-66-apA">
                                     <numberFormatter key="formatter" formatterBehavior="10_0" positiveFormat="$#,##0.00" negativeFormat="-$#,##0.00" thousandSeparator="," id="5NN-WL-V2F">
                                         <attributedString key="attributedStringForNil"/>
-                                        <attributedString key="attributedStringForZero">
-                                            <fragment content="0">
-                                                <attributes>
-                                                    <color key="NSColor" name="textColor" catalog="System" colorSpace="catalog"/>
-                                                    <font key="NSFont" metaFont="smallSystem"/>
-                                                    <paragraphStyle key="NSParagraphStyle" alignment="right" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
-                                                </attributes>
-                                            </fragment>
-                                        </attributedString>
+                                        <attributedString key="attributedStringForZero"/>
                                         <real key="minimum" value="0.0"/>
                                         <real key="maximum" value="99999"/>
                                     </numberFormatter>
