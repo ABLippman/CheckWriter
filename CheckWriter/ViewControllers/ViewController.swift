@@ -266,7 +266,7 @@ class ViewController: NSViewController, NSWindowDelegate {
         //  Finish setting up for next check...
 
         categoryPopup.selectItem(at: 0)  // Revert to first title == "None"
-        if (batchMode || autMode) {
+        if (batchMode || autMode) {   //  In either mode, fill out the check
             if (batchMode) {doBatch(self)}
             if (autMode) {doAuto(self)}
             categoryChosen = true
