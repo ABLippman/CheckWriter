@@ -270,6 +270,10 @@ class ViewController: NSViewController, NSWindowDelegate {
             doBatch(self)
             categoryChosen = true
         }
+        if autMode {
+            doBatch(self)
+            categoryChosen = true
+        }
         else {
             categoryChosen = false
             self.amountField.becomeFirstResponder()
@@ -302,6 +306,8 @@ class ViewController: NSViewController, NSWindowDelegate {
     
     @IBAction func enterBatch(_ sender: Any) {
         closeAuto()
+        printButtonCache = printChosen.state  // cache the current state
+        printChosen.state = NSControl.StateValue.off  // off for auto
         batchMode = true
         batchChecks = filer.eba(account: currentAccount)
         categoryChosen = true
@@ -322,6 +328,7 @@ class ViewController: NSViewController, NSWindowDelegate {
     
     func closeBatch() {
         batchMode = false
+        printChosen.state = printButtonCache   //  Restore from cache
         categoryChosen = false
         batchIndex = 0
         batchButton.title = "Batch"
