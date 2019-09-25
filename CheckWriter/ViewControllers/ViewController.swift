@@ -266,8 +266,9 @@ class ViewController: NSViewController, NSWindowDelegate {
         //  Finish setting up for next check...
 
         categoryPopup.selectItem(at: 0)  // Revert to first title == "None"
-        if batchMode {
-            doBatch(self)
+        if (batchMode || autMode) {   //  In either mode, fill out the check
+            if (batchMode) {doBatch(self)}
+            if (autMode) {doAuto(self)}
             categoryChosen = true
         }
         if autMode {
@@ -313,6 +314,9 @@ class ViewController: NSViewController, NSWindowDelegate {
         categoryChosen = true
         batchButton.title = "Batching"
         sequenceButton.state = NSControl.StateValue.off
+        printButtonCache = printChosen.state  // cache the current state
+        printChosen.state = NSControl.StateValue.off  // off for auto
+        
     }
     
     @IBAction func doBatch(_ sender: Any) {
@@ -334,17 +338,18 @@ class ViewController: NSViewController, NSWindowDelegate {
         batchButton.title = "Batch"
         sequenceButton.state = NSControl.StateValue.on
         numberField.stringValue = filer.seq(account: currentAccount)
+        printChosen.state = printButtonCache   //  Restore from cache
     }
     
     func enterAuto() {
         closeBatch()
-        printButtonCache = printChosen.state  // cache the current state
-        printChosen.state = NSControl.StateValue.off  // off for auto
         autMode = true
         autChecks = filer.aut(account: currentAccount)
         categoryChosen = true
-        sequenceButton.state = NSControl.StateValue.off
         autButton.title = "Auto-ing"
+        sequenceButton.state = NSControl.StateValue.off
+        printButtonCache = printChosen.state  // cache the current state
+        printChosen.state = NSControl.StateValue.off  // off for auto
     }
     
     @IBAction func doAuto(_ sender: Any) {
@@ -358,12 +363,12 @@ class ViewController: NSViewController, NSWindowDelegate {
     
     func closeAuto() {
         autMode = false
-        printChosen.state = printButtonCache   //  Restore from cache
         categoryChosen = false
         autIndex = 0
+        autButton.title = "Auto"
         sequenceButton.state = NSControl.StateValue.on
         numberField.stringValue = filer.seq(account: currentAccount)
-        autButton.title = "Auto"
+        printChosen.state = printButtonCache   //  Restore from cache
     }
     
     @IBAction func showName(_ sender: Any) {  // what's this for?
