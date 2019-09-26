@@ -271,10 +271,7 @@ class ViewController: NSViewController, NSWindowDelegate {
             if (autMode) {doAuto(self)}
             categoryChosen = true
         }
-        if autMode {
-            doBatch(self)
-            categoryChosen = true
-        }
+
         else {
             categoryChosen = false
             self.amountField.becomeFirstResponder()
