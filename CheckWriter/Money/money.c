@@ -142,11 +142,10 @@ money(char *s){         //  Fixed to cut off at 99K and too many pennies  10/13
         sprintf(r+strlen(r),"%s dollars",tensd);
     }
  */
-  if (tens < 20){  //  Uopdated to block printing zero after even dollar check>100
-      //  NOTE:  This effectively eliminates printing zero ever.  Fix it!
+  if (tens < 20){  //  Uopdated to cover checks <$1 and between 1&19.99
         char *tensd = table[tens+ones];
         if (strlen(r)>1) sprintf(r+strlen(r),"%s dollars",tensd);
-        else if (ones>0)  sprintf(r+strlen(r),"%s dollars",table[ones+tens]);  //  Fails on $10.21!!!
+        else if ((tens+ones)>0)  sprintf(r+strlen(r),"%s dollars",table[ones+tens]);
         else sprintf(r+strlen(r),"Zero dollars");
     }
  
