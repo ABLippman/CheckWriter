@@ -146,7 +146,7 @@ money(char *s){         //  Fixed to cut off at 99K and too many pennies  10/13
       //  NOTE:  This effectively eliminates printing zero ever.  Fix it!
         char *tensd = table[tens+ones];
         if (strlen(r)>1) sprintf(r+strlen(r),"%s dollars",tensd);
-        else if (ones>0)  sprintf(r+strlen(r),"%s dollars",table[ones+tens]);
+        else if (ones>0)  sprintf(r+strlen(r),"%s dollars",table[ones+tens]);  //  Fails on $10.21!!!
         else sprintf(r+strlen(r),"Zero dollars");
     }
  
