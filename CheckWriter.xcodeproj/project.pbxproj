@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3602D3DB233E9C1900D7C0D8 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3602D3DA233E9C1900D7C0D8 /* AVFoundation.framework */; };
+		3602D3E0233EA00D00D7C0D8 /* BloatedSackOfProtoplasm.wav in Resources */ = {isa = PBXBuildFile; fileRef = 3602D3DF233EA00D00D7C0D8 /* BloatedSackOfProtoplasm.wav */; };
+		3602D3E2233EA15E00D7C0D8 /* Ahhhhh.wav in Resources */ = {isa = PBXBuildFile; fileRef = 3602D3E1233EA15E00D7C0D8 /* Ahhhhh.wav */; };
 		36091F15223ED17300308302 /* Accounts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36091F14223ED17300308302 /* Accounts.swift */; };
 		36091F17223EE84A00308302 /* Batch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36091F16223EE84A00308302 /* Batch.swift */; };
 		36168CAB2231D4D700E49A33 /* common.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36168CAA2231D4D700E49A33 /* common.swift */; };
@@ -26,6 +29,9 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		3602D3DA233E9C1900D7C0D8 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
+		3602D3DF233EA00D00D7C0D8 /* BloatedSackOfProtoplasm.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = BloatedSackOfProtoplasm.wav; sourceTree = "<group>"; };
+		3602D3E1233EA15E00D7C0D8 /* Ahhhhh.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = Ahhhhh.wav; sourceTree = "<group>"; };
 		36091F14223ED17300308302 /* Accounts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Accounts.swift; sourceTree = "<group>"; };
 		36091F16223EE84A00308302 /* Batch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Batch.swift; sourceTree = "<group>"; };
 		36168CAA2231D4D700E49A33 /* common.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = common.swift; sourceTree = "<group>"; };
@@ -56,17 +62,27 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3602D3DB233E9C1900D7C0D8 /* AVFoundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		3602D3D9233E9C1900D7C0D8 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				3602D3DA233E9C1900D7C0D8 /* AVFoundation.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		363A9CBE21FC95330039703D = {
 			isa = PBXGroup;
 			children = (
 				363A9CC921FC95330039703D /* CheckWriter */,
 				363A9CC821FC95330039703D /* Products */,
+				3602D3D9233E9C1900D7C0D8 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -87,6 +103,8 @@
 				3697149B21FE1148002D7D67 /* ViewControllers */,
 				363A9CCE21FC95330039703D /* Assets.xcassets */,
 				363A9CD021FC95330039703D /* Main.storyboard */,
+				3602D3DF233EA00D00D7C0D8 /* BloatedSackOfProtoplasm.wav */,
+				3602D3E1233EA15E00D7C0D8 /* Ahhhhh.wav */,
 				363A9CE121FC99C30039703D /* NewCheck.tiff */,
 				3697149921FE110F002D7D67 /* Money */,
 				363A9CDA21FC95B80039703D /* CheckWriter-Bridging-Header.h */,
@@ -206,6 +224,8 @@
 			files = (
 				363A9CCF21FC95330039703D /* Assets.xcassets in Resources */,
 				363A9CD221FC95330039703D /* Main.storyboard in Resources */,
+				3602D3E0233EA00D00D7C0D8 /* BloatedSackOfProtoplasm.wav in Resources */,
+				3602D3E2233EA15E00D7C0D8 /* Ahhhhh.wav in Resources */,
 				363A9CE221FC99C30039703D /* NewCheck.tiff in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
