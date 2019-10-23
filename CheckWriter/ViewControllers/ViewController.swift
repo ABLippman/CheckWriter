@@ -60,7 +60,8 @@ class ViewController: NSViewController, NSWindowDelegate {
     //  We are caching the print button state so we can restore it after batch and auto
     //  In particular, auto turns it off, the should restore it when conplete
     var printButtonCache:NSControl.StateValue = NSControl.StateValue.on //  Initially save as ON state
-    var audioPlayer : AVAudioPlayer = AVAudioPlayer()
+//    var audioPlayer : AVAudioPlayer = AVAudioPlayer()
+    var audioPlayer : AVAudioPlayer?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -81,12 +82,11 @@ class ViewController: NSViewController, NSWindowDelegate {
         let sound = Bundle.main.path(forResource: "BloatedSackOfProtoplasm", ofType: "wav")
         do {
             audioPlayer = try AVAudioPlayer(contentsOf: URL(fileURLWithPath: (sound!)))
-//            print (URL(fileURLWithPath: (sound!)))
+            audioPlayer!.play()
         }
         catch {
             print (error)
         }
-        audioPlayer.play()
 //        NSSound(named: NSSound.Name(rawValue: "BloatedSackOfProtoplasm"))?.play()  // Old method
     }
     
@@ -292,12 +292,11 @@ class ViewController: NSViewController, NSWindowDelegate {
         let sound = Bundle.main.path(forResource: "Ahhhhh", ofType: "wav")
         do {
             audioPlayer = try AVAudioPlayer(contentsOf: URL(fileURLWithPath: (sound!)))
-            //            print (URL(fileURLWithPath: (sound!)))
+            audioPlayer!.play()
         }
         catch {
             print (error)
         }
-        audioPlayer.play()
     }
  
     //  Batch elements:  The funcs to start, continue, and end
