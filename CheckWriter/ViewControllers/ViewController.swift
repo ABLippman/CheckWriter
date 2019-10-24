@@ -218,6 +218,7 @@ class ViewController: NSViewController, NSWindowDelegate {
     
     @IBAction func setCategoryChosen(_ sender: NSPopUpButton) {
         categoryChosen = true
+        doIt.keyEquivalent = "\r"
     }
 
     @IBAction func sequenceButtonChanged(_ sender: Any) {
@@ -241,6 +242,7 @@ class ViewController: NSViewController, NSWindowDelegate {
          *   Prints if req'd, registers if req'd
          */
         let check = Check()
+        doIt.keyEquivalent = ""
 
         self.setDate()  //  Why not reset the date in case it runs overnight...
         if !categoryChosen {  // Interrupt if you didn't set a category!

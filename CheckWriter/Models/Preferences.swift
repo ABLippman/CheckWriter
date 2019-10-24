@@ -7,7 +7,7 @@
 //
 /*
  *  User Defaults code goes here.
- *
+ *  NOTE:  Defaults command line access is Lippman.CheckWriter
  */
 
 import Foundation
