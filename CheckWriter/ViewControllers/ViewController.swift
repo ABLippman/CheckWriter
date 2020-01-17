@@ -250,23 +250,7 @@ class ViewController: NSViewController, NSWindowDelegate {
             if !answer { return }
         }
         
-        if updateChosen.state == NSControl.StateValue.on {
-            check.seq = numberField.integerValue
-            check.amount = amountField.floatValue
-            check.date = registerDate
-            check.payee = fixRegisterText(toField.stringValue)
-            check.memo = fixRegisterText(memoField.stringValue)
-            check.cat = (categoryPopup.selectedItem?.title)!
-
-            filer.registerCheck(account: currentAccount, checkData:check)  //  Need to fix for accounts and lose checks!!!
-            //  Finish update details:  Update seq and bal only when registering a check
-            if sequenceButton.state == NSControl.StateValue.on  {
-                numberField.intValue += 1
-                filer.updateSeq(account: currentAccount, sequence: numberField.stringValue)
-            }
-            updateBalanceField(delta: -amountField.floatValue)
-        }
-
+ 
         if printChosen.state == NSControl.StateValue.on {
             printACheck.p = prefs.printer as NSString  //  Set printer from Prefs each time...
             printACheck.number = numberField.stringValue as NSString
@@ -277,6 +261,24 @@ class ViewController: NSViewController, NSWindowDelegate {
             printACheck.numText = output.stringValue as NSString
             printACheck.printWithNoPanel(self) // PRINTS the check
         }
+        
+        if updateChosen.state == NSControl.StateValue.on {
+            check.seq = numberField.integerValue
+            check.amount = amountField.floatValue
+            check.date = registerDate
+            check.payee = fixRegisterText(toField.stringValue)
+            check.memo = fixRegisterText(memoField.stringValue)
+            check.cat = (categoryPopup.selectedItem?.title)!
+            
+            filer.registerCheck(account: currentAccount, checkData:check)  //  Need to fix for accounts and lose checks!!!
+            //  Finish update details:  Update seq and bal only when registering a check
+            if sequenceButton.state == NSControl.StateValue.on  {
+                numberField.intValue += 1
+                filer.updateSeq(account: currentAccount, sequence: numberField.stringValue)
+            }
+            updateBalanceField(delta: -amountField.floatValue)
+        }
+
         //  Finish setting up for next check...
 
         categoryPopup.selectItem(at: 0)  // Revert to first title == "None"
