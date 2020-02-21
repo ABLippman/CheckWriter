@@ -143,7 +143,12 @@ class ViewController: NSViewController, NSWindowDelegate {
         balanceField.stringValue = filer.balance(account: a.account)!
         self.colorBalanceField()
         numberField.stringValue = filer.seq(account: a.account)
+        toField.stringValue = ""
+        memoField.stringValue = ""
         closeBatch()  //  reset batch mode on account change
+        closeAuto()  //  Close auto mode on account change.  This and following clears form on account change
+        amountField.floatValue = 0.0
+        amountEntered(self)
         categoryPopup.removeAllItems() //  Clear old popup
         categoryPopup.addItem(withTitle: "None") // first entry is none
         for i in 0..<categoryArray.count {
