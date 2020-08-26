@@ -12,6 +12,8 @@ class PrefsViewController: NSViewController, NSTextFieldDelegate {
 
     @IBOutlet weak var a: NSTextField!
     @IBOutlet weak var p: NSTextField!
+    @IBOutlet weak var vol: NSSlider!
+    
     // var myViewController: NSObject = nil
     //  Preferences
 
@@ -27,6 +29,7 @@ class PrefsViewController: NSViewController, NSTextFieldDelegate {
         super.viewDidAppear()
         self.view.window?.title = "Checkwriter preferences"
         print ("**** View Did Appear:  Preferences")
+        vol.floatValue = prefs.volume!
     }
     
     @IBAction func cancelPref(_ sender: Any) {
@@ -75,4 +78,8 @@ class PrefsViewController: NSViewController, NSTextFieldDelegate {
         print("Found one: \(url!.path)")
         a.stringValue = url!.path
     }
+    @IBAction func changeVolume(_ sender:Any) {
+        print("Slider Changed:", vol.floatValue/100)
+        prefs.volume = vol.floatValue/100
+    }// read the volume slider
 }

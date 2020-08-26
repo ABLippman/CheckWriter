@@ -39,4 +39,17 @@ class Preferences {
             UserDefaults.standard.set(newValue.path, forKey: "account")
         }
     }
+
+    var volume:Float? {
+        get {
+            let defaultVolume = UserDefaults.standard.string(forKey: "volume")
+            if (defaultVolume) != nil {
+                return Float(defaultVolume!)}
+            return 0.25
+            
+        }
+        set {
+            UserDefaults.standard.set(newValue, forKey: "volume")
+        }
+    }
 }

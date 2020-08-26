@@ -82,6 +82,7 @@ class ViewController: NSViewController, NSWindowDelegate {
         let sound = Bundle.main.path(forResource: "BloatedSackOfProtoplasm", ofType: "wav")
         do {
             audioPlayer = try AVAudioPlayer(contentsOf: URL(fileURLWithPath: (sound!)))
+            audioPlayer?.volume = prefs.volume!
             audioPlayer!.play()
         }
         catch {
@@ -161,6 +162,7 @@ class ViewController: NSViewController, NSWindowDelegate {
         *   Note that prefs panel has to return from whence it was called
         *   The order of setup (view did appear is do this first, then setup default acct
         */
+        print ("Volume Setting is ",prefs.volume ?? 0.5)
         accountInfo = filer.findAccounts(prefs.accountDir) // Get account base file
         if  accountInfo != nil {  //  Check that we found one, Good ? setup : alert and fix
             initializeAccount(account: accountInfo![0]) //  Start on first account
@@ -300,6 +302,7 @@ class ViewController: NSViewController, NSWindowDelegate {
         }
         let sound = Bundle.main.path(forResource: "Ahhhhh", ofType: "wav")
         do {
+            audioPlayer?.volume = prefs.volume!
             audioPlayer = try AVAudioPlayer(contentsOf: URL(fileURLWithPath: (sound!)))
             audioPlayer!.play()
         }
