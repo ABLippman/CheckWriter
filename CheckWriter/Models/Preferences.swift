@@ -7,7 +7,11 @@
 //
 /*
  *  User Defaults code goes here.
- *  NOTE:  Defaults command line access is Lippman.CheckWriter
+ *  NOTE:  Defaults command line access is Lippman.CHeckWriter
+ *  No idea why it needs a capital H
+ *
+ *  Quick and dirty slider for volumer control  Did not scale slider, just /100 the default
+ *  Doesn't play a sound on slider change
  */
 
 import Foundation
